@@ -1,0 +1,255 @@
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flip-card-wrapper {
+  position: absolute;
+  perspective: 1000px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+
+  border-radius: 5px;
+  border: solid black 1px;
+
+  overflow: hidden;
+}
+
+.flip-card-front {
+  color: black;
+  transform: rotateY(0deg);
+}
+
+.flip-card-back {
+  /* padding: 5px; */
+
+  background-color: red;
+  background-image: url("/textures/3px-tile.png");
+
+  transform: rotateY(180deg);
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+}
+
+.blackjack-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-gap: 20px;
+  margin: auto;
+
+  background-color: darkgreen;
+  background-image: url("/textures/beige-paper.png");
+}
+
+.card-container {
+  /* position: relative; */
+  /* display: grid; */
+  margin: auto;
+  /* grid-gap: 5px; */
+
+  direction: ltr;
+
+  /* height: 252px; */
+
+  height: 147px;
+
+  /* background: orange; */
+  width: 300px;
+}
+
+.player-container {
+  /* position: relative; */
+  margin: auto;
+  display: grid;
+
+  grid-gap: 1em;
+  /* background-color: yellow; */
+
+  /* border: 1px solid black; */
+}
+
+.total-text {
+  margin: auto;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+
+  height: 36px;
+
+  /* background: pink; */
+  /* height: 50px; */
+}
+
+.blackjack-button-container {
+  margin: auto;
+  height: 50px;
+
+  width: 300px;
+  height: 90px;
+  /* width: 100%; */
+  /* background: orange; */
+
+  display: grid;
+
+  /* grid-auto-flow: column; */
+  grid-gap: 10px;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+button {
+  outline: none;
+  border: none;
+  margin: auto;
+  width: 145px;
+  font-weight: bold;
+}
+
+button {
+  color: white;
+
+  border-radius: 8px;
+  /* border: 1px solid transparent; */
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 900;
+  font-family: inherit;
+  /* background-color: #1a1a1a; */
+
+  text-shadow: 1px 1px 1px black;
+
+  cursor: pointer;
+  transition: border-color 0.25s;
+  box-shadow: 2px 2px 5px black;
+}
+button:active {
+  box-shadow: 1px 1px 1px black;
+  transform: translate(1px, 1px);
+  /* border-color: #646cff; */
+}
+/* button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+} */
+
+.hit-button {
+  /* background-color: yellow; */
+  background-color: #79ff41;
+  grid-area: 1/1/2/2;
+}
+
+.double-button {
+  background-color: #f8ff46;
+  grid-area: 2/1/3/2;
+}
+
+.stand-button {
+  background-color: #f04636;
+  grid-area: 1/2/2/3;
+}
+
+.split-button {
+  background-color: #5dc6ff;
+  grid-area: 2/2/3/3;
+}
+
+.deal-button {
+  background-color: darkblue;
+  grid-area: 1/1/3/3;
+}
+
+.bank-container {
+  display: grid;
+  width: 300px;
+  /* height: 50px; */
+  /* padding: 1em; */
+
+  /* direction: ltr; */
+
+  /* background: orange; */
+}
+
+.chips-container {
+  /* position: relative; */
+
+  direction: ltr;
+
+  width: 300px;
+  height: 50px;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 50px;
+  /* grid-gap: 1em; */
+  /* padding: 1em; */
+  justify-content: space-around;
+}
+
+.bet-chip {
+  position: absolute;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 2px 2px 2px black;
+}
+
+.bet-container {
+  height: 50px;
+  width: 300px;
+}
+
+.bj-chips {
+  position: relative;
+  bottom: 25px;
+  direction: ltr;
+}
+.bj-amounts-container {
+  position: relative;
+  top: 25px;
+}
+
+.bj-amount {
+  position: absolute;
+  width: 50px;
+  text-align: center;
+  color: white;
+  font-size: large;
+}
+
+.bank-chip {
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 2px 2px 2px black;
+}
