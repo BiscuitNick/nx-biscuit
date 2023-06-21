@@ -1,26 +1,26 @@
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link';
+import React from 'react';
 // import Particles from "./components/particles";
 
 const projects = [
   {
-    name: "BlackJack",
-    href: "/projects/blackjack",
-    description: "A simple blackjack game",
-    github: "",
+    name: 'BlackJack',
+    href: '/projects/blackjack',
+    description: 'A simple blackjack game',
+    github: '',
   },
-  {
-    name: "Word Finder",
-    href: "/word-finder",
-    description: "A simple blackjack game",
-    github: "",
-  },
-  {
-    name: "Xordle",
-    href: "/xordle",
-    description: "A customizable word search game inspired by Wordle",
-    github: "",
-  },
+  // {
+  //   name: "Word Finder",
+  //   href: "/word-finder",
+  //   description: "A simple blackjack game",
+  //   github: "",
+  // },
+  // {
+  //   name: "Xordle",
+  //   href: "/xordle",
+  //   description: "A customizable word search game inspired by Wordle",
+  //   github: "",
+  // },
 ];
 
 export default function ProjectsIndex() {
