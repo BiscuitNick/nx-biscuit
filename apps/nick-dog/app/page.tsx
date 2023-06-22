@@ -1,13 +1,19 @@
 import React from 'react';
 import { HomePage } from '@nx-biscuit/biscuit-ui';
 
-const navItems = [{ name: 'Projects', href: '/projects' }];
+const navItems = [
+  { name: 'About', href: '/about' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Contact', href: '/contact' },
+];
 
 export default function Home() {
   return (
     <HomePage
       title={'NICK.DOG'}
-      description={'blah blah'}
+      description={
+        'My name is Nick. I design and build, beautiful, responsive, open-source, websites and applications.'
+      }
       navItems={navItems}
     />
   );
