@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <BjGame decks={4} />
-      <CoverPage title={'BLACKJACK'} />
+      <CoverPage title={'BLACKJACK'} image={'/cards.jpg'} />
     </>
   );
 }
