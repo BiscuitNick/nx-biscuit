@@ -80,7 +80,22 @@
   }
 }
 
-.title-text {
+.gradient-text {
+  cursor: default;
+  user-select: none;
+
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+
+  background: -webkit-linear-gradient(45deg, orange, purple);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  transition-duration: 1000ms;
+}
+
+.image-text {
   font-weight: 900;
 
   line-height: 1;
@@ -88,7 +103,7 @@
 
   transition-duration: 1000ms;
 
-  background: -webkit-linear-gradient(45deg, orange, purple);
+  background-image: url('/cards.jpg');
 
   background-clip: text;
   -webkit-background-clip: text;

@@ -121,6 +121,10 @@ module.exports = {
             opacity: '100%',
           },
         },
+        'exit-top': {
+          '0%': { top: '0%' },
+          '100%': { top: '-100%' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -128,6 +132,7 @@ module.exports = {
         title: 'title 3s ease-out forwards',
         'fade-left': 'fade-left 3s ease-in-out forwards',
         'fade-right': 'fade-right 3s ease-in-out forwards',
+        'exit-top': 'exit-top 2s ease-out forwards',
       },
     },
   },

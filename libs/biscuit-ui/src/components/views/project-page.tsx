@@ -23,11 +23,11 @@ export const ProjectPage = (props: HomePageProps) => {
           </Link>
         ))}
       </nav>
-      <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0"></div>{' '}
-      <h1 className="title-text animate-title text-6xl sm:text-8xl md:text-10xl">
+      <div className="hidden w-screen h-px md:block animate-fade-left bg-white"></div>
+      <h1 className="image-text animate-title text-6xl sm:text-8xl md:text-10xl">
         {title}
       </h1>
-      <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0"></div>{' '}
+      <div className="hidden w-screen h-px md:block animate-fade-right bg-white"></div>
       <div className="my-16 text-center animate-fade-in">
         <h2 className="text-sm text-zinc-500 ">{description}</h2>
       </div>

@@ -1,29 +1,15 @@
-// import Link from 'next/link';
-// import React from 'react';
-
-// const projects = [
-//   {
-//     name: 'BlackJack',
-//     href: '/projects/blackjack',
-//     description: 'A simple blackjack game',
-//     github: '',
-//   },
-// ];
-
-// export default function ProjectsIndex() {
-//   return (
-
-//   );
-// }
-
 import React from 'react';
-import { HomePage } from '@nx-biscuit/biscuit-ui';
+import { ProjectPage } from '@nx-biscuit/biscuit-ui';
 
-const navItems = [{ name: 'Projects', href: '/projects' }];
+const navItems = [
+  { name: 'BlackJack', href: '/projects/blackjack' },
+  { name: 'Word Finder', href: '/projects/word-finder' },
+  { name: 'xOrdle', href: '/projects/word-finder' },
+];
 
 export default function Home() {
   return (
-    <HomePage
+    <ProjectPage
       title={'PROJECTS'}
       description={'blah blah'}
       navItems={navItems}

@@ -2,7 +2,7 @@ import { Inter } from '@next/font/google'; //Inter, Roboto,
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 
-import '../styles/global.css';
+// import '../styles/global.css';
 
 export const metadata: Metadata = {
   title: {
