@@ -12,7 +12,7 @@ export default function Home() {
     <HomePage
       title={'NICK.DOG'}
       description={
-        'My name is Nick. I design and build, beautiful, responsive, open-source, websites and applications.'
+        'My name is Nick. I design and build responsive, open-source, websites and applications.'
       }
       navItems={navItems}
     />
