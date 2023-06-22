@@ -1,7 +1,8 @@
-// import './global.css';
-import { Roboto_Mono, Inter } from '@next/font/google'; //Inter, Roboto,
+import { Inter } from '@next/font/google'; //Inter, Roboto,
 import { Metadata } from 'next';
-// import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react';
+
+// import '../styles/global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -56,7 +57,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>{/* <Analytics /> */}</head>
+      <head>
+        <Analytics />
+      </head>
       <body className={`bg-black ${inter.className}`}>{children}</body>
     </html>
   );
