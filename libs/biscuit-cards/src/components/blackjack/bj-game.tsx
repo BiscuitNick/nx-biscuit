@@ -164,8 +164,7 @@ export const BjGame = (props: BlackjackGameProps) => {
         bets.doubleBet = 0;
         bets.insuranceBet = 0;
 
-        if (i === 0) {
-        } else {
+        if (i !== 0) {
           bank += bets.bet;
           bets.bet = 0;
         }
@@ -520,6 +519,7 @@ export const BjGame = (props: BlackjackGameProps) => {
     }
 
     if (gameStatus === 'pendingNewGame') {
+      // TODO do we need this ?
     } else if (gameStatus === 'preDeal') {
       preDeal();
     } else if (gameStatus === 'start') {

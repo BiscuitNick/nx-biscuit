@@ -1,4 +1,4 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -92,4 +92,4 @@
 
   background-clip: text;
   -webkit-background-clip: text;
-} */
+}
