@@ -31,6 +31,10 @@ const nextConfig = {
     });
     return config;
   },
+  experimental: {
+    legacyBrowsers: false,
+    outputFileTracingIgnores: ['**canvas**'],
+  },
 };
 
 const plugins = [
