@@ -45,11 +45,11 @@ export const Finder = ({ wordLength = 5 }: { wordLength: number }) => {
     handleKeyDown,
     handleKeyUp,
 
-    keyboardFocusRef,
+    // keyboardFocusRef,
     allowSpaces,
 
     setCurrentGuess,
-  } = useFinderKeyboard({ validateWordExists: false, wordLength });
+  } = useFinderKeyboard({ wordLength });
 
   useEffect(() => {
     if (guesses.length > 0) {
@@ -131,7 +131,7 @@ export const Finder = ({ wordLength = 5 }: { wordLength: number }) => {
   return (
     <div
       className="fullscreen-wrapper"
-      ref={keyboardFocusRef}
+      // ref={keyboardFocusRef}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       tabIndex={0}
