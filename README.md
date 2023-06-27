@@ -54,7 +54,10 @@ Additionally, in the Vercel hosted project settings the following environment va
 
 ```
 LD_LIBRARY_PATH=/vercel/path0/node_modules/canvas/build/Release:/var/task/node_modules/canvas/build/Release
-/vercel/path0/node_modules/canvas/build/Release:/var/task/node_modules/canvas/build/Release
+
+or
+
+/var/task/node_modules/canvas/build/Release
 
 ```
 

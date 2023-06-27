@@ -24,7 +24,6 @@ const nextConfig = {
         process.env.PWD
       }/node_modules/canvas/build/Release:${process.env.LD_LIBRARY_PATH || ''}`;
     }
-
     config.externals.push({
       sharp: 'commonjs sharp',
       canvas: 'commonjs canvas',
@@ -43,5 +42,3 @@ const plugins = [
 ];
 
 module.exports = composePlugins(...plugins)(nextConfig);
-
-
