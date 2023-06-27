@@ -73,3 +73,7 @@ Removing canvas from package.json and reattempting Node 18.x.x.
 ###
 
 Weird behavior is persisting. Is something caching?
+
+Redeploy of successful builds now fail.
+
+Testing push of superficial change.
