@@ -81,20 +81,8 @@ Testing push of superficial change.
 
 - Pushing change to only this readme file works.
 
-###
+### 0.0.14
 
-This is a reverse of an earlier issue, where a new deployment would fail and subsequent redeploy would succeed.
-This is weird.
+The fix appears to be running node 16.x.x
 
-- If we check the box to reuse cache it works ??
-  this appears to be the case
-
-- If we don't check the box it doesn't work???
-  yes, so far.
-
-- Is it something to do with the props for this?
-  Removing props BiscuitCanvas -- Maybe we were getting an undefined here?
-
-  ???
-
-https://nextjs.org/docs/messages/prerender-error
+Everything else only works sometimes. Unsatisfying fix, but good enough for now.
