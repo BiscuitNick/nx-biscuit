@@ -1,28 +1,16 @@
 'use client';
-import React, { useRef } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 
-// const Canvas = dynamic(() => import('../../../components/canvas'), {
-//   ssr: false,
-// });
-
-import { Rect } from 'react-konva';
-
-const BiscuitBoard: any = dynamic(() =>
-  import('@biscuitnick/biscuit-konva').then((mod: any) => mod.BiscuitBoard)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const BiscuitBoard: any = dynamic(
+  () => import('@biscuitnick/biscuit-konva').then((mod) => mod.BiscuitBoard),
+  { loading: () => <p>Loading...</p> }
 );
 
-// import { BiscuitCanvas } from '@biscuitnick/biscuit-konva';
-
 export default function Page() {
-  // const canvasRef = useRef<any>(null);
-
   return (
     <BiscuitBoard
-      // width={200} // - 50}
-      // height={200} // - 50}
-      // canvasRef={canvasRef}
-      // style={{ margin: 'auto' }}
       contentObject={{
         eye_0: {
           innerXY: {
@@ -32,8 +20,8 @@ export default function Page() {
           innerRotation: 0,
           outerRotation: 0,
           w2h: 1.2,
-          sensitivity: 0.5,
-          movementFactor: 0.5,
+          sensitivity: 1,
+          movementFactor: 1,
           innerShape: 'Circle',
           outerShape: 'Circle',
           innerFill: '#000000',
@@ -44,7 +32,7 @@ export default function Page() {
           innerStrokeEnabled: true,
           innerFillEnabled: true,
           outerStrokeEnabled: false,
-          outerFillEnabled: false,
+          outerFillEnabled: true,
           r_outerSize: 0.04,
           r_outer2inner: 0.5,
           r_x: 0.39,
@@ -65,8 +53,8 @@ export default function Page() {
           innerRotation: 0,
           outerRotation: 0,
           w2h: 1.2,
-          sensitivity: 0.5,
-          movementFactor: 0.5,
+          sensitivity: 1,
+          movementFactor: 1,
           innerShape: 'Circle',
           outerShape: 'Circle',
           innerFill: '#000000',
@@ -77,7 +65,7 @@ export default function Page() {
           innerStrokeEnabled: true,
           innerFillEnabled: true,
           outerStrokeEnabled: false,
-          outerFillEnabled: false,
+          outerFillEnabled: true,
           r_outerSize: 0.04,
           r_outer2inner: 0.5,
           r_x: 0.61,
@@ -133,7 +121,7 @@ export default function Page() {
           contentID: 'image_2',
         },
       }}
-      contentIDs={['image_2', 'eye_0', 'eye_1', 'image_1']}
+      contentIDs={['image_2', 'eye_0', 'image_1', 'eye_1']}
     />
   );
 }

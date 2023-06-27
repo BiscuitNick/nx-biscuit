@@ -11,7 +11,7 @@ import { Eye, AnimatedRectangle, AnimatedImage, AnimatedText } from '../';
 // import useStagePositions from '../../hooks/useStagePositions';
 // import getInnerPosition from '../../utils/getInnerPosition';
 import { useStagePositions } from '../../hooks';
-import { getInnerPosition } from 'libs/biscuit-konva/src/components/utils/getInnerPosition';
+import { getInnerPosition } from '../../utils/getInnerPosition';
 
 import {
   buildEyeProps,
@@ -56,7 +56,7 @@ export const Biscuit = (props: BiscuitProps) => {
     y: (height - squareWH) / 2 + y,
   };
   const BiscuitContent = contentIDs.map((contentID: string) => {
-    let contentType = contentID?.split('_')[0];
+    const contentType = contentID?.split('_')[0];
     const data = contentObject[contentID];
 
     if (!data) return null;
@@ -67,12 +67,12 @@ export const Biscuit = (props: BiscuitProps) => {
 
     switch (contentType) {
       case 'eye': {
-        let eyeprops = buildEyeProps({
+        const eyeprops = buildEyeProps({
           ...data,
           absolutes: squareBox,
         });
 
-        let innerXY = getInnerPosition({
+        const innerXY = getInnerPosition({
           ...eyeprops,
           focalPoint: {
             x: focalPoint.x - centerBox.x,
@@ -92,7 +92,7 @@ export const Biscuit = (props: BiscuitProps) => {
         );
       }
       case 'rect': {
-        let rectProps = buildRectProps({
+        const rectProps = buildRectProps({
           ...data,
           absolutes: squareBox, //{ width: squareWH, height: squareWH },
         });
@@ -108,7 +108,7 @@ export const Biscuit = (props: BiscuitProps) => {
         );
       }
       case 'image': {
-        let imageProps = buildImageProps({
+        const imageProps = buildImageProps({
           ...data,
           absolutes: squareBox, //{ width: squareWH, height: squareWH },
         });
@@ -124,7 +124,7 @@ export const Biscuit = (props: BiscuitProps) => {
         );
       }
       case 'text': {
-        let textProps = buildTextProps({
+        const textProps = buildTextProps({
           ...data,
           absolutes: squareBox,
         });

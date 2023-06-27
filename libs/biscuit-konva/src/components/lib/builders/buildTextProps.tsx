@@ -34,7 +34,7 @@ const buildTextProps = (params: textBuild) => {
   const w = r_width * width;
   const h = r_height * height;
 
-  let box = {
+  const box = {
     x,
     y,
     width: w,

@@ -39,7 +39,7 @@ const buildImageProps = (params: imageBuild) => {
   const adjustedWidth = w - strokeWidth;
   const adjustedHeight = h - strokeWidth;
 
-  let box = {
+  const box = {
     x,
     y,
     width: adjustedWidth,

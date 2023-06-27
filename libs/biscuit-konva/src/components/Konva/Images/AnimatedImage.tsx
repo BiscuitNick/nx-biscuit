@@ -1,9 +1,6 @@
-import React from "react";
-const SpringKonva = require("@react-spring/konva");
-const { animated, useSpring } = SpringKonva;
-const useImage = require("use-image");
-// const Konva = require("react-konva");
-// const { Image } = Konva;
+import React from 'react';
+import useImage from 'use-image';
+import { animated, useSpring } from '@react-spring/konva';
 
 export interface ImageProps {
   //Size & Position
@@ -45,7 +42,7 @@ const AnimatedImage = (props: ImageProps) => {
     rotation,
     offsetX,
     offsetY,
-    immediate: ["x", "y"],
+    immediate: ['x', 'y'],
   });
 
   //const {x,y,width,height} = props;

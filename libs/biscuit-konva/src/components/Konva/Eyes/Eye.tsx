@@ -1,14 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { AnimatedRectangle, AnimatedCircle } from '../';
-// import getRatio from "../utils/getRatio";
-// import getRatio from "../utils/getRatio";
 import getRatio from '../../utils/getRatio';
-// import { getRatio } from "@biscuitnick/biscuit-library";
-
-const SpringKonva = require('@react-spring/konva');
-const { animated, useSpring } = SpringKonva;
-const Konva = require('react-konva');
-const { Group } = Konva;
+import { Group } from 'react-konva';
+import { animated, useSpring } from '@react-spring/konva';
 
 export interface EyeProps {
   //Element Position
@@ -89,13 +84,13 @@ const Eye = (props: EyeProps) => {
     offsetX: 0,
     offsetY: 0,
     clipFunc: disableClip
-      ? null
+      ? undefined
       : outerShape === 'Circle'
       ? (ctx: any) => ctx.arc(0, 0, outerSize, 0, Math.PI * 2)
       : outerShape === 'Rect'
       ? (ctx: any) =>
           ctx.rect(-outerSize, -outerSize, outerSize * 2, outerSize * 2)
-      : null,
+      : undefined,
     id: props.contentID,
 
     box: props.box,

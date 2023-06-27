@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useRef, useState } from 'react';
@@ -17,13 +18,17 @@ export interface BiscuitBoardProps {
 
 Konva.showWarnings = false;
 
-export const BiscuitBoard: any = (props: BiscuitBoardProps) => {
+export const BiscuitBoard = (props: BiscuitBoardProps) => {
   // const [show, toggle] = useState(false);
   const { contentIDs, contentObject } = props;
 
   const { width, height } = useWindowSize();
-  const canvasRef = useRef<any>(null);
-  const dragItem = useRef<any>(null);
+
+  // const width = 500;
+  // const height = 500;
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  // const dragItem = useRef<any>(null);
 
   const [, setSelectedID] = useState('');
   // const [contentIDs] = useState(initIDs); //setContentIDs
