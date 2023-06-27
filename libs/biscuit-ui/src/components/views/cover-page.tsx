@@ -1,10 +1,12 @@
 import React from 'react';
-
+import { FadeRightLine, FadeLeftLine } from '../lines';
+import { GradientTitleText, ImageTitleText } from '../texts';
 interface CoverPageProps {
   title: string;
+  image?: string;
 }
 
-export const CoverPage = ({ title }: CoverPageProps) => {
+export const CoverPage = ({ title, image }: CoverPageProps) => {
   const [show, setShow] = React.useState(false);
 
   return (
@@ -16,11 +18,13 @@ export const CoverPage = ({ title }: CoverPageProps) => {
         setShow(true);
       }}
     >
-      <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0"></div>
-      <h1 className="image-text animate-title text-6xl sm:text-8xl md:text-10xl">
-        {title}
-      </h1>
-      <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0"></div>
+      <FadeRightLine />
+      {image ? (
+        <ImageTitleText text={title} image={image} />
+      ) : (
+        <GradientTitleText text={title} />
+      )}
+      <FadeLeftLine />
     </div>
   );
 };

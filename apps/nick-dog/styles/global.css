@@ -1,4 +1,4 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -79,18 +79,3 @@
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
-
-.title-text {
-  font-weight: 900;
-
-  line-height: 1;
-  color: transparent;
-
-  transition-duration: 1000ms;
-
-  background: -webkit-linear-gradient(45deg, orange, purple);
-
-  background-clip: text;
-  -webkit-background-clip: text;
-}
- */
