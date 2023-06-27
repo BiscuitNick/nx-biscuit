@@ -1,6 +1,11 @@
-import { stringToWordArray, stringToWordRows } from "../lib/helpers";
+/* eslint-disable no-loop-func */
+import { stringToWordArray, stringToWordRows } from '../lib/helpers';
 
-const fitTextLine = (props) => {
+const fitTextLine: any = (props: {
+  parameters: any;
+  size: any;
+  canvasRef: any;
+}) => {
   // console.log("fitTextLine", props);
 
   const { parameters, size, canvasRef } = props;
@@ -28,8 +33,8 @@ const fitTextLine = (props) => {
   const testFontSize = fontSize + (maxHeight - fontSize) / 2;
 
   const fontstring = fontStyle
-    ? fontStyle + " " + testFontSize + "px " + fontFamily
-    : testFontSize + "px " + fontFamily;
+    ? fontStyle + ' ' + testFontSize + 'px ' + fontFamily
+    : testFontSize + 'px ' + fontFamily;
 
   ctx.font = fontstring;
   const textmetrics = ctx.measureText(text);
@@ -55,11 +60,11 @@ const fitTextLine = (props) => {
   }
 };
 
-const fitTextBox = ({ parameters, size, canvasRef }) => {
+const fitTextBox: any = ({ parameters, size, canvasRef }: any) => {
   // const { strokeWidthFactor: r_check } = parameters; //verticalAlign
 
   // const r_strokeWidth = r_check || 0;
-  const verticalAlign = "middle";
+  const verticalAlign = 'middle';
 
   if (!canvasRef || canvasRef.current === null) return null;
 
@@ -71,13 +76,13 @@ const fitTextBox = ({ parameters, size, canvasRef }) => {
   const words = stringToWordArray(text);
   const minrows = parameters.minrows || 1;
   const maxrows = parameters.maxrows || words.length;
-  var optimaltextrows = null;
-  var optimalsize = 0;
+  let optimaltextrows = null;
+  let optimalsize = 0;
 
   for (let i = minrows; i <= maxrows; i++) {
     const wordrows = stringToWordRows(text, i);
-    const fitwordrows = wordrows.map((row) => {
-      const rowtext = row.join(" ");
+    const fitwordrows = wordrows.map((row: any[]) => {
+      const rowtext = row.join(' ');
       const rowfit = fitTextLine({
         parameters: {
           ...parameters,
@@ -90,8 +95,8 @@ const fitTextBox = ({ parameters, size, canvasRef }) => {
       return rowfit;
     });
 
-    let minFontSize = Math.min(
-      ...fitwordrows.map((r) => {
+    const minFontSize = Math.min(
+      ...fitwordrows.map((r: { fontSize: any }) => {
         if (r) return r.fontSize;
       })
     );
@@ -102,15 +107,15 @@ const fitTextBox = ({ parameters, size, canvasRef }) => {
       const unusedHeight = height - usedHeight;
 
       const heightOffSet =
-        verticalAlign === "middle"
+        verticalAlign === 'middle'
           ? (height - usedHeight) / 2
-          : verticalAlign === "top"
+          : verticalAlign === 'top'
           ? 0
-          : verticalAlign === "bottom"
+          : verticalAlign === 'bottom'
           ? unusedHeight
           : (height - usedHeight) / 2; //default to middle
 
-      optimaltextrows = fitwordrows.map((r, i) => {
+      optimaltextrows = fitwordrows.map((r: { fontSize: any }, i: number) => {
         return {
           ...r,
           fontSize: minFontSize, // - Math.round((r_strokeWidth * minFontSize) / 2),
@@ -132,7 +137,11 @@ const fitTextBox = ({ parameters, size, canvasRef }) => {
   return optimaltextrows;
 };
 
-const getTextLines = (props) => {
+export const getTextLines = (props: {
+  box: any;
+  content: any;
+  canvasRef: any;
+}) => {
   const { box, content, canvasRef } = props;
 
   if (!canvasRef || canvasRef.current === null) return null;
@@ -144,7 +153,7 @@ const getTextLines = (props) => {
     parameters: {
       ...content,
       fontSize: 0,
-      text: text ? text : "",
+      text: text ? text : '',
       maxHeight: height ? height : 0,
       maxWidth: width ? width : 0,
       fontStyle,
@@ -161,4 +170,4 @@ const getTextLines = (props) => {
   return readyTexts;
 };
 
-export default getTextLines;
+// export default getTextLines;
