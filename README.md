@@ -53,17 +53,7 @@ const nextConfig = {
 Additionally, in the Vercel hosted project settings the following environment variable is set:
 
 ```
-LD_LIBRARY_PATH =
-
-<!-- /vercel/path0/node_modules/canvas/build/Release:/var/task/node_modules/canvas/build/Release
-
-or
-
-/var/task/node_modules/canvas/build/Release
-
-or -->
-
-/node_modules/canvas/build/Release
+LD_LIBRARY_PATH = /node_modules/canvas/build/Release
 
 
 ```
@@ -79,3 +69,7 @@ Error: /lib64/libz.so.1: version `ZLIB_1.2.9' not found (required by /vercel/pat
 Works in Vercel if setting Node to 16.x.x. However, this version is being depracated in the comming months.
 
 Removing canvas from package.json and reattempting Node 18.x.x.
+
+###
+
+Weird behavior is persisting. Is something caching?
