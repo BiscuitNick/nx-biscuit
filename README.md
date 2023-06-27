@@ -55,13 +55,13 @@ Additionally, in the Vercel hosted project settings the following environment va
 ```
 LD_LIBRARY_PATH =
 
-/vercel/path0/node_modules/canvas/build/Release:/var/task/node_modules/canvas/build/Release
+<!-- /vercel/path0/node_modules/canvas/build/Release:/var/task/node_modules/canvas/build/Release
 
 or
 
 /var/task/node_modules/canvas/build/Release
 
-or
+or -->
 
 /node_modules/canvas/build/Release
 
@@ -73,3 +73,9 @@ Without this value, we get the following error:
 ```
 Error: /lib64/libz.so.1: version `ZLIB_1.2.9' not found (required by /vercel/path0/node_modules/canvas/build/Release/libpng16.so.16)
 ```
+
+### 0.0.12
+
+Works in Vercel if setting Node to 16.x.x. However, this version is being depracated in the comming months.
+
+Removing canvas from package.json and reattempting Node 18.x.x.
