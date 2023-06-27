@@ -7,11 +7,11 @@ import dynamic from 'next/dynamic';
 // });
 
 const BiscuitCanvas = dynamic(() =>
-  import('@biscuitnick/biscuit-konva').then((mod: any) => mod.BiscuitCanvas)
+  import('@biscuitnick/biscuit-konva').then((mod) => mod.BiscuitCanvas)
 );
 
 // import { BiscuitCanvas } from '@biscuitnick/biscuit-konva';
 
-export default function Page(props: any) {
+export default function Page() {
   return <BiscuitCanvas />;
 }

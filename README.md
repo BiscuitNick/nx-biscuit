@@ -74,6 +74,23 @@ Removing canvas from package.json and reattempting Node 18.x.x.
 
 Weird behavior is persisting. Is something caching?
 
-Redeploy of successful builds now fail.
+Redeploy of successful builds now fail. Getting this error:
+`` Error: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by /vercel/path0/node_modules/canvas/build/Release/libglib-2.0.so.0) ``
 
 Testing push of superficial change.
+
+- Pushing change to only this readme file works.
+
+###
+
+This is a reverse of an earlier issue, where a new deployment would fail and subsequent redeploy would succeed.
+This is weird.
+
+- If we check the box to reuse cache it works ??
+  --> Trying to reproduce
+
+- If we don't check the box it doesn't work???
+
+Is it something to do with the props for this ?
+
+https://nextjs.org/docs/messages/prerender-error
