@@ -4,7 +4,17 @@ This is a monorepo where I intend to host most of my ongoing projects.
 
 ## Apps
 
-## Libraries
+### Nick-Dog
+
+Portfolio page to highlight my latest (and favorite) projects.
+
+## Libraries / Packages
+
+### Biscuit-Cards
+
+### Biscuit-UI
+
+### Biscuit-Words
 
 ## Build Notes
 
@@ -40,8 +50,19 @@ const nextConfig = {
 };
 ```
 
-Additionally, in the project settings the following environment variable is set:
+Additionally, in the Vercel hosted project settings the following environment variable is set:
 
 ```
-LD_LIBRARY_PATH = /var/task/node_modules/canvas/build/Release
+LD_LIBRARY_PATH=/vercel/path0/node_modules/canvas/build/Release:/var/task/node_modules/canvas/build/Release
+
+or
+
+LD_LIBRARY_PATH=/var/task/node_modules/canvas/build/Release
+
+```
+
+Without this value, we get the following error:
+
+```
+Error: /lib64/libz.so.1: version `ZLIB_1.2.9' not found (required by /vercel/path0/node_modules/canvas/build/Release/libpng16.so.16)
 ```
