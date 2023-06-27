@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 // });
 
 const BiscuitCanvas = dynamic(() =>
-  import('@biscuitnick/biscuit-konva').then((mod) => mod.BiscuitCanvas)
+  import('@biscuitnick/biscuit-konva').then((mod: any) => mod.BiscuitCanvas)
 );
 
 // import { BiscuitCanvas } from '@biscuitnick/biscuit-konva';

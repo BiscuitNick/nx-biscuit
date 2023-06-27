@@ -87,10 +87,12 @@ This is a reverse of an earlier issue, where a new deployment would fail and sub
 This is weird.
 
 - If we check the box to reuse cache it works ??
-  --> Trying to reproduce
+  this appears to be the case
 
 - If we don't check the box it doesn't work???
+  yes, so far.
 
-Is it something to do with the props for this ?
+- Is it something to do with the props for this?
+  Removing props BiscuitCanvas -- Maybe we were getting an undefined here?
 
 https://nextjs.org/docs/messages/prerender-error

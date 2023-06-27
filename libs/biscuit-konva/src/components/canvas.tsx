@@ -1,6 +1,6 @@
 import { Stage, Layer, Circle } from 'react-konva';
 
-function BiscuitCanvas() {
+async function BiscuitCanvas() {
   return (
     // <div>foo</div>
     <Stage width={500} height={500}>
