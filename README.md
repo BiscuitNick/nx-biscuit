@@ -2,6 +2,10 @@
 
 This is a monorepo where I intend to host most of my ongoing projects.
 
+## Apps
+
+## Libraries
+
 ## Build Notes
 
 ### 0.0.11
@@ -34,4 +38,10 @@ const nextConfig = {
     outputFileTracingIgnores: ['**canvas**'],
   },
 };
+```
+
+Additionally, in the project settings the following environment variable is set:
+
+```
+LD_LIBRARY_PATH = /var/task/node_modules/canvas/build/Release
 ```
