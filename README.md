@@ -95,4 +95,6 @@ This is weird.
 - Is it something to do with the props for this?
   Removing props BiscuitCanvas -- Maybe we were getting an undefined here?
 
+  ???
+
 https://nextjs.org/docs/messages/prerender-error
