@@ -15,7 +15,7 @@ interface messageProps {
 
 const createMessage = ({ name, email, message }: messageProps) => ({
   to: email, // Change to your recipient
-  from: 'nick@biscuit.land', // Change to your verified sender
+  from: 'dev@nick.dog', //'nick@biscuit.land', // Change to your verified sender
   subject: 'Message Received',
   html: `
       <body style="
@@ -53,6 +53,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json(mail);
   } catch (error) {
-    return new Response(JSON.stringify(error));
+    return NextResponse.json(error);
   }
 }
