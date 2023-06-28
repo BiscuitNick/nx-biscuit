@@ -1,20 +1,31 @@
 # NxBiscuit
 
-This is a monorepo where I intend to host most of my ongoing projects.
+Nx powered mono repo to host majority of apps and packages
 
 ## Apps
 
 ### Nick-Dog
 
-Portfolio page to highlight my latest (and favorite) projects.
+Portfolio page highlighting currrent and favorite projects
+
+- NextJS
+- Typescript
 
 ## Libraries / Packages
 
 ### Biscuit-Cards
 
+Card games and utilities
+
 ### Biscuit-UI
 
+User-interface components shared across apps & packages.
+
+- Tailwind CSS
+
 ### Biscuit-Words
+
+Word games and utilities.
 
 ## Build Notes
 
@@ -54,8 +65,6 @@ Additionally, in the Vercel hosted project settings the following environment va
 
 ```
 LD_LIBRARY_PATH = /node_modules/canvas/build/Release
-
-
 ```
 
 Without this value, we get the following error:
@@ -66,23 +75,15 @@ Error: /lib64/libz.so.1: version `ZLIB_1.2.9' not found (required by /vercel/pat
 
 ### 0.0.12
 
-Works in Vercel if setting Node to 16.x.x. However, this version is being depracated in the comming months.
-
-Removing canvas from package.json and reattempting Node 18.x.x.
-
-###
-
-Weird behavior is persisting. Is something caching?
-
-Redeploy of successful builds now fail. Getting this error:
+New deployments and redeploys of successful builds is inconsistenly getting this error:
 `` Error: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by /vercel/path0/node_modules/canvas/build/Release/libglib-2.0.so.0) ``
 
-Testing push of superficial change.
+Works in Vercel if setting Node to 16.x.x. However, this version is being depracated in the comming months so another solution may be needed.
 
-- Pushing change to only this readme file works.
+This all appears related to the Canvas package.
 
-### 0.0.14
+### 0.0.17
 
-The fix appears to be running node 16.x.x
-
-Everything else only works sometimes. Unsatisfying fix, but good enough for now.
+Update Type definitions
+Add env.example.
+Add SENDGRID_API_KEY and integration for Contact form.

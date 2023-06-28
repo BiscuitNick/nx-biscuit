@@ -1,15 +1,6 @@
 import React from 'react';
-
 import { Group } from 'react-konva';
 import { Eye, AnimatedRectangle, AnimatedImage, AnimatedText } from '../';
-// import  from "../../../utils/getInnerPosition";
-// import {
-//   useStagePositions,
-//   getInnerPosition,
-// } from "@biscuitnick/biscuit-library";
-
-// import useStagePositions from '../../hooks/useStagePositions';
-// import getInnerPosition from '../../utils/getInnerPosition';
 import { useStagePositions } from '../../hooks';
 import { getInnerPosition } from '../../utils/getInnerPosition';
 
@@ -20,7 +11,7 @@ import {
   buildTextProps,
 } from '../../lib/builders';
 
-export interface BiscuitProps {
+export interface BiscuitObject {
   contentObject: any; //{ [key: string]: any };
   contentIDs: string[];
 
@@ -33,7 +24,7 @@ export interface BiscuitProps {
   id: string;
 }
 
-export const Biscuit = (props: BiscuitProps) => {
+export const Biscuit = (props: BiscuitObject) => {
   const {
     contentObject,
     contentIDs,

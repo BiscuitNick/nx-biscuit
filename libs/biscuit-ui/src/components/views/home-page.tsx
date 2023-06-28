@@ -16,7 +16,7 @@ export const HomePage = (props: HomePageProps) => {
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">
-      <nav className="my-16 animate-fade-in">
+      <nav className="my-16 animate-fade-in flex flex-row space-x-2">
         {navItems.map((item) => (
           <Link key={item.href} href={item.href}>
             <ul className="flex items-center justify-center gap-4 text-sm text-zinc-200 ">
@@ -28,10 +28,10 @@ export const HomePage = (props: HomePageProps) => {
       <FadeRightLine />
       <GradientTitleText text={title} />
       <FadeLeftLine />
-      <div className="my-16 text-center animate-fade-in text-zinc-50">
+      <p className="my-8 text-sm text-center animate-fade-in text-zinc-200">
         {description}
         {/* <h2 className="text-sm text-zinc-500 ">{description}</h2> */}
-      </div>
+      </p>
     </div>
   );
 };
