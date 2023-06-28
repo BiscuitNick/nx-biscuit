@@ -28,12 +28,6 @@ export const ContactForm = () => {
       if (statusCode === 202) {
         setSubmitted(true);
       }
-
-      console.log(body);
-      console.log(statusCode);
-      console.log(headers);
-
-      //   return result;
     },
   });
 
@@ -77,6 +71,7 @@ export const ContactForm = () => {
                 placeholder="user@example.com"
                 onChange={formik.handleChange}
                 value={formik.values.email}
+                disabled={formik.isSubmitting}
               />
             </div>
           </div>
@@ -94,16 +89,20 @@ export const ContactForm = () => {
                 placeholder="Enter your message"
                 onChange={formik.handleChange}
                 value={formik.values.message}
+                disabled={formik.isSubmitting}
               ></textarea>
             </div>
           </div>
           <div className="md:flex md:items-center">
             <div className="w-full center">
               <button
-                className="shadow bg-orange-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded w-full"
+                className={`shadow transition ${
+                  formik.isSubmitting ? 'bg-purple-500' : 'bg-orange-500'
+                } focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded w-full`}
                 type="submit"
+                disabled={formik.isSubmitting}
               >
-                Submit
+                {formik.isSubmitting ? 'Sending' : 'Submit'}
               </button>
             </div>
           </div>

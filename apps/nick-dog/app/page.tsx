@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <HomePage
       title={'NICK.DOG'}
-      description={'Custom app design & development studio'}
+      description={'App design & development'}
       navItems={navItems}
     />
   );
