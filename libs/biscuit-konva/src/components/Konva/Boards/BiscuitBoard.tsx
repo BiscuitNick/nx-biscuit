@@ -4,15 +4,15 @@
 import React, { useRef, useState } from 'react';
 import { useWindowSize } from '../../hooks';
 import { Board } from './Board';
-import { Biscuit } from '../Content/Biscuit';
+import { Biscuit, BiscuitObject } from '../Content/Biscuit';
 import Konva from 'konva';
 
 export interface BiscuitBoardProps {
   width?: number;
   height?: number;
   contentIDs: string[];
-  contentObject?: {
-    [key: string]: any;
+  contentObject: {
+    [key: string]: BiscuitObject;
   };
 }
 

@@ -2,21 +2,25 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import KeyboardHideIcon from '@mui/icons-material/KeyboardHide';
 import Tooltip from '@mui/material/Tooltip';
-
 import { WordFinder } from '../word-finder';
 import getPossibles from '../Xordle/get-possibles';
 import WordList from '../word-list';
 import Keyboard from '../Keyboard';
 import { useFinderKeyboard } from '../Keyboard/useFinderKeyboard';
-// import { letters5 } from "../../data/words";
 import { letters5 } from '../../data/words';
 
-export const Finder = ({ wordLength = 5 }: { wordLength: number }) => {
+interface FinderComponent {
+  wordLength: number;
+}
+
+export const Finder: React.FC<FinderComponent> = ({
+  wordLength = 5,
+}: FinderComponent) => {
   const [wordList, setWordList] = useState<string[]>([]);
   const [showKeyboard, setShowKeyboard] = useState(true);
 
-  const refInputChars = useRef<null | HTMLDivElement>(null);
-  const refWordList = useRef<null | HTMLDivElement>(null);
+  const refInputChars = useRef<HTMLDivElement>(null);
+  const refWordList = useRef<HTMLDivElement>(null);
 
   const goTo = (ref: string) => {
     const refs: any = { refInputChars, refWordList };
