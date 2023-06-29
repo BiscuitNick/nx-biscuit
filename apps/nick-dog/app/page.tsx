@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomePage } from '@nx-biscuit/biscuit-ui';
+import { HomePage } from '@biscuitnick/biscuit-ui';
 
 const navItems = [
   // { name: 'About', href: '/about' },

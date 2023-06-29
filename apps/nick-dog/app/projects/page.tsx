@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProjectPage } from '@nx-biscuit/biscuit-ui';
+import { ProjectPage } from '@biscuitnick/biscuit-ui';
 
 const navItems = [
   { name: 'BlackJack', href: '/projects/blackjack' },
