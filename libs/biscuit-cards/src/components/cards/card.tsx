@@ -1,4 +1,4 @@
-import { standardRanks, standardSuits } from "../../lib/constants";
+import { standardRanks, standardSuits } from '../../lib/constants';
 
 interface CardProps {
   raw: number;
@@ -14,5 +14,7 @@ export const Card = (props: CardProps) => {
   const rank = ranks[raw % ranks.length];
   const cardStr = `${rank}${suit}`;
 
-  return <img className="card-img" src={`/deck/${cardStr}.png`} />;
+  return (
+    <img className="card-img" src={`/deck/${cardStr}.png`} alt={cardStr} />
+  );
 };

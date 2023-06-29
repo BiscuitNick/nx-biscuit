@@ -52,7 +52,7 @@ export const BlackjackCard = (props: FlipCardProps) => {
 
   return (
     <animated.div
-      className="flip-card-wrapper"
+      className="absolute-flip-card-wrapper"
       style={{
         height,
         width,
@@ -64,7 +64,7 @@ export const BlackjackCard = (props: FlipCardProps) => {
       <div
         className="flip-card-inner"
         style={{
-          transform: show ? "rotateY(0deg)" : "rotateY(180deg)",
+          transform: show ? 'rotateY(0deg)' : 'rotateY(180deg)',
         }}
       >
         <div className="flip-card-front">

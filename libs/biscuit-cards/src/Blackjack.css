@@ -9,8 +9,14 @@
   box-sizing: border-box;
 }
 
-.flip-card-wrapper {
+.absolute-flip-card-wrapper {
   position: absolute;
+  perspective: 1000px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.flip-card-wrapper {
   perspective: 1000px;
   user-select: none;
   -webkit-user-select: none;
@@ -48,7 +54,9 @@
   /* padding: 5px; */
 
   background-color: red;
-  background-image: url("/textures/3px-tile.png");
+  background-image: url('/textures/3px-tile.png');
+
+  /* border: white 3px solid; */
 
   transform: rotateY(180deg);
 }
@@ -66,7 +74,7 @@
   margin: auto;
 
   background-color: darkgreen;
-  background-image: url("/textures/beige-paper.png");
+  background-image: url('/textures/beige-paper.png');
 }
 
 .card-container {
@@ -253,3 +261,6 @@ button:focus-visible {
   border-radius: 50px;
   box-shadow: 2px 2px 2px black;
 }
+
+
+
