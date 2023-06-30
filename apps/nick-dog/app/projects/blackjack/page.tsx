@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { BjGame } from '@nx-biscuit/biscuit-cards';
-import { CoverPage } from '@nx-biscuit/biscuit-ui';
+import { CoverPage } from '@biscuitnick/biscuit-ui';
 
 export default function Home() {
   return (

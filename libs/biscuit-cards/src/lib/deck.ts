@@ -14,3 +14,7 @@ export const shuffledDeck = (decks: number) => {
   const deck = getDeck(decks);
   return deck.sort(() => Math.random() - 0.5);
 };
+
+export const shuffle = (deck: number[]) => {
+  return [...deck.sort(() => Math.random() - 0.5)];
+};

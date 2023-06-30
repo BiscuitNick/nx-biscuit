@@ -2,3 +2,4 @@
 
 // export * from './lib/biscuit-cards';
 export * from './components/blackjack/bj-game';
+export * from './components/video-poker/video-poker';
