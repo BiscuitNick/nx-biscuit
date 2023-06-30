@@ -1,38 +1,19 @@
-const handTitles = [
-  'Royal Flush',
-  'Straight Flush',
-  'Four of a Kind',
-  'Full House',
-  'Flush',
-  'Straight',
-  'Three of a Kind',
-  'Two Pair',
-  'Jacks or Better',
-] as const;
-
-interface PayoutsObject {
-  [key: string]: number[];
-}
-
-const Payouts: PayoutsObject = {
-  'Royal Flush': [250, 500, 750, 1000, 4000],
-  'Straight Flush': [50, 100, 150, 200, 250],
-  'Four of a Kind': [25, 50, 75, 100, 125],
-  'Full House': [9, 18, 27, 36, 45],
-  Flush: [6, 12, 18, 24, 30],
-  Straight: [4, 8, 12, 16, 20],
-  'Three of a Kind': [3, 6, 9, 12, 15],
-  'Two Pair': [2, 4, 6, 8, 10],
-  'Jacks or Better': [1, 2, 3, 4, 5],
-};
+import { PayoutSchedule } from './constants';
 
 interface PayTableProps {
   credits: number;
   hand: string;
+  payouts: PayoutSchedule;
+  showOdds?: boolean;
 }
 
-export const PayTable = ({ credits, hand }: PayTableProps) => {
-  const titlesColumn = handTitles.map((title) => (
+export const PayTable = ({
+  credits,
+  hand,
+  payouts,
+  showOdds,
+}: PayTableProps) => {
+  const titlesColumn = Object.keys(payouts).map((title) => (
     <div
       key={title}
       style={{
@@ -46,8 +27,8 @@ export const PayTable = ({ credits, hand }: PayTableProps) => {
 
   for (let i = 0; i < 5; i++) {
     const payoutsColumn: JSX.Element[] = [];
-    handTitles.forEach((title, index) => {
-      const payout: number = Payouts[title][i];
+    Object.keys(payouts).forEach((title, index) => {
+      const payout: number = payouts[title][i];
       payoutsColumn.push(
         <div
           style={{
@@ -80,7 +61,7 @@ export const PayTable = ({ credits, hand }: PayTableProps) => {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'auto '.repeat(6),
+        gridTemplateColumns: 'auto '.repeat(showOdds ? 7 : 6),
         width: '100%',
         background: '#2c2c2c',
         border: 'yellow 1px solid',
@@ -102,6 +83,11 @@ export const PayTable = ({ credits, hand }: PayTableProps) => {
         {titlesColumn}
       </div>
       {payoutsColumns}
+      {showOdds && (
+        <>
+          <div>odds</div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,20 +1,26 @@
 interface PokerButtonProps {
   handleClick: () => void;
-  texts: string[];
+  text: string;
+  background?: string;
+  color?: string;
+  disabled?: boolean;
 }
 
-export const PokerButton = ({ handleClick, texts }: PokerButtonProps) => {
+export const PokerButton = ({
+  handleClick,
+  text,
+  background,
+  color,
+  disabled,
+}: PokerButtonProps) => {
   return (
-    <button className="draw-poker-button" onClick={handleClick}>
-      <div className="button-grid">
-        {texts.map((text, i) =>
-          text.length ? (
-            <div key={i}>{text}</div>
-          ) : (
-            <hr key={i} style={{ borderTop: '1px solid black' }} />
-          )
-        )}
-      </div>
+    <button
+      className="draw-poker-button"
+      style={{ background, color }}
+      onClick={handleClick}
+      disabled={disabled}
+    >
+      {text}
     </button>
   );
 };

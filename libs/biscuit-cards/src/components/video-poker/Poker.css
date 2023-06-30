@@ -46,12 +46,14 @@
 .draw-poker-button {
   color: black;
   background: white;
-  width: 65px;
-  height: 60px;
+  /* background: yellow; */
+  /* width: 65px;
+  height: 60px; */
+  width: 120px;
   text-shadow: none;
   padding: 5px;
 
-  border-radius: 5px;
+  border-radius: 3px;
 
   font-size: small;
 }
@@ -73,6 +75,8 @@
   height: 20px;
 
   text-align: center;
+
+  padding: 0;
 }
 
 .border-text {
@@ -82,8 +86,6 @@
   color: red;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: yellow;
-
-  /* background: pink; */
 }
 
 .card-row {
@@ -92,4 +94,12 @@
   grid-template-columns: auto auto auto auto auto;
   margin: auto;
   justify-content: space-between;
+}
+
+.button-grid {
+  display: grid;
+  grid-auto-flow: column;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+  justify-content: space-between;
+  width: 100%;
 }

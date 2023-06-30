@@ -1,5 +1,5 @@
 import { FlipCard } from '../cards/flip-card';
-
+import { PokerButton } from './poker-button';
 interface CardRowProps {
   cards: number[];
   holds: boolean[];
@@ -16,7 +16,7 @@ export const CardRow = ({
   return (
     <div className="card-row">
       {cards.map((card, index) => (
-        <div key={index}>
+        <div key={index} style={{ display: 'grid', gridGap: 5 }}>
           <div className="hold-text">{holds[index] ? 'HOLD' : ''}</div>
           <FlipCard
             key={index}
@@ -26,7 +26,12 @@ export const CardRow = ({
             height={168}
             width={120}
           />
-          <button style={{ width: 120 }}>d</button>
+          <PokerButton
+            handleClick={() => updateHolds(index)}
+            text={holds[index] ? 'CANCEL' : 'HOLD'}
+            background={'yellow'}
+            disabled={status.includes('dealing') || status === 'pendingNewGame'}
+          />
         </div>
       ))}
     </div>

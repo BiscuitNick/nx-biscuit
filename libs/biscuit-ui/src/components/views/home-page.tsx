@@ -2,15 +2,17 @@ import '../../styles/global.css';
 import Link from 'next/link';
 import { FadeRightLine, FadeLeftLine } from '../lines';
 import { GradientTitleText } from '../texts';
+import { GitHubLink } from '../icons';
 
 interface HomePageProps {
   title: string;
-  description: string;
+  description: string[];
   navItems: { name: string; href: string }[];
+  gitHubUrl?: string;
 }
 
 export const HomePage = (props: HomePageProps) => {
-  const { title, description, navItems } = props;
+  const { title, description, navItems, gitHubUrl } = props;
 
   console.log(navItems);
 
@@ -29,8 +31,22 @@ export const HomePage = (props: HomePageProps) => {
       <GradientTitleText text={title} />
       <FadeLeftLine />
       <p className="my-8 text-sm text-center animate-fade-in text-zinc-200">
-        {description}
-        {/* <h2 className="text-sm text-zinc-500 ">{description}</h2> */}
+        {description.map((text) => (
+          <>
+            {text}
+            <br />
+          </>
+        ))}
+        {gitHubUrl && (
+          <GitHubLink
+            href={gitHubUrl}
+            style={{
+              margin: 10,
+              color: 'white',
+              fontSize: 'xx-large',
+            }}
+          />
+        )}
       </p>
     </div>
   );

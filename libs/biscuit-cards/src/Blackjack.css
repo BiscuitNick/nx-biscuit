@@ -159,11 +159,16 @@ button {
   transition: border-color 0.25s;
   box-shadow: 2px 2px 5px black;
 }
-button:active {
+button:enabled:active {
   box-shadow: 1px 1px 1px black;
   transform: translate(1px, 1px);
   /* border-color: #646cff; */
 }
+
+button:disabled {
+  opacity: 0.8;
+}
+
 /* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -261,6 +266,3 @@ button:focus-visible {
   border-radius: 50px;
   box-shadow: 2px 2px 2px black;
 }
-
-
-
