@@ -74,6 +74,18 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        'fade-in': {
+          '0%': {
+            opacity: '0%',
+          },
+          '50%': {
+            opacity: '0%',
+          },
+          '100%': {
+            opacity: '100%',
+          },
+        },
+
         'fade-left': {
           '0%': {
             transform: 'translateX(100%)',
@@ -130,6 +142,7 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         title: 'title 3s ease-out forwards',
+        'fade-in': 'fade-in 6s ease-in-out forwards',
         'fade-left': 'fade-left 3s ease-in-out forwards',
         'fade-right': 'fade-right 3s ease-in-out forwards',
         'exit-top': 'exit-top 2s ease-out forwards',
