@@ -13,8 +13,8 @@ export const ProjectPage = (props: HomePageProps) => {
   console.log(navItems);
 
   return (
-    <div className="flex flex-col items-center justify-center w-scree h-screen">
-      <nav className="my-16 animate-fade-in">
+    <div className="flex flex-col items-center justify-center w-screen h-screen">
+      <nav className="my-16 ">
         {navItems.map((item) => (
           <Link key={item.href} href={item.href}>
             <ul className="flex items-center justify-center gap-4 text-sm text-zinc-500 ">
@@ -24,9 +24,7 @@ export const ProjectPage = (props: HomePageProps) => {
         ))}
       </nav>
       <div className="hidden w-screen h-px md:block animate-fade-left bg-white"></div>
-      <h1 className="image-text animate-title text-6xl sm:text-8xl md:text-10xl">
-        {title}
-      </h1>
+      <h1 className="image-text  text-6xl sm:text-8xl md:text-10xl">{title}</h1>
       <div className="hidden w-screen h-px md:block animate-fade-right bg-white"></div>
       <div className="my-16 text-center animate-fade-in">
         <h2 className="text-sm text-zinc-500 ">{description}</h2>
