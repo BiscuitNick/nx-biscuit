@@ -12,7 +12,7 @@ export interface BiscuitBoardProps {
   height?: number;
   contentIDs: string[];
   contentObject: {
-    [key: string]: BiscuitObject;
+    [key: string]: any;
   };
 }
 

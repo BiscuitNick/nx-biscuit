@@ -1,12 +1,14 @@
 'use client';
 import React from 'react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const BiscuitBoard: any = dynamic(
-  () => import('@biscuitnick/biscuit-konva').then((mod) => mod.BiscuitBoard),
-  { loading: () => <p>Loading...</p> }
-);
+// const BiscuitBoard: any = dynamic(
+//   () => import('@biscuitnick/biscuit-konva').then((mod) => mod.BiscuitBoard),
+//   { loading: () => <p>Loading...</p> }
+// );
+
+import { BiscuitBoard } from '@biscuitnick/biscuit-konva';
 
 export default function Page() {
   return (
@@ -121,7 +123,7 @@ export default function Page() {
           contentID: 'image_2',
         },
       }}
-      contentIDs={['image_2', 'eye_0', 'image_1', 'eye_1']}
+      contentIDs={['image_2', 'eye_0', 'eye_1', 'image_1']}
     />
   );
 }
