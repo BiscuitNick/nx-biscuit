@@ -79,3 +79,9 @@
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
+
+.red-dot {
+  cursor: url(/small-red-dot.png) 8 8, auto;
+  width: fit-content;
+  height: fit-content;
+}
