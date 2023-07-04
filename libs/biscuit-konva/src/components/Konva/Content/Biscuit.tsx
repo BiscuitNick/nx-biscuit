@@ -21,7 +21,7 @@ export interface BiscuitObject {
 
   handleClick: any;
   handleDrag: any;
-  id: string;
+  // id: string;
 }
 
 export const Biscuit = (props: BiscuitObject) => {

@@ -12,20 +12,18 @@ export interface BiscuitBoardProps {
   height?: number;
   contentIDs: string[];
   contentObject: {
-    [key: string]: BiscuitObject;
+    [key: string]: any;
   };
+  style?: any;
 }
 
 Konva.showWarnings = false;
 
 export const BiscuitBoard = (props: BiscuitBoardProps) => {
   // const [show, toggle] = useState(false);
-  const { contentIDs, contentObject } = props;
+  const { contentIDs, contentObject, width, height, style } = props;
 
-  const { width, height } = useWindowSize();
-
-  // const width = 500;
-  // const height = 500;
+  const { width: w, height: h } = useWindowSize();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // const dragItem = useRef<any>(null);
@@ -95,16 +93,19 @@ export const BiscuitBoard = (props: BiscuitBoardProps) => {
   };
 
   return (
-    <Board width={width} height={height} canvasRef={canvasRef}>
+    <Board
+      width={width || w}
+      height={height || h}
+      canvasRef={canvasRef}
+      style={style}
+    >
       <Biscuit
-        box={{ width, height }}
+        box={{ width: width || w, height: height || h }}
         contentObject={contentObject}
         contentIDs={contentIDs}
         canvasRef={canvasRef}
         handleClick={handleClick}
         handleDrag={handleDrag}
-        key={'b1'}
-        id={'b1'}
       />
     </Board>
   );

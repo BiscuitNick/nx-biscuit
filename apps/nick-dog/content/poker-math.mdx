@@ -1,0 +1,49 @@
+import {
+  CombinationFormula,
+  CombinationEquation,
+  CombinationStep1,
+  CombinationStep2,
+  CombinationStep3,
+  CombinationStep4,
+} from '@biscuitnick/biscuit-ui';
+
+## **Calculating Possible 5-Card Poker Hands**
+
+<br />
+We can calculate the total number of possible 5 card draw hands in a standard deck
+of 52 cards with the combination formula.
+
+<br />
+<CombinationFormula />
+<br />
+
+Where: <br/>
+n = total number of objects in the set <br/>
+r = number of objects chosen from the set <br/>
+
+Given a standard deck of 52 cards where we are creating 5 card hands<br/>
+n = 52 <br/>
+r = 5 <br/>
+
+<br />
+<CombinationEquation n={52} r={5} />
+<br />
+<CombinationStep1 n={52} r={5} />
+<br />
+
+Dividing the top and bottom of our fraction by 47! simplifies to: <br/>
+
+<CombinationStep2 n={52} r={5} />
+<br />
+
+And then: <br/>
+
+<CombinationStep3 n={52} r={5} />
+<br />
+
+And finally: <br/>
+
+<CombinationStep4 n={52} r={5} />
+<br />
+
+After solving, we can conclude that there are **2,598,960** unique 5 card poker hands.

@@ -4,3 +4,8 @@ declare module '*.svg' {
   export const ReactComponent: any;
   export default content;
 }
+
+declare module '*.mdx' {
+  let MDXComponent: (props) => JSX.Element;
+  export default MDXComponent;
+}
