@@ -19,13 +19,6 @@ export const BottomButtons = ({
 }: BottomButtonsProps) => {
   return (
     <div className="button-grid">
-      {/* <PokerButton
-        handleClick={toggleOdds}
-        text={'LOBBY'}
-        background={'black'}
-        color={'white'}
-        // disabled={status !== 'pendingNewGame'}
-      /> */}
       <PokerButton
         handleClick={toggleOdds}
         text={'Show Odds'}
@@ -58,3 +51,13 @@ export const BottomButtons = ({
     </div>
   );
 };
+
+/* 
+  <PokerButton
+    handleClick={toggleOdds}
+    text={'LOBBY'}
+    background={'black'}
+    color={'white'}
+    disabled={status !== 'pendingNewGame'}
+  /> 
+*/

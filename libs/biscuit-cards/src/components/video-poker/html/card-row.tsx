@@ -1,4 +1,5 @@
-import { FlipCard } from '../cards/flip-card';
+// import { FlipCard } from '../cards/flip-card';
+import { FlipCard } from '../../cards/flip-card';
 import { PokerButton } from './poker-button';
 interface CardRowProps {
   cards: number[];

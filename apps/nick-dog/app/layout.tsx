@@ -1,8 +1,7 @@
-import { Inter } from '@next/font/google'; //Inter, Roboto,
+// import { Inter } from '@next/font/google'; //Inter, Roboto,
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
-
-import '../styles/global.css';
+import 'dist/libs/biscuit-ui/index.css';
 
 export const metadata: Metadata = {
   title: {
@@ -45,10 +44,10 @@ export const metadata: Metadata = {
   // },
 };
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
+// const inter = Inter({
+//   subsets: ['latin'],
+//   variable: '--font-inter',
+// });
 
 export default function RootLayout({
   children,
@@ -60,7 +59,7 @@ export default function RootLayout({
       <head>
         <Analytics />
       </head>
-      <body className={`bg-black ${inter.className}`}>{children}</body>
+      <body className={`bg-black`}>{children}</body>
     </html>
   );
 }

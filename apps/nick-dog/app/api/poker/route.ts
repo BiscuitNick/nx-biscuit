@@ -1,10 +1,29 @@
-import { valueCounter } from '../components/video-poker/constants';
-import { sleep } from '../components/blackjack/helpers';
+import { NextResponse } from 'next/server';
+// import { getDeck } from '@nx-biscuit/biscuit-cards';
+interface valueCounts {
+  [key: string]: number;
+}
+const valueCounter: valueCounts = {
+  900: 0,
+  800: 0,
+  700: 0,
+  600: 0,
+  500: 0,
+  400: 0,
+  300: 0,
+  200: 0,
+  110: 0,
+  100: 0,
+  0: 0,
+};
+const getFlushValue = (hand: number[]) => {
+  if (hand.includes(-1)) return 0;
+  const counts = Array(4).fill(0);
+  hand.forEach((num) => (counts[Math.floor(num / 13)] += 1));
 
-export const getRanks = (hand: number[]) =>
-  hand.map((x) => (x % 13 === 0 ? 14 : (x % 13) + 1));
-
-export const getRankValue = (hand: number[]) => {
+  return Math.max(...counts) === 5 ? 500 : 0;
+};
+const getRankValue = (hand: number[]) => {
   if (hand.includes(-1)) return 0;
 
   const counts = Array(13).fill(0);
@@ -42,16 +61,7 @@ export const getRankValue = (hand: number[]) => {
       : 100
     : 0;
 };
-
-export const getFlushValue = (hand: number[]) => {
-  if (hand.includes(-1)) return 0;
-  const counts = Array(4).fill(0);
-  hand.forEach((num) => (counts[Math.floor(num / 13)] += 1));
-
-  return Math.max(...counts) === 5 ? 500 : 0;
-};
-
-export const getStraightValue = (hand: number[]) => {
+const getStraightValue = (hand: number[]) => {
   const counts = Array(14).fill(0);
   hand.forEach((num) => {
     counts[num % 13] = 1;
@@ -64,10 +74,7 @@ export const getStraightValue = (hand: number[]) => {
 
   return straightIndex >= 0 ? 400 + straightIndex : 0;
 };
-
-// 100 Pair
-
-export const getHandValue = (hand: number[]) => {
+const getHandValue = (hand: number[]) => {
   const rankVal = getRankValue(hand);
   const flushVal = getFlushValue(hand);
   const straightVal = getStraightValue(hand);
@@ -77,53 +84,7 @@ export const getHandValue = (hand: number[]) => {
 
   return handVal - (handVal % 10);
 };
-
-export const getHandTitle = (hand: number[]) => {
-  const handValue = getHandValue(hand);
-  return handValue === 900
-    ? 'Royal Flush'
-    : handValue >= 800
-    ? 'Straight Flush'
-    : handValue >= 700
-    ? 'Four of a Kind'
-    : handValue >= 600
-    ? 'Full House'
-    : handValue >= 500
-    ? 'Flush'
-    : handValue >= 400
-    ? 'Straight'
-    : handValue >= 300
-    ? 'Three of a Kind'
-    : handValue >= 200
-    ? 'Two Pair'
-    : handValue === 110
-    ? 'Jacks or Better'
-    : handValue >= 100
-    ? 'Low Pair'
-    : 'High Card';
-};
-
-export const combinations = (arr: number[], k: number) => {
-  const combs: number[][] = [];
-  const recurse = (
-    arr: number[],
-    k: number,
-    start: number,
-    combo: number[]
-  ) => {
-    if (k === 0) {
-      combs.push(combo);
-    } else {
-      for (let i = start; i <= arr.length - k; i++) {
-        recurse(arr, k - 1, i + 1, [...combo, arr[i]]);
-      }
-    }
-  };
-  recurse(arr, k, 0, []);
-  return combs;
-};
-
-function drawCombinations(hand: number[], deck: number[], k: number) {
+const drawCombinations = (hand: number[], deck: number[], k: number) => {
   const combs: number[][] = [];
   const recurse = (
     deck: number[],
@@ -141,9 +102,8 @@ function drawCombinations(hand: number[], deck: number[], k: number) {
   };
   recurse(deck, k, 0, []);
   return combs;
-}
-
-export async function drawCombinationValues(hand: number[], deck: number[]) {
+};
+const drawCombinationValues = (hand: number[], deck: number[]) => {
   const draws = drawCombinations(hand, deck, 5 - hand.length);
   const counts = { ...valueCounter };
 
@@ -152,10 +112,28 @@ export async function drawCombinationValues(hand: number[], deck: number[]) {
   const percents = { ...valueCounter };
 
   Object.keys(counts).forEach((key) => {
-    percents[key] = (counts[key] / draws.length) * 100;
+    percents[key] = counts[key] / draws.length;
   });
 
-  return new Promise((resolve) => {
-    resolve({ counts, percents });
-  });
+  return { counts, percents };
+};
+
+export async function GET(request: Request) {
+  // console.log(request);
+  // const { url } = request;
+  // const { searchParams } = new URL(url);
+
+  // console.log(searchParams);
+
+  return NextResponse.json('This api method only accepts POST requests.');
+}
+
+export async function POST(request: Request) {
+  const { holdCards, muckCards } = await request.json();
+  const deck = [...Array(52).keys()].filter(
+    (raw) => !holdCards.includes(raw) && !muckCards.includes(raw)
+  );
+  const { counts, percents } = drawCombinationValues(holdCards, deck);
+
+  return NextResponse.json({ counts, percents });
 }

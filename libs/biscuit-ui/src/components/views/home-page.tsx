@@ -14,7 +14,7 @@ interface HomePageProps {
 export const HomePage = (props: HomePageProps) => {
   const { title, description, navItems, gitHubUrl } = props;
 
-  console.log(navItems);
+  // console.log(navItems);
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">

@@ -110,7 +110,7 @@ const AnimatedText = (props: AnimatedTextProps) => {
         fontWeight,
       } = line;
 
-      console.log(113, line);
+      // console.log(113, line);
 
       const strokeWidth = fontSize * (strokeWidthFactor || 0);
       //   const fontSize = unAdjustedFontSize - strokeWidth * 0;

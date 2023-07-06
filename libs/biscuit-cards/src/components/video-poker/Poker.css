@@ -99,7 +99,31 @@
 .button-grid {
   display: grid;
   grid-auto-flow: column;
-  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
   justify-content: space-between;
   width: 100%;
+}
+
+.draw-poker-container {
+  display: grid;
+  grid-gap: 20px;
+  width: 650px;
+  margin: auto;
+  background: blue;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.draw-poker-status {
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+}
+
+.pay-table-cell {
+  height: 24px;
+  text-align: right;
+}
+
+.left {
+  text-align: left;
 }

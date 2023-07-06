@@ -2,4 +2,7 @@
 
 // export * from './lib/biscuit-cards';
 export * from './components/blackjack/bj-game';
-export * from './components/video-poker/video-poker';
+export * from './components/video-poker/html/video-poker';
+export * from './components/video-poker/canvas';
+export * from './components/video-poker/math';
+// export * from './lib/deck';

@@ -14,7 +14,7 @@ export interface PayoutSchedule {
   [key: string]: number[];
 }
 
-export const payouts96: PayoutSchedule = {
+export const payouts96old: PayoutSchedule = {
   'Royal Flush': [250, 500, 750, 1000, 4000],
   'Straight Flush': [50, 100, 150, 200, 250],
   'Four of a Kind': [25, 50, 75, 100, 125],
@@ -28,8 +28,34 @@ export const payouts96: PayoutSchedule = {
   'High Card': [0, 0, 0, 0, 0],
 };
 
+export const handValues = [
+  '900',
+  '800',
+  '700',
+  '600',
+  '500',
+  '400',
+  '300',
+  '200',
+  '110',
+]; // '100', '0'];
+
+export const payouts96: PayoutSchedule = {
+  900: [250, 500, 750, 1000, 4000],
+  800: [50, 100, 150, 200, 250],
+  700: [25, 50, 75, 100, 125],
+  600: [9, 18, 27, 36, 45],
+  500: [6, 12, 18, 24, 30],
+  400: [4, 8, 12, 16, 20],
+  300: [3, 6, 9, 12, 15],
+  200: [2, 4, 6, 8, 10],
+  110: [1, 2, 3, 4, 5],
+  100: [0, 0, 0, 0, 0],
+  0: [0, 0, 0, 0, 0],
+};
+
 export interface ranksString {
-  [key: number]: string;
+  [key: string]: string;
 }
 
 export const cardRanks: ranksString = {
