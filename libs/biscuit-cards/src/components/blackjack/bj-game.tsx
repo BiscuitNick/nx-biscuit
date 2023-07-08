@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 
 import { getBlackJackHandTotal } from '../../lib/getRank'; //getBlackJackRanks
@@ -171,7 +172,7 @@ export const BjGame = (props: BlackjackGameProps) => {
         return { ...hand, bets, result: '' };
       });
 
-      console.log('Net', totalWon - totalLost);
+      // console.log('Net', totalWon - totalLost);
 
       setPlayers({
         ...players,

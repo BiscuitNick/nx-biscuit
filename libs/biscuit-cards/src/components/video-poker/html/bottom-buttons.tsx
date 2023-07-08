@@ -19,13 +19,6 @@ export const BottomButtons = ({
 }: BottomButtonsProps) => {
   return (
     <div className="button-grid">
-      {/* <PokerButton
-        handleClick={toggleOdds}
-        text={'LOBBY'}
-        background={'black'}
-        color={'white'}
-        // disabled={status !== 'pendingNewGame'}
-      /> */}
       <PokerButton
         handleClick={toggleOdds}
         text={'Show Odds'}
@@ -36,17 +29,17 @@ export const BottomButtons = ({
       <PokerButton
         handleClick={minusBet}
         text={'BET -'}
-        disabled={status !== 'pendingNewGame'}
+        // disabled={status !== 'pendingNewGame'}
       />
       <PokerButton
         handleClick={betOne}
         text={'BET +'}
-        disabled={status !== 'pendingNewGame'}
+        // disabled={status !== 'pendingNewGame'}
       />
       <PokerButton
         handleClick={betMax}
         text={'MAX BET'}
-        disabled={status !== 'pendingNewGame'}
+        // disabled={status !== 'pendingNewGame'}
       />
       <PokerButton
         handleClick={dealOrDraw}
@@ -58,3 +51,13 @@ export const BottomButtons = ({
     </div>
   );
 };
+
+/* 
+  <PokerButton
+    handleClick={toggleOdds}
+    text={'LOBBY'}
+    background={'black'}
+    color={'white'}
+    disabled={status !== 'pendingNewGame'}
+  /> 
+*/

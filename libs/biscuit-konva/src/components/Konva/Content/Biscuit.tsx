@@ -1,7 +1,8 @@
 import React from 'react';
 import { Group } from 'react-konva';
 import { Eye, AnimatedRectangle, AnimatedImage, AnimatedText } from '../';
-import { useStagePositions } from '../../hooks';
+// import { useStagePositions } from '../../hooks';
+import { useEyeMovement } from '../../hooks/useEyeMovement';
 import { getInnerPosition } from '../../utils/getInnerPosition';
 
 import {
@@ -35,7 +36,7 @@ export const Biscuit = (props: BiscuitObject) => {
     // id,
   } = props;
 
-  const focalPoint = useStagePositions({ canvasRef });
+  const focalPoint = useEyeMovement({ canvasRef });
 
   const { width, height } = box;
   const squareWH = Math.min(width, height);

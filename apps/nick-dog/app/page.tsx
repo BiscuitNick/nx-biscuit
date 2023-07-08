@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { HomePage } from '@biscuitnick/biscuit-ui';
+import { NickDogHomePage } from '@biscuitnick/biscuit-ui';
 
 const navItems = [
   { name: 'Projects', href: '/projects' },
@@ -8,7 +10,7 @@ const navItems = [
 
 export default function Home() {
   return (
-    <HomePage
+    <NickDogHomePage
       title={'NICK.DOG'}
       description={['Web | Games | Apps', 'Design & Development']}
       navItems={navItems}

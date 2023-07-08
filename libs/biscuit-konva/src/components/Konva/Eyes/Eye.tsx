@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AnimatedRectangle, AnimatedCircle } from '../';
 import getRatio from '../../utils/getRatio';
 import { Group } from 'react-konva';
@@ -78,6 +78,8 @@ const Eye = (props: EyeProps) => {
     draggable,
   } = props;
 
+  const blinkInterval = 5000;
+
   const ratio = getRatio({ ratio: w2h || 1, sum: 2 });
 
   const groupProps = {
@@ -96,9 +98,19 @@ const Eye = (props: EyeProps) => {
     box: props.box,
   };
 
+  const [blink, setBlink] = useSpring(() => {
+    return {
+      to: { scaleY: ratio[1] },
+      from: { scaleY: 0.1 },
+    };
+  }, []);
+
+  useEffect(() => {
+    setBlink.update({ loop: true, delay: blinkInterval }).start();
+  }, [setBlink, blinkInterval]);
+
   const animatedGroup = useSpring({
     scaleX: ratio[0],
-    scaleY: ratio[1],
     rotation: outerRotation || 0,
     x,
     y,
@@ -189,6 +201,7 @@ const Eye = (props: EyeProps) => {
     <animated.Group
       contentID={props.contentID}
       id={props.contentID}
+      {...blink}
       {...animatedGroup}
       onDragStart={props.handleDrag}
       onDragEnd={props.handleDrag}

@@ -7,7 +7,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log('markdown/layout.tsx');
   return (
     <MathJaxContext>
       <div style={{ pointerEvents: 'none' }}>{children}</div>
