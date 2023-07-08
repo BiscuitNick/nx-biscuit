@@ -5,24 +5,35 @@ import { getHandTitle } from '../math';
 import { payouts96, valueCounts, valueCounter } from '../constants';
 import { sleep } from '../../blackjack/helpers';
 
-export const useVideoPoker = () => {
+interface useVideoPokerProps {
+  initBet?: number;
+  initCredits?: number;
+  initStatus?: string;
+  initCards?: number[];
+  initHolds?: boolean[];
+  initShowOdds?: boolean;
+}
+
+export const useVideoPoker = (props: useVideoPokerProps) => {
+  const {
+    initBet = 5,
+    initCredits = 195,
+    initStatus = 'pendingNewGame',
+    initCards = [-1, -1, -1, -1, -1],
+    initHolds = [false, false, false, false, false],
+    initShowOdds = true,
+  } = props;
   const [deck, setDeck] = useState<number[]>(shuffledDeck(1));
-  const [status, setStatus] = useState<string>('pendingNewGame');
-  const [showOdds, setShowOdds] = useState<boolean>(true);
-  const [credits, setCredits] = useState<number>(199);
-  const [bet, setBet] = useState<number>(1);
-  const [cards, setCards] = useState<number[]>([-1, -1, -1, -1, -1]);
-  const [holds, setHolds] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-  const [winningHand, setWinningHand] = useState<string>('Royal Flush');
+  const [status, setStatus] = useState<string>(initStatus);
+  const [showOdds, setShowOdds] = useState<boolean>(initShowOdds);
+  const [bet, setBet] = useState<number>(initBet);
+  const [credits, setCredits] = useState<number>(initCredits);
+  const [cards, setCards] = useState<number[]>(initCards);
+  const [holds, setHolds] = useState<boolean[]>(initHolds);
+  const [winningHand, setWinningHand] = useState<string>('High Card');
+  const [calculatingOdds, setCalculating] = useState<boolean>(false);
   const [percents, setPercents] = useState<valueCounts>(valueCounter);
   const [counts, setCounts] = useState<valueCounts>(valueCounter);
-  const [expectedValue, setExpectedValue] = useState<any>({});
   // TODO allow other payouts
   const payouts = payouts96;
 
@@ -103,6 +114,7 @@ export const useVideoPoker = () => {
 
   useEffect(() => {
     async function calculateOdds() {
+      setCalculating(true);
       const holdCards: number[] = [];
       const muckCards: number[] = [];
       holds.forEach((h, i) => {
@@ -113,7 +125,11 @@ export const useVideoPoker = () => {
         }
       });
 
-      // console.log(holdCards, muckCards);
+      const holdStr = holdCards.sort((a, b) => (a > b ? 1 : -1)).join(',');
+      const muckStr = muckCards.sort((a, b) => (a > b ? 1 : -1)).join(',');
+      const key = `${holdStr}-${muckStr}`;
+
+      console.log(key);
 
       const endpoint = '/api/poker';
       const options = {
@@ -128,6 +144,7 @@ export const useVideoPoker = () => {
 
       setCounts(c);
       setPercents(p);
+      setCalculating(false);
     }
 
     if (showOdds) {
@@ -161,5 +178,7 @@ export const useVideoPoker = () => {
     dealOrDraw,
     percents,
     counts,
+    calculatingOdds,
+    setCalculating,
   };
 };

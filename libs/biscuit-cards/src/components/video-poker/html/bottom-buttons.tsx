@@ -29,17 +29,17 @@ export const BottomButtons = ({
       <PokerButton
         handleClick={minusBet}
         text={'BET -'}
-        disabled={status !== 'pendingNewGame'}
+        // disabled={status !== 'pendingNewGame'}
       />
       <PokerButton
         handleClick={betOne}
         text={'BET +'}
-        disabled={status !== 'pendingNewGame'}
+        // disabled={status !== 'pendingNewGame'}
       />
       <PokerButton
         handleClick={betMax}
         text={'MAX BET'}
-        disabled={status !== 'pendingNewGame'}
+        // disabled={status !== 'pendingNewGame'}
       />
       <PokerButton
         handleClick={dealOrDraw}

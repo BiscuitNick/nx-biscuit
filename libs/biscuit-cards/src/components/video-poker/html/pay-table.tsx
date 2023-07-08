@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   PayoutSchedule,
   handValueTitles,
@@ -10,16 +11,24 @@ interface PayTableProps {
   hand: string;
   payouts: PayoutSchedule;
   showOdds?: boolean;
-  odds: valueCounts;
+  percents: valueCounts;
+  counts: valueCounts;
+  calculatingOdds: boolean;
 }
+
+const oddModes = ['Expected Value', 'Percentages', 'Total Occurences'];
 
 export const PayTable = ({
   credits,
   hand,
   payouts,
   showOdds,
-  odds,
+  percents,
+  counts,
+  calculatingOdds,
 }: PayTableProps) => {
+  const [oddsMode, setOddsMode] = useState<string>(oddModes[0]);
+
   const titlesColumn = handValues.map((val: string) => (
     <div
       className="pay-table-cell left"
@@ -51,17 +60,15 @@ export const PayTable = ({
       );
     });
     if (showOdds) {
-      payoutsColumn.push(<div className="pay-table-cell"></div>);
+      payoutsColumn.push(
+        <div key="odds-cell" className="pay-table-cell"></div>
+      );
     }
     payoutsColumns.push(
       <div
+        className="pay-table-column"
         key={i}
         style={{
-          display: 'grid',
-          textAlign: 'right',
-          border: '1px yellow solid',
-          padding: 5,
-
           background: i + 1 === credits ? '#d90e29' : '#2c2c2c',
         }}
       >
@@ -70,62 +77,89 @@ export const PayTable = ({
     );
   }
 
-  let netEv = 0;
+  let total = 0;
 
   const oddsColumn: JSX.Element[] = handValues.map((val: string, i) => {
-    const payoutCredits = payouts[val][credits - 1] || 0;
-    const ev = odds[val] * payoutCredits;
-    netEv += ev;
+    if (calculatingOdds) {
+      return (
+        <div className="pay-table-cell" key={i}>
+          .........
+        </div>
+      );
+    }
+    if (oddsMode === 'Expected Value') {
+      const payoutCredits = payouts[val][credits - 1] || 0;
+      const ev = percents[val] * payoutCredits;
+      total += ev;
 
-    return (
-      <div className="pay-table-cell" key={i}>
-        {ev > 0 ? ev.toFixed(4) : '-'}
-      </div>
-    );
+      return (
+        <div className="pay-table-cell" key={i}>
+          {ev > 0 ? ev.toPrecision(3) : '-'}
+        </div>
+      );
+    } else if (oddsMode === 'Percentages') {
+      const percent = percents[val] * 100;
+      total += percent;
+
+      return (
+        <div className="pay-table-cell" key={i}>
+          {percent > 0 ? `${percent.toPrecision(3)}%` : '-'}
+        </div>
+      );
+    } else if (oddsMode === 'Total Occurences') {
+      const count = counts[val];
+      total += count;
+
+      return (
+        <div className="pay-table-cell" key={i}>
+          {count > 0 ? count : '-'}
+        </div>
+      );
+    } else {
+      return <div className="pay-table-cell" key={i}></div>;
+    }
   });
 
   if (showOdds) {
     titlesColumn.push(
-      <div className="pay-table-cell left">Expected Value</div>
+      <div key="ev-title" className="pay-table-cell left">
+        {oddsMode}
+      </div>
     );
     oddsColumn.push(
-      <div className="pay-table-cell">{netEv > 0 ? netEv.toFixed(4) : '-'}</div>
+      <div key="ev-total" className="pay-table-cell">
+        {calculatingOdds
+          ? '.........'
+          : total > 0
+          ? oddsMode === 'Expected Value'
+            ? total.toPrecision(3)
+            : oddsMode === 'Percentages'
+            ? `${total.toPrecision(3)}%`
+            : oddsMode === 'Total Occurences'
+            ? total
+            : '-'
+          : '-'}
+      </div>
     );
   }
 
   return (
     <div
+      className="pay-table"
       style={{
-        display: 'grid',
-        gridAutoFlow: 'column',
-        // gridTemplateColumns: 'auto '.repeat(showOdds ? 7 : 6),
-        width: '100%',
-        background: '#2c2c2c',
-        border: 'yellow 1px solid',
-        // padding: 10,
-
-        color: 'yellow',
-        margin: 'auto',
-
-        marginTop: 10,
+        gridTemplateColumns: `auto repeat(${showOdds ? 6 : 5}, 1fr)`,
       }}
     >
-      <div
-        style={{
-          display: 'grid',
-          border: '1px yellow solid',
-          padding: 5,
-        }}
-      >
-        {titlesColumn}
-      </div>
+      <div className="pay-table-column">{titlesColumn}</div>
       {payoutsColumns}
       {showOdds && (
         <div
-          style={{
-            display: 'grid',
-            border: '1px yellow solid',
-            padding: 5,
+          className="pay-table-column"
+          onClick={() => {
+            const index = oddModes.indexOf(oddsMode);
+            const newIndex = index + 1 >= oddModes.length ? 0 : index + 1;
+            const newMode = oddModes[newIndex];
+            setOddsMode(newMode);
           }}
         >
           {oddsColumn}

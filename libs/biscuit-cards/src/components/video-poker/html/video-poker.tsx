@@ -4,7 +4,11 @@ import { BottomButtons } from './bottom-buttons';
 import '../Poker.css';
 import { useVideoPoker } from '../hooks/use-video-poker';
 
-export const VideoPoker = () => {
+interface VideoPokerProps {
+  width?: number;
+}
+
+export const VideoPoker = (props: VideoPokerProps) => {
   const {
     status,
     showOdds,
@@ -22,7 +26,12 @@ export const VideoPoker = () => {
     dealOrDraw,
     percents,
     counts,
-  } = useVideoPoker();
+    calculatingOdds,
+  } = useVideoPoker({
+    initCards: [9, 10, 24, 12, 0],
+    initHolds: [true, true, true, true, false],
+    initStatus: 'pendingDraw',
+  });
 
   return (
     <div className="draw-poker-container">
@@ -31,7 +40,9 @@ export const VideoPoker = () => {
         hand={winningHand}
         payouts={payouts}
         showOdds={showOdds}
-        odds={percents}
+        percents={percents}
+        counts={counts}
+        calculatingOdds={calculatingOdds}
       />
       <div className="draw-poker-status">
         <div className="border-text" style={{ margin: 'auto' }}>
@@ -45,11 +56,8 @@ export const VideoPoker = () => {
         status={status}
       />
       <div className="draw-poker-status">
-        <div className="border-text">BET {bet}</div>
-        <div className="border-text" style={{ textAlign: 'center' }}></div>
-        <div className="border-text" style={{ textAlign: 'right' }}>
-          CREDITS {credits}
-        </div>
+        <div className="border-text left">BET {bet}</div>
+        <div className="border-text right">CREDITS {credits}</div>
       </div>
 
       <BottomButtons

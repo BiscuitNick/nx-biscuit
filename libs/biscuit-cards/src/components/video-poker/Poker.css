@@ -1,3 +1,14 @@
+:root {
+  --draw-poker-background: blue;
+  --draw-poker-text-color: red;
+  --pay-table-text-color: yellow;
+  --flip-card-border-radius: 5px;
+  --flip-card-background: red;
+  --flip-card-image: url('/textures/3px-tile.png');
+  --flip-card-border-color: white;
+  --flip-card-border-width: 3px;
+}
+
 .flip-card-wrapper {
   perspective: 1000px;
   user-select: none;
@@ -20,25 +31,21 @@
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
-
-  border-radius: 5px;
-  border: solid black 1px;
-
+  border-radius: var(--flip-card-border-radius);
   overflow: hidden;
 }
 
 .flip-card-front {
-  color: black;
   transform: rotateY(0deg);
 }
 
 .flip-card-back {
-  /* padding: 5px; */
+  background-color: var(--flip-card-background);
+  background-image: var(--flip-card-image);
 
-  background-color: red;
-  background-image: url('/textures/3px-tile.png');
-
-  border: white 3px solid;
+  border-color: var(--flip-card-border-color);
+  border-width: var(--flip-card-border-width);
+  border-style: solid;
 
   transform: rotateY(180deg);
 }
@@ -46,15 +53,10 @@
 .draw-poker-button {
   color: black;
   background: white;
-  /* background: yellow; */
-  /* width: 65px;
-  height: 60px; */
   width: 120px;
   text-shadow: none;
   padding: 5px;
-
   border-radius: 3px;
-
   font-size: small;
 }
 
@@ -83,7 +85,7 @@
   font-family: Arial black;
   font-weight: bolder;
   font-size: x-large;
-  color: red;
+  color: var(--draw-poker-text-color);
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: yellow;
 }
@@ -108,7 +110,7 @@
   grid-gap: 20px;
   width: 650px;
   margin: auto;
-  background: blue;
+  background: var(--draw-poker-background);
   padding: 10px;
   box-sizing: border-box;
 }
@@ -126,4 +128,24 @@
 
 .left {
   text-align: left;
+}
+.right {
+  text-align: right;
+}
+
+.pay-table {
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+  background: #2c2c2c;
+  border: yellow 1px solid;
+  color: var(--pay-table-text-color);
+  margin: auto;
+  margin-top: 10px;
+}
+
+.pay-table-column {
+  display: grid;
+  border: yellow 1px solid;
+  padding: 5px;
 }

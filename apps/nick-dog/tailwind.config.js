@@ -142,7 +142,7 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         title: 'title 3s ease-out forwards',
-        'fade-in': 'fade-in 6s ease-in-out forwards',
+        'fade-in': 'fade-in 5s ease-in-out forwards',
         'fade-left': 'fade-left 3s ease-in-out forwards',
         'fade-right': 'fade-right 3s ease-in-out forwards',
         'exit-top': 'exit-top 2s ease-out forwards',

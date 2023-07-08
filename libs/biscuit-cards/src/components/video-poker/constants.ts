@@ -38,7 +38,9 @@ export const handValues = [
   '300',
   '200',
   '110',
-]; // '100', '0'];
+  '100',
+  '0',
+];
 
 export const payouts96: PayoutSchedule = {
   900: [250, 500, 750, 1000, 4000],
