@@ -20,6 +20,8 @@
       "@biscuitnick/biscuit-ui": ["libs/biscuit-ui/src/index.ts"],
       "@biscuitnick/biscuit-words": ["libs/biscuit-words/src/index.ts"],
       "@biscuitnick/biscuit-words/server": ["libs/biscuit-words/src/server.ts"],
+      "@biscuitnick/math": ["libs/math/src/index.ts"],
+      "@biscuitnick/utils": ["libs/utils/src/index.ts"],
       "@nx-biscuit/biscuit-cards": ["libs/biscuit-cards/src/index.ts"],
       "@nx-biscuit/biscuit-cards/server": ["libs/biscuit-cards/src/server.ts"],
       "@nx-biscuit/biscuit-ui/server": ["libs/biscuit-ui/src/server.ts"]

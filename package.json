@@ -12,7 +12,6 @@
     "@mdx-js/react": "^2.3.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.6",
-    "@next/font": "^13.4.7",
     "@next/mdx": "^13.4.7",
     "@nx/next": "16.3.2",
     "@react-spring/konva": "^9.7.2",
@@ -80,6 +79,7 @@
     "tailwindcss": "3.2.7",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "verdaccio": "^5.0.4"
   }
 }
