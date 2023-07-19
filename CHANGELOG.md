@@ -56,3 +56,7 @@ This all appears related to the Canvas package.
 Update Type definitions
 Add env.example.
 Add SENDGRID_API_KEY and integration for Contact form.
+
+### 0.1.1
+
+0.1.0 failed to create a deployment on Vercel. Adding superficial change to try again.
