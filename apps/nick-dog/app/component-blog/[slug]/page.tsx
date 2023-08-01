@@ -1,10 +1,11 @@
 'use client';
 
 import { VideoPoker } from '@nx-biscuit/biscuit-cards';
+const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 async function getData(slug: string) {
   const res = await fetch(
-    `http://0.0.0.0:1337/api/component-posts?filters[slug][$eq]=${slug}`,
+    `${STRAPI_API_PATH}/api/component-posts?filters[slug][$eq]=${slug}`,
     {
       next: { revalidate: 10 },
     }

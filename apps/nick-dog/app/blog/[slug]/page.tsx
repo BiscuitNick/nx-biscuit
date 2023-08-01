@@ -1,6 +1,8 @@
+const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
+
 async function getData(slug: string) {
   const res = await fetch(
-    `http://0.0.0.0:1337/api/blogs?filters[slug][$eq]=${slug}`,
+    `${STRAPI_API_PATH}/api/blogs?filters[slug][$eq]=${slug}`,
     {
       next: { revalidate: 10 },
     }

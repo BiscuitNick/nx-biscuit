@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-key */
 import Link from 'next/link';
+const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 async function getData() {
-  const res = await fetch('http://0.0.0.0:1337/api/component-posts', {
+  const res = await fetch(`${STRAPI_API_PATH}/api/component-posts`, {
     next: { revalidate: 10 },
   });
   // The return value is *not* serialized
