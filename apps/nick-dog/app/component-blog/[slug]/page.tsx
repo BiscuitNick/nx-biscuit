@@ -29,6 +29,11 @@ export default async function Page({
   return (
     <main className="text-white">
       <div>{JSON.stringify(data)}</div>
+      <div>
+        {data.length > 0
+          ? JSON.stringify(data[0].attributes.content)
+          : 'loading...'}
+      </div>
     </main>
   );
 }
