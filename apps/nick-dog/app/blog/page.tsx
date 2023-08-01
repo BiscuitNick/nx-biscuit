@@ -4,7 +4,7 @@ const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 async function getData() {
   const res = await fetch(`${STRAPI_API_PATH}/api/blogs`, {
-    next: { revalidate: 10 },
+    next: { revalidate: 999999 },
   });
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

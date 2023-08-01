@@ -4,7 +4,7 @@ const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 async function getData() {
   const res = await fetch(`${STRAPI_API_PATH}/api/component-posts`, {
-    next: { revalidate: 10 },
+    next: { revalidate: 3600 },
   });
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -29,7 +29,6 @@ export default async function Page() {
     (d: { attributes: { title: string; slug: string } }) => (
       <div>
         <Link href={`/component-blog/${d.attributes.slug}`}>
-          {' '}
           {d.attributes.title}
         </Link>
       </div>
