@@ -32,14 +32,15 @@ export default async function Page({
 
   return (
     <main className="text-white">
-      {content.map((c: any) => {
+      {JSON.stringify(content)}
+      {/* {content.map((c: any) => {
         return c.type === 'text' ? (
           <div>{c.content}</div>
         ) : c.type === 'video-poker' ? (
           <VideoPoker initCards={[3, 4, 5, 6, 8]} />
         ) : null;
       })}
-      <div>{content.length}</div>
+      <div>{content.length}</div> */}
     </main>
   );
 }
