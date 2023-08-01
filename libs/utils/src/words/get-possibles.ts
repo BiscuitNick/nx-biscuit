@@ -1,4 +1,4 @@
-const getPossibles = (
+export const getPossibles = (
   wordList: string[],
   matchStrings: string[],
   inWordStrings: string[],
@@ -50,4 +50,4 @@ const getPossibles = (
   return filteredWords;
 };
 
-export default getPossibles;
+// export default getPossibles;

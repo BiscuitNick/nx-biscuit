@@ -9,6 +9,8 @@ const withMDX = require('@next/mdx')();
  **/
 
 const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr

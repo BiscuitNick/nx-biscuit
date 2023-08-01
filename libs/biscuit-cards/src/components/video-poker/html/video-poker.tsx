@@ -6,9 +6,11 @@ import { useVideoPoker } from '../hooks/use-video-poker';
 
 interface VideoPokerProps {
   width?: number;
+  initCards?: number[];
 }
 
 export const VideoPoker = (props: VideoPokerProps) => {
+  const { initCards } = props;
   const {
     status,
     showOdds,
@@ -28,7 +30,7 @@ export const VideoPoker = (props: VideoPokerProps) => {
     counts,
     calculatingOdds,
   } = useVideoPoker({
-    initCards: [9, 10, 24, 12, 0],
+    initCards: initCards,
     initHolds: [true, true, true, true, false],
     initStatus: 'pendingDraw',
   });

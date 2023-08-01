@@ -2,7 +2,7 @@
 import Link from 'next/link';
 
 async function getData() {
-  const res = await fetch('http://0.0.0.0:1337/api/blogs', {
+  const res = await fetch('http://0.0.0.0:1337/api/component-posts', {
     next: { revalidate: 10 },
   });
   // The return value is *not* serialized
@@ -27,7 +27,10 @@ export default async function Page() {
   const TitleLinks = data.map(
     (d: { attributes: { title: string; slug: string } }) => (
       <div>
-        <Link href={`/blog/${d.attributes.slug}`}> {d.attributes.title}</Link>
+        <Link href={`/component-blog/${d.attributes.slug}`}>
+          {' '}
+          {d.attributes.title}
+        </Link>
       </div>
     )
   );
