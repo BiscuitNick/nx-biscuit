@@ -1,13 +1,10 @@
-'use client';
-
-import { VideoPoker } from '@nx-biscuit/biscuit-cards';
 const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 async function getData(slug: string) {
   const res = await fetch(
     `${STRAPI_API_PATH}/api/component-posts?filters[slug][$eq]=${slug}`
     // {
-    //   next: { revalidate: 36 },
+    //   next: { revalidate: 10 },
     // }
   );
 
@@ -28,19 +25,10 @@ export default async function Page({
   params: { slug: string };
 }) {
   const { data } = await getData(slug);
-  const { content } = data[0].attributes;
 
   return (
     <main className="text-white">
-      {JSON.stringify(content)}
-      {/* {content.map((c: any) => {
-        return c.type === 'text' ? (
-          <div>{c.content}</div>
-        ) : c.type === 'video-poker' ? (
-          <VideoPoker initCards={[3, 4, 5, 6, 8]} />
-        ) : null;
-      })}
-      <div>{content.length}</div> */}
+      <div>{JSON.stringify(data)}</div>
     </main>
   );
 }
