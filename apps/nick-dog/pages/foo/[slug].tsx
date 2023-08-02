@@ -1,4 +1,4 @@
-// import { DummyPoker } from '@nx-biscuit/biscuit-cards';
+import { DummyPoker } from '@nx-biscuit/biscuit-cards';
 
 // const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
@@ -49,8 +49,7 @@ export default function Page({ content }: ContentArray) {
         return c.type === 'text' ? (
           <div key={i}>{c.content}</div>
         ) : c.type === 'video-poker' ? (
-          //   <DummyPoker key={i} />
-          <div> {JSON.stringify(c)}</div>
+          <DummyPoker key={i} />
         ) : null;
       })}
     </main>
