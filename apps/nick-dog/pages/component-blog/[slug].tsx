@@ -5,7 +5,7 @@ const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 export function getStaticPaths() {
   return {
     paths: [],
-    fallback: true, // false or "blocking"
+    fallback: 'blocking', // false or "blocking"
   };
 }
 
