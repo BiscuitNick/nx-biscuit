@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { VideoPokerCanvas } from '@nx-biscuit/biscuit-cards';
+// import { VideoPokerCanvas } from '@nx-biscuit/biscuit-cards';
 
 export default function Home() {
   const [width, setWidth] = useState(0);
@@ -16,12 +16,13 @@ export default function Home() {
 
   return (
     <div style={{ display: 'grid' }}>
-      <VideoPokerCanvas
+      Placeholder
+      {/* <VideoPokerCanvas
         width={width}
         height={height}
         style={{ margin: 'auto' }}
         bgColor={'blue'}
-      />
+      /> */}
     </div>
   );
 }

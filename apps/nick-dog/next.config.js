@@ -52,7 +52,7 @@ const nextConfig = {
     );
     return config;
   },
-  transpilePackages: ['@biscuitnick/biscuit-konva'],
+  // transpilePackages: ['@biscuitnick/biscuit-konva'],
   experimental: {
     legacyBrowsers: false,
     outputFileTracingIgnores: ['**canvas**'],
