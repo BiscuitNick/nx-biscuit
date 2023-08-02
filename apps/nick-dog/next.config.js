@@ -17,7 +17,7 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
-  webpack: (config) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // if (
     //   process.env.LD_LIBRARY_PATH == null ||
     //   !process.env.LD_LIBRARY_PATH.includes(
@@ -44,12 +44,12 @@ const nextConfig = {
       sharp: 'commonjs sharp',
       canvas: 'commonjs canvas',
     });
-    // config.plugins.push(
-    //   new webpack.ProvidePlugin({
-    //     Buffer: ['buffer', 'Buffer'],
-    //     process: 'process/browser',
-    //   })
-    // );
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        // process: 'process/browser',
+      })
+    );
     return config;
   },
   experimental: {
