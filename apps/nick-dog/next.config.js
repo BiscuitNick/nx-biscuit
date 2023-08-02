@@ -1,7 +1,7 @@
 //@ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const { composePlugins, withNx } = require('@nx/next');
 const withMDX = require('@next/mdx')();
 
@@ -34,8 +34,8 @@ const nextConfig = {
     };
     config.resolve.fallback = {
       process: require.resolve('process/browser'),
-      // zlib: require.resolve('browserify-zlib'),
-      // stream: require.resolve('stream-browserify'),
+      zlib: require.resolve('browserify-zlib'),
+      stream: require.resolve('stream-browserify'),
       util: require.resolve('util'),
       buffer: require.resolve('buffer'),
       asset: require.resolve('assert'),
@@ -44,12 +44,12 @@ const nextConfig = {
       sharp: 'commonjs sharp',
       canvas: 'commonjs canvas',
     });
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        Buffer: ['buffer', 'Buffer'],
-        process: 'process/browser',
-      })
-    );
+    // config.plugins.push(
+    //   new webpack.ProvidePlugin({
+    //     Buffer: ['buffer', 'Buffer'],
+    //     process: 'process/browser',
+    //   })
+    // );
     return config;
   },
   experimental: {
