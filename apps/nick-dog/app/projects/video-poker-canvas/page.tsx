@@ -17,7 +17,10 @@ export default function Home() {
   return (
     <div style={{ display: 'grid' }}>
       <VideoPokerCanvas
-
+        width={width}
+        height={height}
+        style={{ margin: 'auto' }}
+        bgColor={'blue'}
       />
     </div>
   );

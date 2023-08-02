@@ -1,22 +1,20 @@
-// import { Stage, Layer, Rect } from 'react-konva';
+import { Stage, Layer, Rect } from 'react-konva';
 
-// interface VideoPokerCanvasProps {
-//   width: number;
-//   height: number;
-//   style: any;
-//   bgColor: string;
-// }
+interface VideoPokerCanvasProps {
+  width: number;
+  height: number;
+  style: any;
+  bgColor: string;
+}
 
-//props: VideoPokerCanvasProps
-export const VideoPokerCanvas = () => {
-  // const { width, height, style, bgColor } = props;
+export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
+  const { width, height, style, bgColor } = props;
 
   return (
-    <div>Canvas Place Holder -- react-konva import is breaking deployments</div>
-    // <Stage width={width} height={height} style={style}>
-    //   <Layer>
-    //     <Rect width={width} height={height} fill={bgColor} />
-    //   </Layer>
-    // </Stage>
+    <Stage width={width} height={height} style={style}>
+      <Layer>
+        <Rect width={width} height={height} fill={bgColor} />
+      </Layer>
+    </Stage>
   );
 };
