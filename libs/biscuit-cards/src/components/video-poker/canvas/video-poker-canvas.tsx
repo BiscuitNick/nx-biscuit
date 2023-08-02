@@ -1,4 +1,4 @@
-import { Stage, Layer, Rect } from 'react-konva';
+// import { Stage, Layer, Rect } from 'react-konva';
 import { useState, useEffect } from 'react';
 interface VideoPokerCanvasProps {
   width: number;
@@ -15,13 +15,5 @@ export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
     setReady(true);
   }, []);
 
-  return ready ? (
-    <Stage width={width} height={height} style={style}>
-      <Layer>
-        <Rect width={width} height={height} fill={bgColor} />
-      </Layer>
-    </Stage>
-  ) : (
-    <div>Loading...</div>
-  );
+  return ready ? <div>Ready...</div> : <div>Loading...</div>;
 };
