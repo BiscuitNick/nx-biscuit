@@ -1,5 +1,5 @@
-// import { DummyPoker } from '@nx-biscuit/biscuit-cards';
-import { Foo } from '@biscuitnick/biscuit-words';
+import { DummyPoker } from '@nx-biscuit/biscuit-cards';
+// import { Foo } from '@biscuitnick/biscuit-words';
 // const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 export function getStaticPaths() {
@@ -49,7 +49,7 @@ export default function Page({ content }: ContentArray) {
         return c.type === 'text' ? (
           <div key={i}>{c.content}</div>
         ) : c.type === 'video-poker' ? (
-          <Foo key={i} />
+          <DummyPoker key={i} />
         ) : null;
       })}
     </main>

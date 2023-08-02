@@ -1,20 +1,21 @@
-import { Stage, Layer, Rect } from 'react-konva';
+// import { Stage, Layer, Rect } from 'react-konva';
 
-interface VideoPokerCanvasProps {
-  width: number;
-  height: number;
-  style: any;
-  bgColor: string;
-}
+// interface VideoPokerCanvasProps {
+//   width: number;
+//   height: number;
+//   style: any;
+//   bgColor: string;
+// }
 
 export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
   const { width, height, style, bgColor } = props;
 
   return (
-    <Stage width={width} height={height} style={style}>
-      <Layer>
-        <Rect width={width} height={height} fill={bgColor} />
-      </Layer>
-    </Stage>
+    <div>Canvas Place Holder -- react-konva import is breaking deployments</div>
+    // <Stage width={width} height={height} style={style}>
+    //   <Layer>
+    //     <Rect width={width} height={height} fill={bgColor} />
+    //   </Layer>
+    // </Stage>
   );
 };
