@@ -46,7 +46,7 @@ export default function Page({ content }: ContentArray) {
         return c.type === 'text' ? (
           <div key={i}>{c.content}</div>
         ) : c.type === 'video-poker' ? (
-          <VideoPoker key={i} />
+          <div>{c.type}</div>
         ) : null;
       })}
     </main>
