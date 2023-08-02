@@ -1,6 +1,7 @@
 //@ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const webpack = require('webpack');
 const { composePlugins, withNx } = require('@nx/next');
 const withMDX = require('@next/mdx')();
 
@@ -43,12 +44,12 @@ const nextConfig = {
       sharp: 'commonjs sharp',
       canvas: 'commonjs canvas',
     });
-    // config.plugins.push(
-    //   new webpack.ProvidePlugin({
-    //     Buffer: ['buffer', 'Buffer'],
-    //     process: 'process/browser',
-    //   })
-    // );
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        process: 'process/browser',
+      })
+    );
     return config;
   },
   experimental: {
