@@ -1,6 +1,6 @@
 import { DummyPoker } from '@nx-biscuit/biscuit-cards';
 
-const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
+// const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 export function getStaticPaths() {
   return {
@@ -14,18 +14,21 @@ export async function getStaticProps({
 }: {
   params: { slug: string };
 }) {
-  const res = await fetch(
-    `${STRAPI_API_PATH}/api/component-posts?filters[slug][$eq]=${slug}`
-  );
+  //   const res = await fetch(
+  //     `${STRAPI_API_PATH}/api/component-posts?filters[slug][$eq]=${slug}`
+  //   );
 
-  const { data } = await res.json();
-  const {
-    attributes: { content },
-  } = data[0];
+  //   const { data } = await res.json();
+  //   const {
+  //     attributes: { content },
+  //   } = data[0];
 
   return {
     props: {
-      content,
+      content: [
+        { type: 'text', content: 'hello there' },
+        { type: 'video-poker' },
+      ],
     },
   };
 }
