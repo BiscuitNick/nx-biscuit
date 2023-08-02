@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps<{
 export default function Page({ slugs }: { slugs: string[] }) {
   const TitleLinks = slugs.map((slug: string) => (
     <div key={slug}>
-      <Link href={`/component-blog/${slug}`}>{slug}</Link>
+      <Link href={`/foo/${slug}`}>{slug}</Link>
     </div>
   ));
   return <main className="text-white">{TitleLinks}</main>;
