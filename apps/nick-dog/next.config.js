@@ -15,19 +15,19 @@ const nextConfig = {
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
-    svgr: false,
+    svgr: true,
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // if (
-    //   process.env.LD_LIBRARY_PATH == null ||
-    //   !process.env.LD_LIBRARY_PATH.includes(
-    //     `${process.env.PWD}/node_modules/canvas/build/Release:`
-    //   )
-    // ) {
-    //   process.env.LD_LIBRARY_PATH = `${
-    //     process.env.PWD
-    //   }/node_modules/canvas/build/Release:${process.env.LD_LIBRARY_PATH || ''}`;
-    // }
+    if (
+      process.env.LD_LIBRARY_PATH == null ||
+      !process.env.LD_LIBRARY_PATH.includes(
+        `${process.env.PWD}/node_modules/canvas/build/Release:`
+      )
+    ) {
+      process.env.LD_LIBRARY_PATH = `${
+        process.env.PWD
+      }/node_modules/canvas/build/Release:${process.env.LD_LIBRARY_PATH || ''}`;
+    }
     config.experiments = {
       ...config.experiments,
       topLevelAwait: true,
