@@ -7,8 +7,9 @@
 //   bgColor: string;
 // }
 
-export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
-  const { width, height, style, bgColor } = props;
+//props: VideoPokerCanvasProps
+export const VideoPokerCanvas = () => {
+  // const { width, height, style, bgColor } = props;
 
   return (
     <div>Canvas Place Holder -- react-konva import is breaking deployments</div>
