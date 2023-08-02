@@ -1,4 +1,4 @@
-import { DummyPoker } from '@nx-biscuit/biscuit-cards';
+import { VideoPoker } from '@nx-biscuit/biscuit-cards';
 // import { Foo } from '@biscuitnick/biscuit-words';
 // const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
@@ -49,7 +49,7 @@ export default function Page({ content }: ContentArray) {
         return c.type === 'text' ? (
           <div key={i}>{c.content}</div>
         ) : c.type === 'video-poker' ? (
-          <DummyPoker key={i} />
+          <VideoPoker key={i} />
         ) : null;
       })}
     </main>
