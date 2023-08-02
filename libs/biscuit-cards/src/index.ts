@@ -6,5 +6,6 @@ export * from './components/video-poker/html/video-poker';
 export * from './components/video-poker/canvas';
 export * from './components/video-poker/math';
 export * from './components/video-poker/dummy';
+export * from './components/video-poker/hooks/use-video-poker';
 
 // export * from './lib/deck';
