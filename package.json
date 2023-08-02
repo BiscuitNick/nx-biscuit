@@ -24,7 +24,7 @@
     "ai": "^2.1.28",
     "better-react-mathjax": "^2.0.2",
     "browserify-zlib": "^0.2.0",
-    "canvas": "^2.11.2",
+    "canvas": "https://registry.yarnpkg.com/@favware/skip-dependency/-/skip-dependency-1.2.1.tgz",
     "formik": "^2.4.2",
     "konva": "^9.2.0",
     "next": "^13.4.8",
