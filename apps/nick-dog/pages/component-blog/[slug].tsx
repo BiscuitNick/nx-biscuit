@@ -1,6 +1,8 @@
 // import { DummyPoker } from '@nx-biscuit/biscuit-cards';
 
 // const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
+'use client';
+import { Fiber } from '@biscuitnick/biscuit-ui';
 
 export function getStaticPaths() {
   return {
@@ -50,8 +52,9 @@ export default function Page({ content }: ContentArray) {
           <div key={i}>{c.content}</div>
         ) : c.type === 'video-poker' ? (
           //   <DummyPoker key={i} />
-          <div> {JSON.stringify(c)}</div>
-        ) : null;
+          <Fiber key={i} />
+        ) : //   <div> {JSON.stringify(c)}</div>
+        null;
       })}
     </main>
   );
