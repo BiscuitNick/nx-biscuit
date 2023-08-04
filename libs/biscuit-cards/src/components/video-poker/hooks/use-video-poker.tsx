@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { shuffledDeck, shuffle } from '../../../lib/deck';
-import { getHandTitle } from '../math';
+import { getHandTitle, getHandValue } from '../math';
 import { payouts96, valueCounts, valueCounter } from '../constants';
 import { sleep } from '../../blackjack/helpers';
+import { handValues, handValueTitles } from '../constants';
 
 interface useVideoPokerProps {
   initBet?: number;
@@ -17,7 +18,7 @@ interface useVideoPokerProps {
 export const useVideoPoker = (props: useVideoPokerProps) => {
   const {
     initBet = 5,
-    initCredits = 195,
+    initCredits = 1000,
     initStatus = 'pendingNewGame',
     initCards = [-1, -1, -1, -1, -1],
     initHolds = [false, false, false, false, false],
@@ -34,6 +35,11 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   const [calculatingOdds, setCalculating] = useState<boolean>(false);
   const [percents] = useState<valueCounts>(valueCounter); //setPercents
   const [counts] = useState<valueCounts>(valueCounter); //setCounts
+  const [winnings, setWinnings] = useState<number>(0);
+
+  const [handTitles, setHandTitles] = useState<string[]>(
+    handValues.map((val: string) => handValueTitles[val])
+  );
   // TODO allow other payouts
   const payouts = payouts96;
 
@@ -45,7 +51,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   };
 
   const minusBet = () => {
-    const newBet = bet - 1 >= 0 ? bet - 1 : 0;
+    const newBet = bet - 1 >= 1 ? bet - 1 : 1;
     const diff = bet - newBet;
     const newCredits = credits + diff;
 
@@ -68,7 +74,10 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
 
   const dealOrDraw = () => {
     if (status === 'pendingNewGame') {
+      console.log('');
       setStatus('dealingCards');
+      const newCredits = credits - bet;
+      setCredits(newCredits);
     } else if (status === 'pendingDraw') {
       setStatus('dealingDraw');
     }
@@ -95,22 +104,47 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
         }
       });
 
-      await sleep(1000);
+      await sleep(500);
       setCards(hand);
+      await sleep(500);
+      setStatus('pendingPayouts');
+    }
+
+    async function payoutWinnings() {
+      const newCredits = credits + winnings;
+      setCredits(newCredits);
+      await sleep(200);
       setStatus('pendingNewGame');
     }
+
     if (status === 'dealingCards') {
       dealNewGame();
     } else if (status === 'dealingDraw') {
       dealDraw();
+    } else if (status === 'pendingPayouts') {
+      payoutWinnings();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
   useEffect(() => {
     const handTitle = getHandTitle(cards);
+    const hValue = getHandValue(cards);
+
+    const winnings = payouts[hValue][bet - 1];
+
     setWinningHand(handTitle);
+    setWinnings(winnings);
   }, [cards]);
+
+  // useEffect(() => {
+  //   console.log(status, credits);
+  //   if (status === 'pendingPayouts') {
+  //     const newCredits = credits + winnings;
+  //     setCredits(newCredits);
+  //     setStatus('pendingNewGame');
+  //   }
+  // }, [status]);
 
   // useEffect(() => {
   //   async function calculateOdds() {
@@ -180,5 +214,8 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     counts,
     calculatingOdds,
     setCalculating,
+    handValues,
+    handTitles,
+    winnings,
   };
 };

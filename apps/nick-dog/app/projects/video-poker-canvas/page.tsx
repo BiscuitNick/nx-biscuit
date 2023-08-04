@@ -1,16 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-// import { VideoPokerCanvas } from '@nx-biscuit/biscuit-cards';
 import { VideoPokerCanvas } from '../../../components/konva/video-poker';
 
 export default function Home() {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [margin, setMargin] = useState(20);
+  const [margin] = useState(20);
 
   useEffect(() => {
-    const w = window.innerWidth - margin * 2;
-    const h = window.innerHeight - margin * 2;
+    const winWidth = window.innerWidth;
+    const winHeight = window.innerHeight;
+    const adjustedMargin = winWidth < 500 ? 0 : margin;
+    const w = winWidth - adjustedMargin * 2;
+    const h = winHeight - adjustedMargin * 2;
     const square = Math.min(w, h);
     setWidth(square);
     setHeight(square);
