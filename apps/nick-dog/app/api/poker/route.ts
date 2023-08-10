@@ -6,9 +6,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { holdCards, muckCards } = await request.json();
+  const { holdCards, discards } = await request.json();
   const deck = [...Array(52).keys()].filter(
-    (raw) => !holdCards.includes(raw) && !muckCards.includes(raw)
+    (raw) => !holdCards.includes(raw) && !discards.includes(raw)
   );
   const { counts, percents } = drawCombinationValues(holdCards, deck);
 

@@ -9,3 +9,6 @@ export * from './components/video-poker/dummy';
 export * from './components/video-poker/hooks/use-video-poker';
 export * from './components/video-poker/constants';
 // export * from './lib/deck';
+
+export * from './components/cards/char-card';
+export * from './components/cards/card';

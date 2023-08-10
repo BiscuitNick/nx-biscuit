@@ -33,8 +33,8 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   const [holds, setHolds] = useState<boolean[]>(initHolds);
   const [winningHand, setWinningHand] = useState<string>('High Card');
   const [calculatingOdds, setCalculating] = useState<boolean>(false);
-  const [percents] = useState<valueCounts>(valueCounter); //setPercents
-  const [counts] = useState<valueCounts>(valueCounter); //setCounts
+  const [percents, setPercents] = useState<valueCounts>(valueCounter); //setPercents
+  const [counts, setCounts] = useState<valueCounts>(valueCounter); //setCounts
   const [winnings, setWinnings] = useState<number>(0);
 
   const [handTitles, setHandTitles] = useState<string[]>(
@@ -146,46 +146,50 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   //   }
   // }, [status]);
 
-  // useEffect(() => {
-  //   async function calculateOdds() {
-  //     setCalculating(true);
-  //     const holdCards: number[] = [];
-  //     const muckCards: number[] = [];
-  //     holds.forEach((h, i) => {
-  //       if (h) {
-  //         holdCards.push(cards[i]);
-  //       } else {
-  //         muckCards.push(cards[i]);
-  //       }
-  //     });
+  useEffect(() => {
+    async function calculateOdds() {
+      setCalculating(true);
+      const holdCards: number[] = [];
+      const muckCards: number[] = [];
+      holds.forEach((h, i) => {
+        if (h) {
+          holdCards.push(cards[i]);
+        } else {
+          muckCards.push(cards[i]);
+        }
+      });
 
-  //     const holdStr = holdCards.sort((a, b) => (a > b ? 1 : -1)).join(',');
-  //     const muckStr = muckCards.sort((a, b) => (a > b ? 1 : -1)).join(',');
-  //     const key = `${holdStr}-${muckStr}`;
+      const holdStr = holdCards.sort((a, b) => (a > b ? 1 : -1)).join(',');
+      const muckStr = muckCards.sort((a, b) => (a > b ? 1 : -1)).join(',');
+      const key = `${holdStr}-${muckStr}`;
 
-  //     console.log(key);
+      console.log(key);
 
-  //     const endpoint = '/api/poker';
-  //     const options = {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ holdCards, muckCards }),
-  //     };
-  //     const response = await fetch(endpoint, options);
-  //     const { counts: c, percents: p } = await response.json();
+      const endpoint = '/api/poker';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ holdCards, muckCards }),
+      };
+      const response = await fetch(endpoint, options);
+      const { counts: c, percents: p } = await response.json();
 
-  //     setCounts(c);
-  //     setPercents(p);
-  //     setCalculating(false);
-  //   }
+      setCounts(c);
+      setPercents(p);
+      setCalculating(false);
+    }
 
-  //   if (showOdds) {
-  //     calculateOdds();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [holds]);
+    if (showOdds) {
+      calculateOdds();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [holds]);
+
+  useEffect(() => {
+    console.log(counts);
+  });
 
   return {
     deck,

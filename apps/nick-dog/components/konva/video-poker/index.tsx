@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useVideoPoker, BottomButtons } from '@nx-biscuit/biscuit-cards';
-import { Stage, Layer, Text } from 'react-konva';
+import { useVideoPoker } from '@nx-biscuit/biscuit-cards';
+import { Stage, Layer } from 'react-konva';
 import { Background } from './background-rect';
 import { PaySchedule } from './pay-schedule';
 import { PokerHand } from './poker-hand';

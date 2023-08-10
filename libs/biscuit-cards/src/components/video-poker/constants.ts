@@ -38,7 +38,7 @@ export const handValues = [
   '300',
   '200',
   '110',
-  '100',
+  // '100',
   '0',
 ];
 
@@ -52,7 +52,7 @@ export const payouts96: PayoutSchedule = {
   300: [3, 6, 9, 12, 15],
   200: [2, 4, 6, 8, 10],
   110: [1, 2, 3, 4, 5],
-  100: [0, 0, 0, 0, 0],
+  // 100: [0, 0, 0, 0, 0],
   0: [0, 0, 0, 0, 0],
 };
 
@@ -86,8 +86,8 @@ export const handValueTitles: ranksString = {
   300: 'Three of a Kind',
   200: 'Two Pair',
   110: 'Jacks or Better',
-  100: 'Low Pair',
-  0: 'High Card',
+  // 100: 'Low Pair',
+  0: '',
 };
 
 export interface valueCounts {
@@ -104,6 +104,6 @@ export const valueCounter: valueCounts = {
   300: 0,
   200: 0,
   110: 0,
-  100: 0,
+  // 100: 0,
   0: 0,
 };
