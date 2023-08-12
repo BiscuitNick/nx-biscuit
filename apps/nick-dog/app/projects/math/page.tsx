@@ -1,7 +1,11 @@
 'use client';
 import React, { useState, useEffect, Fragment } from 'react';
 import { Card, CharCard, handValueTitles } from '@nx-biscuit/biscuit-cards';
-import { getTotalCombinations, getDraws } from '@biscuitnick/math';
+import {
+  getTotalCombinations,
+  getDraws,
+  drawCombinationValues,
+} from '@biscuitnick/math';
 const getNewDeck = () => [...Array(52).keys()];
 
 export default function Home() {
@@ -56,6 +60,15 @@ export default function Home() {
 
     const draws = getDraws({ hand: holdCards, discards });
     setCalculatedDraws(draws);
+
+    const filteredDeck = deck.filter(
+      (c) => !holdCards.includes(c) && !discards.includes(c)
+    );
+
+    if (holdCards.length > 1) {
+      const { counts } = drawCombinationValues(holdCards, filteredDeck);
+      setAllDraws(counts);
+    }
   }, [hand, discards]);
 
   // useEffect(() => {
@@ -68,6 +81,27 @@ export default function Home() {
   //   // }
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [hand]);
+
+  // console.log(allDraws[100]);
+
+  // console.log(allDraws);
+
+  const totalPairs =
+    allDraws[101] +
+    allDraws[102] +
+    allDraws[103] +
+    allDraws[104] +
+    allDraws[105] +
+    allDraws[106] +
+    allDraws[107] +
+    allDraws[108] +
+    allDraws[109] +
+    allDraws[110] +
+    allDraws[111] +
+    allDraws[112] +
+    allDraws[113];
+  const totalHighPairs =
+    allDraws[110] + allDraws[111] + allDraws[112] + allDraws[113];
 
   const handLength = hand.filter((c) => c > -1).length;
   const remainingCards = deck.length - handLength - discards.length;
@@ -237,7 +271,7 @@ export default function Home() {
           <div
             style={{ display: 'grid', gridTemplateColumns: 'auto auto auto' }}
           >
-            {Object.keys(calculatedDraws).map((val, i) => (
+            {Object.keys(allDraws).map((val, i) => (
               <Fragment key={i}>
                 <div>{val}</div>
                 <div>{allDraws[val] ? allDraws[val] : 0}</div>
@@ -250,6 +284,13 @@ export default function Home() {
           </div>
           <div>
             Total Combinations: <span>{totalCombinations}</span>
+          </div>
+          <div>
+            Total Pairs: <span>{!isNaN(totalPairs) ? totalPairs : ''}</span>
+          </div>
+          <div>
+            High Pairs:
+            <span>{!isNaN(totalHighPairs) ? totalHighPairs : ''}</span>
           </div>
           <button onClick={calculateOdds}>Calculate Odds</button>
         </div>

@@ -1,4 +1,4 @@
-import { valueCounter } from './constants';
+import { valueCounter, valueCounterAllPairs } from './constants';
 import { getHandValue } from './getHandValue';
 
 export const combinations = (arr: number[], k: number) => {
@@ -21,7 +21,7 @@ export const combinations = (arr: number[], k: number) => {
   return combs;
 };
 
-const drawCombinations = (hand: number[], deck: number[], k: number) => {
+export const drawCombinations = (hand: number[], deck: number[], k: number) => {
   const combs: number[][] = [];
   const recurse = (
     deck: number[],
@@ -43,15 +43,24 @@ const drawCombinations = (hand: number[], deck: number[], k: number) => {
 
 export const drawCombinationValues = (hand: number[], deck: number[]) => {
   const draws = drawCombinations(hand, deck, 5 - hand.length);
-  const counts = { ...valueCounter };
+  const counts = { ...valueCounterAllPairs };
 
   draws.forEach((draw) => counts[getHandValue(draw)]++);
 
-  const percents = { ...valueCounter };
+  const percents = { ...valueCounterAllPairs };
 
   Object.keys(counts).forEach((key) => {
     percents[key] = counts[key] / draws.length;
   });
 
   return { counts, percents };
+};
+
+export const getComboProductSum = (counts: number[], n: number) => {
+  let combos = 0;
+  drawCombinations([], counts, n).forEach((combo) => {
+    const product = combo.reduce((a, b) => a * b, 1);
+    combos += product;
+  });
+  return combos;
 };

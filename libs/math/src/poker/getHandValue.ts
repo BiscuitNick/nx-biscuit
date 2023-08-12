@@ -38,10 +38,11 @@ export const getRankValue = (hand: number[]) => {
     : pairs.length === 2
     ? 200
     : pairs.length === 1
-    ? pairs[0] >= 10
-      ? 110
-      : 0
-    : 0;
+    ? 100 + pairs[0]
+    : // ? pairs[0] >= 10
+      //   ? 110
+      //   : 100
+      0;
 };
 
 export const getStraightValue = (hand: number[]) => {
@@ -74,7 +75,7 @@ export const getHandValue = (hand: number[]) => {
     flushVal > 0 && straightVal > 0 ? (straightVal === 409 ? 900 : 800) : 0;
   const handVal = Math.max(rankVal, flushVal, straightVal, straightFlushVal);
 
-  return handVal - (handVal % 10);
+  return handVal >= 200 ? handVal - (handVal % 10) : handVal;
 };
 
 export const getHandTitle = (hand: number[]) => {

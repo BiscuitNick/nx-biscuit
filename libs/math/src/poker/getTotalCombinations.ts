@@ -13,3 +13,5 @@ export const getTotalCombinations = (n: number, r: number) => {
 
   return top;
 };
+
+
