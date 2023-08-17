@@ -106,7 +106,7 @@ const Eye = (props: EyeProps) => {
   }, []);
 
   useEffect(() => {
-    setBlink.update({ loop: true, delay: blinkInterval }).start();
+    // setBlink.update({ loop: true, delay: blinkInterval }).start();
   }, [setBlink, blinkInterval]);
 
   const animatedGroup = useSpring({

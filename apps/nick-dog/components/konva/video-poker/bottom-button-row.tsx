@@ -38,7 +38,7 @@ export const BottomButtonRow = ({
   // const cardFontSize = Math.round(cardHeight * 0.2);
   // const cardStrokeWidth = Math.round(cardHeight * 0.01);
 
-  console.log(xOffset, y);
+  // console.log(xOffset, y);
 
   return (
     <Group x={margin} y={y}>

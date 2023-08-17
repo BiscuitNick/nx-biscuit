@@ -8,6 +8,8 @@ export const handTitles = [
   'Three of a Kind',
   'Two Pair',
   'Jacks or Better',
+  'Low Pair',
+  'High Card',
 ] as const;
 
 export interface PayoutSchedule {
@@ -38,7 +40,7 @@ export const handValues = [
   '300',
   '200',
   '110',
-  // '100',
+  '100',
   '0',
 ];
 
@@ -76,6 +78,7 @@ export const cardRanks: ranksString = {
   1: '2',
 };
 
+// TODO: CONSOLIDATE DUPLICATE FILE
 export const handValueTitles: ranksString = {
   900: 'Royal Flush',
   800: 'Straight Flush',
@@ -87,7 +90,7 @@ export const handValueTitles: ranksString = {
   200: 'Two Pair',
   110: 'Jacks or Better',
   100: 'Low Pair',
-  0: '',
+  0: 'High Card',
 };
 
 export interface valueCounts {

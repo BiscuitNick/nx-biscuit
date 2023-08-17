@@ -38,11 +38,10 @@ export const getRankValue = (hand: number[]) => {
     : pairs.length === 2
     ? 200
     : pairs.length === 1
-    ? 100 + pairs[0]
-    : // ? pairs[0] >= 10
-      //   ? 110
-      //   : 100
-      0;
+    ? pairs[0] >= 10
+      ? 110
+      : 100
+    : 0;
 };
 
 export const getStraightValue = (hand: number[]) => {

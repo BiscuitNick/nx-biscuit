@@ -5,17 +5,38 @@ import { useInterval } from './useInterval';
 export interface StagePositions {
   canvasRef: any;
   delay?: number;
+  focalPoint?: { x: number; y: number };
 }
 
-export const useEyeMovement = ({ canvasRef, delay }: StagePositions) => {
+export const useEyeMovement = ({
+  canvasRef,
+  delay,
+  focalPoint,
+}: StagePositions) => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+
+  const [focalPointX, setFocalPointX] = useState(0);
+  const [focalPointY, setFocalPointY] = useState(0);
 
   const inactivityCount = useRef(0);
   const pointerY = useRef(0);
   const pointerX = useRef(0);
 
   useInterval(() => {
+    if (
+      focalPointX === focalPoint?.x &&
+      focalPointY === focalPoint?.y &&
+      focalPoint?.x !== x &&
+      focalPoint?.y !== y
+    ) {
+      setX(x);
+      setY(y);
+      setFocalPointX(focalPoint?.x || 0);
+      setFocalPointY(focalPoint?.y || 0);
+
+      inactivityCount.current = 0;
+    }
     const stageData = getStageData(canvasRef);
     if (!stageData) return null;
     const pointer = stageData.getPointerPosition();

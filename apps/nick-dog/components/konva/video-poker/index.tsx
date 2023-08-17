@@ -1,12 +1,20 @@
-import { useEffect } from 'react';
 import { useVideoPoker } from '@nx-biscuit/biscuit-cards';
 import { Stage, Layer } from 'react-konva';
 import { Background } from './background-rect';
 import { PaySchedule } from './pay-schedule';
 import { PokerHand } from './poker-hand';
-import { StatusText } from './status-text';
 import { BottomButtonRow } from './bottom-button-row';
-
+import { HandStatusBar } from './hand-status-bar';
+import { BetCreditStatusBar } from './bet-credit-status-bar';
+// import { useVideoPokerDimensions } from './use-video-poker-dimensions';
+import {
+  // BiscuitBoard,
+  pokerCat,
+  // executiveDog,
+  Buddy,
+  Board,
+} from '@biscuitnick/biscuit-konva';
+import { useRef, useState, useEffect } from 'react';
 interface VideoPokerCanvasProps {
   width?: number;
   height?: number;
@@ -15,104 +23,95 @@ interface VideoPokerCanvasProps {
 
 export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
   const { width = 500, height = 500, style } = props;
-  const {
-    bet,
-    cards,
-    credits,
-    handValues,
-    handTitles,
-    holds,
-    payouts,
+  const { handTitles, ...pokerProps } = useVideoPoker({ width, height });
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const {
+    cards,
+    holds,
     status,
-    winningHand,
+
+    optimalHolds,
     minusBet,
     betOne,
     betMax,
     dealOrDraw,
     updateHolds,
 
-    winnings,
-    setShowOdds,
-    ...pokerProps
-  } = useVideoPoker({});
+    handStatusBar,
+    betCreditStatusBar,
+    paySchedule,
 
-  // useEffect(() => {
-  //   console.log(cards);
-  // }, [cards]);
+    focalPoint,
+    isTracking,
+  } = pokerProps;
+
+  const [buddyBox, setBuddyBox] = useState({
+    width: width / 3,
+    height: height / 3,
+    x: width / 2 - width / 6,
+    y: height / 10,
+  });
 
   useEffect(() => {
-    console.log(status, winningHand, winnings, credits);
-  }, [status]);
+    setBuddyBox({
+      width: Math.round(width / 3),
+      height: Math.round(height / 3),
+      x: Math.round(width / 2 - width / 6),
+      y: Math.round(height / 10),
+    });
+  }, [width, height]);
+
+  const handleBuddyDrag = (e: { target: any; type: any }) => {
+    const { target, type } = e;
+    const { x, y } = target.attrs;
+
+    if (type === 'dragend') {
+      setBuddyBox({
+        ...buddyBox,
+        x: Math.round(x),
+        y: Math.round(y),
+      });
+    }
+  };
 
   return (
     <>
-      <Stage width={width} height={height} style={style}>
-        <Layer>
-          <Background width={width} height={height} color={'blue'} />
-          <PaySchedule
-            width={width}
-            height={height * 0.4}
-            handValues={handValues}
-            handTitles={handTitles}
-            payouts={payouts}
-            bet={bet}
-            winningHand={winningHand}
-          />
-          <StatusText
-            y={height * 0.42}
-            align={'center'}
-            height={height}
-            width={width}
-            text={status.includes('dealing') ? 'Dealing...' : winningHand}
-          />
-          <StatusText
-            y={height * 0.42}
-            x={-10}
-            align={'right'}
-            height={height}
-            width={width}
-            text={
-              status === 'pendingNewGame' || status === 'pendingPayouts'
-                ? `WIN ${winnings}`
-                : ''
-            }
-          />
-          <PokerHand
-            y={height * 0.5}
-            width={width}
-            cards={cards}
-            holds={holds}
-            updateHolds={updateHolds}
-            status={status}
-          />
-          <StatusText
-            y={height * 0.84}
-            x={10}
-            align={'left'}
-            height={height}
-            width={width}
-            text={`Bet ${bet}`}
-          />
-          <StatusText
-            y={height * 0.84}
-            x={-10}
-            align={'right'}
-            height={height}
-            width={width}
-            text={`Credits ${credits}`}
-          />
-          <BottomButtonRow
-            y={Math.round(height * 0.93)}
-            width={width}
-            status={status}
-            minusBet={minusBet}
-            betOne={betOne}
-            betMax={betMax}
-            dealOrDraw={dealOrDraw}
-          />
-        </Layer>
-      </Stage>
+      <Board width={width} height={height} style={style} canvasRef={canvasRef}>
+        <Background width={width} height={height} color={'blue'} />
+        <PaySchedule {...paySchedule} />
+        <HandStatusBar {...handStatusBar} />
+        <PokerHand
+          y={height * 0.5}
+          width={width}
+          cards={cards}
+          holds={holds}
+          optimalHolds={optimalHolds}
+          updateHolds={updateHolds}
+          status={status}
+        />
+        <BetCreditStatusBar {...betCreditStatusBar} />
+        <BottomButtonRow
+          y={Math.round(height * 0.93)}
+          width={width}
+          status={status}
+          minusBet={minusBet}
+          betOne={betOne}
+          betMax={betMax}
+          dealOrDraw={dealOrDraw}
+        />
+        <Buddy
+          box={buddyBox}
+          contentObject={pokerCat}
+          contentIDs={['image_2', 'eye_0', 'eye_1']}
+          focalPoint={focalPoint}
+          canvasRef={canvasRef}
+          handleClick={() => console.log('')}
+          handleDrag={handleBuddyDrag}
+          isTracking={isTracking}
+        />
+      </Board>
     </>
   );
 };

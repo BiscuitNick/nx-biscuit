@@ -12,8 +12,9 @@ import { getFlushDraws } from './getFlushDraws';
 import { getStraightDraws } from './getStraightDraws';
 import { getTripDraws } from './getTripDraws';
 import { getTwoPairDraws } from './getTwoPairs';
-import { getJacksOrBetterDraws } from './getJacksOrBetter';
 import { getPairDraws } from './getPairDraws';
+
+import { valueCounts } from '../constants';
 
 export interface getDrawsProps {
   hand?: number[];
@@ -30,13 +31,7 @@ export const getDraws = (props: getDrawsProps) => {
   );
 
   const { lowPairs, highPairs } = getPairDraws({ hand, discards, deck });
-  // console.log(totalPotentialPairs, lowPairs, highPairs, potentialPairs);
 
-  // const jacksOrBetter = getJacksOrBetterDraws({
-  //   hand,
-  //   discards,
-  //   deck,
-  // });
   const twoPairs = getTwoPairDraws({ hand, discards, deck });
   const trips = getTripDraws({ hand, discards, deck });
   const { potentialStraights } = getStraightDraws({ hand, discards, deck });
@@ -59,10 +54,9 @@ export const getDraws = (props: getDrawsProps) => {
       potentialStraightFlushes +
       potentialRoyalFlushes);
 
-  return {
+  const counts: valueCounts = {
     0: LowPairOrWorse,
     100: lowPairs,
-    105: lowPairs + highPairs,
     110: highPairs,
     200: twoPairs,
     300: trips,
@@ -72,5 +66,25 @@ export const getDraws = (props: getDrawsProps) => {
     700: potentialQuads,
     800: potentialStraightFlushes,
     900: potentialRoyalFlushes,
+  };
+
+  const percents: valueCounts = {
+    0: LowPairOrWorse / totalCombinations,
+    100: lowPairs / totalCombinations,
+    110: highPairs / totalCombinations,
+    200: twoPairs / totalCombinations,
+    300: trips / totalCombinations,
+    400: potentialStraights / totalCombinations,
+    500: flushes / totalCombinations,
+    600: potentialFullHouses / totalCombinations,
+    700: potentialQuads / totalCombinations,
+    800: potentialStraightFlushes / totalCombinations,
+    900: potentialRoyalFlushes / totalCombinations,
+  };
+
+  return {
+    counts,
+    percents,
+    totalCombinations,
   };
 };

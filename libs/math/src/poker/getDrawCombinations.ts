@@ -43,11 +43,11 @@ export const drawCombinations = (hand: number[], deck: number[], k: number) => {
 
 export const drawCombinationValues = (hand: number[], deck: number[]) => {
   const draws = drawCombinations(hand, deck, 5 - hand.length);
-  const counts = { ...valueCounterAllPairs };
+  const counts = { ...valueCounter };
 
   draws.forEach((draw) => counts[getHandValue(draw)]++);
 
-  const percents = { ...valueCounterAllPairs };
+  const percents = { ...valueCounter };
 
   Object.keys(counts).forEach((key) => {
     percents[key] = counts[key] / draws.length;

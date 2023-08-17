@@ -7,6 +7,8 @@ export default function Home() {
   const [height, setHeight] = useState(0);
   const [margin] = useState(20);
 
+  const [mode, setMode] = useState<'watch' | 'play' | 'odds'>('watch');
+
   useEffect(() => {
     const winWidth = window.innerWidth;
     const winHeight = window.innerHeight;
@@ -20,6 +22,11 @@ export default function Home() {
 
   return (
     <div style={{ display: 'grid', width: '100vw', height: '100vh' }}>
+      <div style={{ position: 'absolute' }}>
+        <button onClick={() => setMode('watch')}>Watch</button>
+        <button onClick={() => setMode('watch')}>Play</button>
+        <button onClick={() => setMode('watch')}>Explore Odds</button>
+      </div>
       <VideoPokerCanvas
         width={width}
         height={height}

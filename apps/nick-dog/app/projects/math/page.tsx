@@ -1,10 +1,11 @@
 'use client';
 import React, { useState, useEffect, Fragment } from 'react';
-import { Card, CharCard, handValueTitles } from '@nx-biscuit/biscuit-cards';
+import { Card } from '@nx-biscuit/biscuit-cards'; //CharCard, handValueTitles
 import {
   getTotalCombinations,
   getDraws,
   drawCombinationValues,
+  getMaxEvDraws,
 } from '@biscuitnick/math';
 const getNewDeck = () => [...Array(52).keys()];
 
@@ -58,18 +59,26 @@ export default function Home() {
   useEffect(() => {
     const holdCards = hand.filter((c) => c > -1);
 
-    const draws = getDraws({ hand: holdCards, discards });
-    setCalculatedDraws(draws);
+    const { counts } = getDraws({ hand: holdCards, discards });
+    setCalculatedDraws(counts);
 
     const filteredDeck = deck.filter(
       (c) => !holdCards.includes(c) && !discards.includes(c)
     );
 
     if (holdCards.length > 1) {
-      const { counts } = drawCombinationValues(holdCards, filteredDeck);
+      const { counts, percents } = drawCombinationValues(
+        holdCards,
+        filteredDeck
+      );
       setAllDraws(counts);
     }
-  }, [hand, discards]);
+
+    if (holdCards.length === 5) {
+      const optimalHolds = getMaxEvDraws({ hand, discards });
+      // console.log(optimalHolds);
+    }
+  }, [hand, discards, deck]);
 
   // useEffect(() => {
   //   console.log(calculatedDraws);
@@ -85,23 +94,6 @@ export default function Home() {
   // console.log(allDraws[100]);
 
   // console.log(allDraws);
-
-  const totalPairs =
-    allDraws[101] +
-    allDraws[102] +
-    allDraws[103] +
-    allDraws[104] +
-    allDraws[105] +
-    allDraws[106] +
-    allDraws[107] +
-    allDraws[108] +
-    allDraws[109] +
-    allDraws[110] +
-    allDraws[111] +
-    allDraws[112] +
-    allDraws[113];
-  const totalHighPairs =
-    allDraws[110] + allDraws[111] + allDraws[112] + allDraws[113];
 
   const handLength = hand.filter((c) => c > -1).length;
   const remainingCards = deck.length - handLength - discards.length;
@@ -286,11 +278,11 @@ export default function Home() {
             Total Combinations: <span>{totalCombinations}</span>
           </div>
           <div>
-            Total Pairs: <span>{!isNaN(totalPairs) ? totalPairs : ''}</span>
+            {/* Total Pairs: <span>{!isNaN(totalPairs) ? totalPairs : ''}</span> */}
           </div>
           <div>
             High Pairs:
-            <span>{!isNaN(totalHighPairs) ? totalHighPairs : ''}</span>
+            {/* <span>{!isNaN(totalHighPairs) ? totalHighPairs : ''}</span> */}
           </div>
           <button onClick={calculateOdds}>Calculate Odds</button>
         </div>

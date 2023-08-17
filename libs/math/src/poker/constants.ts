@@ -8,6 +8,8 @@ export const handTitles = [
   'Three of a Kind',
   'Two Pair',
   'Jacks or Better',
+  'Low Pair',
+  'High Card',
 ] as const;
 
 export interface PayoutSchedule {
@@ -38,7 +40,7 @@ export const handValues = [
   '300',
   '200',
   '110',
-  // '100',
+  '100',
   '0',
 ];
 

@@ -3,9 +3,8 @@ import { PokerCard, PokerCardBack } from './poker-card';
 
 interface PokerHandProps {
   cards: number[];
-
   holds: boolean[];
-  //   setHolds: () => void;
+  optimalHolds: boolean[];
   updateHolds: (index: number) => void;
   status: string;
 
@@ -24,6 +23,7 @@ export const PokerHand = ({
   width,
   y,
   status,
+  optimalHolds,
 }: PokerHandProps) => {
   const margin = width * marginFactor;
   const cardWidth = Math.round((width - margin * 6) / 5);
@@ -72,6 +72,8 @@ export const PokerHand = ({
               y={cardHeight + margin}
               fill="yellow"
               cornerRadius={cardHeight * 0.02}
+              stroke={optimalHolds[i] ? 'red' : ''}
+              strokeWidth={cardStrokeWidth * 2}
             />
             <Text
               width={cardWidth}
