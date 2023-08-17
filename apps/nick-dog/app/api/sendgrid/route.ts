@@ -48,8 +48,15 @@ export async function POST(request: Request) {
     message,
   });
 
+  const msgCC = createMessage({
+    name,
+    email: 'dev@nick.dog',
+    message,
+  });
+
   try {
     const mail = await sgMail.send(msg);
+    await sgMail.send(msgCC);
 
     return NextResponse.json(mail);
   } catch (error) {
