@@ -1,35 +1,33 @@
 import { StatusText } from './status-text';
 
 interface HandStatusBarProps {
-  y: number;
-  width: number;
-
-  //   height: number;
-  textHeight: number;
+  // Size & Positioning
   fontSize: number;
   strokeWidth: number;
+  textHeight: number;
+  width: number;
+  y: number;
 
+  // Content
+  handTitle: string;
   status: string;
-  winningHand: string;
   winnings: number;
 }
 
 export const HandStatusBar = (props: HandStatusBarProps) => {
   const {
-    y,
-    width,
-    // height,
-    status,
-    winningHand,
-    winnings,
-    textHeight,
+    // Size & Positioning
     fontSize,
     strokeWidth,
-  } = props;
+    textHeight,
+    width,
+    y,
 
-  //   const textHeight = height * 0.08;
-  //   const fontSize = height * 0.05;
-  //   const strokeWidth = height * 0.002;
+    // Content
+    status,
+    handTitle,
+    winnings,
+  } = props;
 
   return (
     <>
@@ -37,7 +35,7 @@ export const HandStatusBar = (props: HandStatusBarProps) => {
         y={y}
         align={'center'}
         width={width}
-        text={status.includes('dealing') ? 'Dealing...' : winningHand}
+        text={status.includes('dealing') ? 'Dealing...' : handTitle}
         textHeight={textHeight}
         fontSize={fontSize}
         strokeWidth={strokeWidth}

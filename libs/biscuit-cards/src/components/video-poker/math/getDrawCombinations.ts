@@ -1,5 +1,7 @@
-import { valueCounter } from '../constants';
-import { getHandValue } from './getHandValue';
+// import { valueCounter } from '../constants';
+// import { getHandValue } from './getHandValue';
+
+import { valueCounter, getHandValue } from '@biscuitnick/math';
 
 export const combinations = (arr: number[], k: number) => {
   const combs: number[][] = [];

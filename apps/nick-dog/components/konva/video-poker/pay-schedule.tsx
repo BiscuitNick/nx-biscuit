@@ -1,4 +1,5 @@
-import { PayoutSchedule } from '@nx-biscuit/biscuit-cards';
+import { PayoutSchedule } from '@biscuitnick/math';
+
 import { Group, Rect, Text } from 'react-konva';
 interface PayScheduleProps {
   width: number;
@@ -14,7 +15,7 @@ interface PayScheduleProps {
   textMarginFactor?: number;
 
   bet?: number;
-  winningHand?: string;
+  handTitle?: string;
 
   expectedValues?: any;
   ev?: number;
@@ -51,7 +52,7 @@ export const PaySchedule = (props: PayScheduleProps) => {
     textColor = 'yellow',
     borderColor = 'yellow',
 
-    winningHand = '',
+    handTitle = '',
 
     expectedValues = [],
     ev,
@@ -78,7 +79,7 @@ export const PaySchedule = (props: PayScheduleProps) => {
         {texts[0].map((title: string, index: number) => (
           <Text
             key={index}
-            text={winningHand === title ? title.toUpperCase() : title}
+            text={handTitle === title ? title.toUpperCase() : title}
             fill={
               index === 0 && payScheduleView === 'detailed-odds'
                 ? 'white'
@@ -88,7 +89,7 @@ export const PaySchedule = (props: PayScheduleProps) => {
                 ? 'white'
                 : textColor
             }
-            fontStyle={winningHand === title ? 'bold' : 'normal'}
+            fontStyle={handTitle === title ? 'bold' : 'normal'}
             fontSize={fontSize}
             y={Math.floor(index * (fontSize + fontMargin))}
             // verticalAlign="middle"

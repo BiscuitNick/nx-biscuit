@@ -5,6 +5,5 @@ export * from './components/video-poker/html/video-poker';
 export * from './components/video-poker/html/bottom-buttons';
 export * from './components/video-poker/math';
 export * from './components/video-poker/hooks/use-video-poker';
-export * from './components/video-poker/constants';
 export * from './components/cards/char-card';
 export * from './components/cards/card';

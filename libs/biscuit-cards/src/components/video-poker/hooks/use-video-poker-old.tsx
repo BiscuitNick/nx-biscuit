@@ -1,7 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import useSound from 'use-sound';
-
 import {
   getDraws,
   getMaxEvDraws,
@@ -15,7 +13,6 @@ import {
   handValues,
   handValueTitles,
 } from '@biscuitnick/math';
-
 import { sleep } from '../../blackjack/helpers';
 
 import { useVideoPokerDimensions } from './use-video-poker-dimensions';
@@ -35,7 +32,7 @@ interface useVideoPokerProps {
 export const useVideoPoker = (props: useVideoPokerProps) => {
   const {
     initBet = 5,
-    initCredits = 995,
+    initCredits = 1000,
     initStatus = 'pendingNewGame',
     initCards = [-1, -1, -1, -1, -1],
     initHolds = [false, false, false, false, false],
@@ -43,19 +40,20 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     height = 500,
     payScheduleView = 'odds-and-payouts',
   } = props;
-  const [playCreditSound] = useSound('/sounds/winning-beep.mp3');
-
-  // Deck //
   const [deck, setDeck] = useState<number[]>(shuffledDeck(1));
   const [status, setStatus] = useState<string>(initStatus);
-
-  // Bet & Credits //
   const [bet, setBet] = useState<number>(initBet);
   const [credits, setCredits] = useState<number>(initCredits);
-
-  // Hand Data, Card & Holds //
   const [cards, setCards] = useState<number[]>(initCards);
   const [holds, setHolds] = useState<boolean[]>(initHolds);
+  const [winningHand, setWinningHand] = useState<string>('High Card');
+  const [percents, setPercents] = useState<valueCounts>({ ...valueCounter }); //setPercents
+  const [counts, setCounts] = useState<valueCounts>({ ...valueCounter }); //setCounts
+  const [expectedValues, setExpectedValues] = useState<valueCounts>({
+    ...valueCounter,
+  });
+  const [ev, setEV] = useState<number>(0);
+  const autoPlaySpeed = 1000;
   const [optimalHolds, setOptimalHolds] = useState<boolean[]>([
     false,
     false,
@@ -63,39 +61,14 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     false,
     false,
   ]);
-  //
-
-  // TODO: Replace winningHand with handValue & handTitle //
-  //
-
-  // Hand Value & Title //
-  const [handValue, setHandValue] = useState<number>(0);
-  const [handTitle, setHandTitle] = useState<string>('');
-
-  // Table Data & Stats //
-  const [percents, setPercents] = useState<valueCounts>({ ...valueCounter }); //setPercents
-  const [counts, setCounts] = useState<valueCounts>({ ...valueCounter }); //setCounts
-  const [expectedValues, setExpectedValues] = useState<valueCounts>({
+  const [winnings, setWinnings] = useState<number>(0);
+  const [totalGames, setTotalGames] = useState(0);
+  const [maxGames, setMaxGames] = useState(1000);
+  const [totalBets, setTotalBets] = useState<number>(0);
+  const [totalWinnings, setTotalWinnings] = useState<number>(0);
+  const [handHistory, setHandHistory] = useState<valueCounts>({
     ...valueCounter,
   });
-
-  const [ev, setEV] = useState<number>(0);
-
-  // Game Settings //
-  const autoPlaySpeed = 1000;
-  const standardGameDelay = 1000;
-  const payoutSpeed = 100; //
-
-  const [winnings, setWinnings] = useState<number>(0);
-  const [paidWinnings, setPaidWinnings] = useState<number>(0);
-
-  // const [totalGames, setTotalGames] = useState(0);
-  // const [maxGames, setMaxGames] = useState(1000);
-  const [totalBets, setTotalBets] = useState<number>(0);
-  // const [totalWinnings, setTotalWinnings] = useState<number>(0);
-  // const [handHistory, setHandHistory] = useState<valueCounts>({
-  //   ...valueCounter,
-  // });
   const handTitles = handValues.map((val: string) => handValueTitles[val]);
   const payouts = payouts96;
 
@@ -103,19 +76,6 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   const [autoPlay, setAutoPlay] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [showBuddy, setShowBuddy] = useState<boolean>(false);
-  const [playSounds, setPlaySounds] = useState<boolean>(false);
-
-  const [betPayouts, setBetPayouts] = useState<valueCounts>({
-    ...valueCounter,
-  });
-
-  useEffect(() => {
-    const _betPayouts: valueCounts = {};
-    Object.keys(payouts).forEach((key) => {
-      _betPayouts[key] = payouts[key][bet - 1];
-    });
-    setBetPayouts(_betPayouts);
-  }, [bet, payouts]);
 
   const {
     pokerHand,
@@ -129,6 +89,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     handTitles,
     payouts,
     bet,
+    // winningHand,
     expectedValues,
     handValues,
     ev,
@@ -139,10 +100,6 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   });
 
   const [focalPoint, setFocalPoint] = useState({ x: 0, y: 0 });
-
-  const toggleSounds = () => {
-    setPlaySounds(!playSounds);
-  };
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -197,13 +154,14 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
 
   const dealOrDraw = () => {
     if (status === 'pendingNewGame') {
+      // console.log('');
       setStatus('dealingCards');
       const newCredits = credits - bet;
 
       setTotalBets(totalBets + bet);
       setCredits(newCredits);
-    } else if (status === 'pendingHolds') {
-      setStatus('pendingDraw');
+    } else if (status === 'pendingDraw') {
+      setStatus('dealingDraw');
     }
   };
 
@@ -212,14 +170,20 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
       const newDeck = shuffle(deck);
       setCards(newDeck.slice(0, 5));
       setHolds([false, false, false, false, false]);
-      setOptimalHolds([false, false, false, false, false]);
       setDeck(newDeck);
 
-      await sleep(standardGameDelay);
+      await sleep(1000); //200 // 1000
+
       setStatus('pendingHolds');
+
+      // setStatus('pendingDraw');
     }
 
     async function dealDraw() {
+      if (autoPlay) {
+        sleep(autoPlaySpeed); //200 // 2000
+      }
+
       const hand = [...cards];
 
       let drawIndex = 0;
@@ -235,28 +199,34 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
         }
       });
 
-      // await sleep(autoPlaySpeed); //100 // 500
+      await sleep(autoPlaySpeed); //100 // 500
       setCards(hand);
       await sleep(autoPlaySpeed); // 500
-      setStatus('pendingSettlement');
+      setStatus('pendingPayouts');
     }
 
     async function payoutWinnings() {
-      await sleep(payoutSpeed);
+      const newCredits = credits + winnings;
+      const hValue = getHandValue(cards);
 
-      const remainingCreditsToPay = winnings - paidWinnings;
-      if (remainingCreditsToPay > 0) {
-        const newPaidWinnings = paidWinnings + 1;
-        if (playSounds) {
-          playCreditSound();
-        }
-        setPaidWinnings(newPaidWinnings);
-        setCredits(credits + 1);
-      } else {
-        await sleep(payoutSpeed);
-        setStatus('pendingNewGame');
-        setPaidWinnings(0);
+      // console.log(handHistory[hValue] + 1);
+
+      const historyCopy = { ...handHistory };
+      historyCopy[hValue] += 1;
+
+      await sleep(autoPlaySpeed); //2000
+
+      const newTotal = totalGames + 1;
+
+      if (newTotal >= maxGames) {
+        setAutoPlay(false);
       }
+
+      setCredits(newCredits);
+      setTotalGames(newTotal);
+      setTotalWinnings(totalWinnings + winnings);
+      setHandHistory(historyCopy);
+      setStatus('pendingNewGame');
     }
 
     async function autoDealNextGame() {
@@ -270,52 +240,29 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     } else if (status === 'dealingCards') {
       dealNewGame();
     } else if (status === 'pendingHolds') {
-      const _handTitle = getHandTitle(cards);
-      const _handValue = getHandValue(cards);
-      const { holds: optimals } = getMaxEvDraws({
-        hand: cards,
-        payouts: betPayouts,
-      });
-
-      setOptimalHolds(optimals);
-      setHandTitle(_handTitle);
-      setHandValue(_handValue);
-      if (autoPlay) {
-        setStatus('autoSetHolds');
-      }
-
       //
     } else if (status === 'pendingDraw') {
       setStatus('dealingDraw');
       //
     } else if (status === 'dealingDraw') {
       dealDraw();
-    } else if (status === 'pendingSettlement') {
-      // Determine Hand Value, Title, & Winnings to be Paid //
-      const _handTitle = getHandTitle(cards);
-      const _handValue = getHandValue(cards);
-      const _winnings = betPayouts[_handValue];
-      setHandTitle(_handTitle);
-      setHandValue(_handValue);
-      setWinnings(_winnings);
-      setStatus('pendingPayouts');
     } else if (status === 'pendingPayouts') {
       payoutWinnings();
     } else {
       // console.log(149, status);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, paidWinnings]);
+  }, [status]);
 
-  // useEffect(() => {
-  //   const handTitle = getHandTitle(cards);
-  //   const hValue = getHandValue(cards);
+  useEffect(() => {
+    const handTitle = getHandTitle(cards);
+    const hValue = getHandValue(cards);
 
-  //   const winnings = payouts[hValue][bet - 1];
+    const winnings = payouts[hValue][bet - 1];
 
-  //   setWinningHand(handTitle);
-  //   setWinnings(winnings);
-  // }, [bet, cards, payouts]);
+    setWinningHand(handTitle);
+    setWinnings(winnings);
+  }, [bet, cards, payouts]);
 
   useEffect(() => {
     // if (cards.includes(-1)) return;
@@ -338,7 +285,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     const evs: valueCounts = valueCounter;
     let netEv = 0;
     Object.keys(percents).forEach((key) => {
-      const payrate = betPayouts[key];
+      const payrate = payouts[key][bet - 1];
       const ev = payrate * percents[key];
       netEv += ev;
       evs[key] = ev;
@@ -348,19 +295,59 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     setCounts(counts);
     setExpectedValues(evs);
     setEV(netEv);
-  }, [betPayouts, cards, holds]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [holds, bet]);
+
+  useEffect(() => {
+    const hand: number[] = cards.filter((c) => c > -1);
+
+    const betPayouts = { ...valueCounter };
+    Object.keys(payouts).forEach((key) => {
+      betPayouts[key] = payouts[key][bet - 1];
+    });
+
+    if (hand.length === 5) {
+      if (status === 'pendingHolds') {
+        const { holds: optimals } = getMaxEvDraws({
+          hand: cards,
+          payouts: betPayouts,
+        });
+
+        setOptimalHolds(optimals);
+        if (autoPlay) {
+          setStatus('autoSetHolds');
+          // setHolds(optimals);
+        }
+      } else if (status === 'dealingCards') {
+        const resetHolds = [false, false, false, false, false];
+        setOptimalHolds(resetHolds);
+        setHolds(resetHolds);
+      }
+    }
+  }, [cards, status, autoPlay]);
 
   useEffect(() => {
     async function setNextHold() {
       const unMatchedHolds = holds
         .map((h, i) => (h !== optimalHolds[i] ? i : -1))
         .filter((i) => i > -1);
+      // console.log(unMatchedHolds);
 
       if (unMatchedHolds.length === 0) {
+        // await sleep(500); //100 // 1000
+
+        // const cardIndex = holds.indexOf(false);
+        // setFocalPoint({
+        //   x: (cardIndex * width) / 5,
+        //   y: height * 0.75,
+        // });
         setFocalPoint({ x: width, y: height });
         await sleep(autoPlaySpeed); //100 // 1000
+
         setIsTracking(false);
+
         await sleep(autoPlaySpeed); //100 // 1000
+
         setStatus('pendingDraw');
       } else {
         setIsTracking(true);
@@ -379,26 +366,28 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
 
     if (status === 'autoSetHolds') {
       setNextHold();
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // console.log(holds, optimalHolds);
+
+      // const allHoldsSet = holds.every((h, i) => h === optimalHolds[i]);
+
+      // if (allHoldsSet) {
+      //   setStatus('pendingDraw');
+      // } else {
+      //   setNextHold();
+      // }
+    }
   }, [autoPlay, status, optimalHolds, holds]);
 
   return {
-    handStatusBar: {
-      ...handStatusBar,
-      status,
-      handTitle,
-      // winningHand,
-      winnings,
-    },
+    handStatusBar: { ...handStatusBar, status, winningHand, winnings },
     betCreditStatusBar: { ...betCreditStatusBar, credits, bet },
     paySchedule: {
       ...paySchedule,
       handValues,
       payouts,
       bet,
-      handTitle,
+      winningHand,
       expectedValues,
     },
     pokerHand: {
@@ -425,7 +414,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     bet,
     cards,
     holds,
-    // winningHand,
+    winningHand,
     payouts,
     updateHolds,
     minusBet,
@@ -443,22 +432,5 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     showBuddy,
     toggleAutoPlay,
     autoPlay,
-    toggleSounds,
-    playSounds,
   };
 };
-
-// const newCredits = credits + winnings;
-// const hValue = getHandValue(cards);
-// console.log(handHistory[hValue] + 1);
-// const historyCopy = { ...handHistory };
-// historyCopy[hValue] += 1;
-// await sleep(autoPlaySpeed); //2000
-// const newTotal = totalGames + 1;
-// if (newTotal >= maxGames) {
-//   setAutoPlay(false);
-// }
-// setCredits(newCredits);
-// setTotalGames(newTotal);
-// setTotalWinnings(totalWinnings + winnings);
-// setHandHistory(historyCopy);

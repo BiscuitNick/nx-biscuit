@@ -1,4 +1,4 @@
-import { valueCounter, valueCounterAllPairs } from './constants';
+import { valueCounter } from './constants';
 import { getHandValue } from './getHandValue';
 
 export const combinations = (arr: number[], k: number) => {

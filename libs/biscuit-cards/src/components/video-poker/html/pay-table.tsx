@@ -4,7 +4,7 @@ import {
   handValueTitles,
   handValues,
   valueCounts,
-} from '../constants';
+} from '@biscuitnick/math';
 
 interface PayTableProps {
   credits: number;

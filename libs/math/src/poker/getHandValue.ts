@@ -2,9 +2,6 @@
 // import { getFlushValue } from './getFlushValue';
 // import { getStraightValue } from './getStraightValue';
 
-export const getRanks = (hand: number[]) =>
-  hand.map((x) => (x % 13 === 0 ? 14 : (x % 13) + 1));
-
 export const getRankValue = (hand: number[]) => {
   if (hand.includes(-1)) return 0;
 

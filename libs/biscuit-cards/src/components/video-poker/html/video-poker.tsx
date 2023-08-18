@@ -2,7 +2,7 @@ import { PayTable } from './pay-table';
 import { CardRow } from './card-row';
 import { BottomButtons } from './bottom-buttons';
 import '../Poker.css';
-import { useVideoPoker } from '../hooks/use-video-poker';
+import { useVideoPoker } from '../hooks/use-video-poker-old';
 
 interface VideoPokerProps {
   width?: number;
