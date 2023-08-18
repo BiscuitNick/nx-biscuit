@@ -4,7 +4,7 @@ interface HandStatusBarProps {
   y: number;
   width: number;
 
-//   height: number;
+  //   height: number;
   textHeight: number;
   fontSize: number;
   strokeWidth: number;
@@ -27,9 +27,9 @@ export const HandStatusBar = (props: HandStatusBarProps) => {
     strokeWidth,
   } = props;
 
-//   const textHeight = height * 0.08;
-//   const fontSize = height * 0.05;
-//   const strokeWidth = height * 0.002;
+  //   const textHeight = height * 0.08;
+  //   const fontSize = height * 0.05;
+  //   const strokeWidth = height * 0.002;
 
   return (
     <>

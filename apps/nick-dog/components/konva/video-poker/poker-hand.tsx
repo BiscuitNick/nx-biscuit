@@ -8,30 +8,43 @@ interface PokerHandProps {
   updateHolds: (index: number) => void;
   status: string;
 
-  marginFactor?: number;
-  w2hRatio?: number;
-  width: number;
+  // Dimension & Positioning Props
   y: number;
+  width: number;
+  margin: number;
+  cardWidth: number;
+  cardHeight: number;
+  xOffset: number;
+  cardFontSize: number;
+  cardStrokeWidth: number;
+  buttonCornerRadius: number;
+  buttonStrokeWidth: number;
+  buttonY: number;
+  buttonHeight: number;
+  buttonTextHeight: number;
+  buttonFontSize: number;
 }
 
 export const PokerHand = ({
   cards,
   holds,
-  updateHolds,
-  marginFactor = 0.01,
-  w2hRatio = 1.4,
-  width,
-  y,
   status,
   optimalHolds,
+  updateHolds,
+  y,
+  margin,
+  cardWidth,
+  cardHeight,
+  xOffset,
+  cardFontSize,
+  cardStrokeWidth,
+  buttonCornerRadius,
+  buttonStrokeWidth,
+  buttonY,
+  buttonHeight,
+  buttonTextHeight,
+  buttonFontSize,
 }: PokerHandProps) => {
-  const margin = width * marginFactor;
-  const cardWidth = Math.round((width - margin * 6) / 5);
-  const cardHeight = Math.round(cardWidth * w2hRatio);
-  const xOffset = cardWidth + margin;
-  const cardFontSize = Math.round(cardHeight * 0.2);
-  const cardStrokeWidth = Math.round(cardHeight * 0.01);
-
   return (
     <Group x={margin} y={y}>
       {cards.map((raw, i) => (
@@ -68,21 +81,21 @@ export const PokerHand = ({
           >
             <Rect
               width={cardWidth}
-              height={cardHeight * 0.18}
-              y={cardHeight + margin}
+              height={buttonHeight}
+              y={buttonY}
               fill="yellow"
-              cornerRadius={cardHeight * 0.02}
+              cornerRadius={buttonCornerRadius}
               stroke={optimalHolds[i] ? 'red' : ''}
-              strokeWidth={cardStrokeWidth * 2}
+              strokeWidth={buttonStrokeWidth}
             />
             <Text
               width={cardWidth}
-              height={Math.round(cardHeight * 0.19)}
-              y={cardHeight + margin} // + cardHeight * 0.05
+              height={buttonTextHeight}
+              y={buttonY}
               align="center"
               verticalAlign="middle"
               text={holds[i] ? 'CANCEL' : 'HOLD'}
-              fontSize={Math.round(cardHeight * 0.1)}
+              fontSize={buttonFontSize}
               fontStyle={'bold'}
               fill={'black'}
             />

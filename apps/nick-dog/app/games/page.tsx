@@ -1,12 +1,14 @@
-import Link from 'next/link';
+// import React from 'react';
+import { ProjectPage } from '@biscuitnick/biscuit-ui';
 
-export default function Page() {
-  return (
-    <div>
-      <h1>Games</h1>
-      <div>
-        <Link href="/games/video-poker">Video Poker</Link>
-      </div>
-    </div>
-  );
+const navItems = [
+  // { name: 'BlackJack', href: '/projects/blackjack' },
+  { name: 'Video Poker', href: '/games/video-poker' },
+  // { name: 'Interactive Memes', href: '/projects/interactive-memes' },
+  // { name: 'Word Finder', href: '/projects/word-finder' },
+  // { name: 'xOrdle', href: '/projects/word-finder' },
+];
+
+export default function Home() {
+  return <ProjectPage title={'Games'} description={''} navItems={navItems} />;
 }

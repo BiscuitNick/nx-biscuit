@@ -39,9 +39,9 @@ export const usePayScheduleDimensions = (props: {
 
   const handTitles =
     payScheduleView === 'odds-and-payouts'
-      ? [..._handTitles, 'Totals']
+      ? [..._handTitles, 'TOTALS']
       : payScheduleView === 'detailed-odds'
-      ? ['Hands', ..._handTitles, 'Totals']
+      ? ['HANDS', ..._handTitles, 'TOTALS']
       : _handTitles;
 
   const rows = handTitles.length;
@@ -52,8 +52,8 @@ export const usePayScheduleDimensions = (props: {
       ? 4
       : 5;
 
-  const fontMargin = Math.floor((height * textMarginFactor) / rows);
-  const fontSize = Math.floor((height - fontMargin * rows) / rows);
+  const fontMargin = Math.round((height * textMarginFactor) / (rows + 1));
+  const fontSize = Math.round((height - fontMargin * (rows + 1)) / rows);
   const longestTitle = Math.max(...handTitles.map((el) => el.length));
   const baseWidth = Math.round(longestTitle * fontSize * 0.7);
 
@@ -113,10 +113,10 @@ export const usePayScheduleDimensions = (props: {
 
     texts = [
       ...texts,
-      [`Bet ${bet} Payouts`, ...bet1],
-      ['Occurences', ...countsCol, countTotal],
-      ['Frequency', ...percentsCol, '100%'],
-      ['Expected Value', ...evCol, Number(ev.toPrecision(3))],
+      [`PAYOUTS (${bet})`, ...bet1],
+      ['COUNTS', ...countsCol, countTotal],
+      ['FREQUENCY', ...percentsCol, '100%'],
+      ['EV', ...evCol, Number(ev.toPrecision(3))],
     ];
 
     // const bet1 = handValues.map((hand: string) => payouts[hand][i]);
@@ -157,5 +157,6 @@ export const usePayScheduleDimensions = (props: {
     height,
     handTitles,
     texts,
+    payScheduleView,
   };
 };

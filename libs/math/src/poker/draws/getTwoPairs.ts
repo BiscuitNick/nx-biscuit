@@ -151,16 +151,11 @@ export const getTwoPairDraws = (props: getDrawsProps) => {
         //
       } else if (pairs.length === 1) {
         // Must pair 1 of 2 kickers in next card.
-        const [pair] = pairs;
         const [kicker0, kicker1] = kickers;
         const kicker0Coefficient = deckRankCounts[kicker0];
         const kicker1Coefficient = deckRankCounts[kicker1];
 
-        deckRankCounts[pair] = 0;
-        deckRankCounts[kicker0] = 0;
-        deckRankCounts[kicker1] = 0;
-
-        potentialTwoPairs += kicker0Coefficient * kicker1Coefficient;
+        potentialTwoPairs += kicker0Coefficient + kicker1Coefficient;
       }
     } else if (hand.length === 5) {
       if (pairs.length === 2) {

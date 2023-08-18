@@ -33,6 +33,7 @@ interface PayScheduleProps {
   margin: number;
   strokeWidth: number;
   texts: any;
+  payScheduleView?: 'odds-and-payouts' | 'detailed-odds' | 'payouts-only';
 }
 
 export const PaySchedule = (props: PayScheduleProps) => {
@@ -61,6 +62,7 @@ export const PaySchedule = (props: PayScheduleProps) => {
     fontSize,
     boxes,
     texts,
+    payScheduleView,
   } = props;
 
   return (
@@ -77,7 +79,15 @@ export const PaySchedule = (props: PayScheduleProps) => {
           <Text
             key={index}
             text={winningHand === title ? title.toUpperCase() : title}
-            fill={textColor}
+            fill={
+              index === 0 && payScheduleView === 'detailed-odds'
+                ? 'white'
+                : index === texts[0].length - 1 &&
+                  (payScheduleView === 'detailed-odds' ||
+                    payScheduleView === 'odds-and-payouts')
+                ? 'white'
+                : textColor
+            }
             fontStyle={winningHand === title ? 'bold' : 'normal'}
             fontSize={fontSize}
             y={Math.floor(index * (fontSize + fontMargin))}
@@ -94,7 +104,11 @@ export const PaySchedule = (props: PayScheduleProps) => {
             height={height}
             stroke={borderColor}
             strokeWidth={strokeWidth}
-            fill={index === bet - 1 ? 'red' : ''}
+            fill={
+              index === bet - 1 && payScheduleView !== 'detailed-odds'
+                ? 'red'
+                : ''
+            }
           />
           <Group x={fontMargin / 2} y={fontMargin}>
             {texts[index + 1].map((text: string, i: number) => {
@@ -107,7 +121,11 @@ export const PaySchedule = (props: PayScheduleProps) => {
                 <Text
                   key={i}
                   text={String(text)}
-                  fill={textColor}
+                  fill={
+                    i === 0 && payScheduleView === 'detailed-odds'
+                      ? 'white'
+                      : textColor
+                  }
                   fontSize={fontSize}
                   y={i * (fontSize + fontMargin)}
                 />

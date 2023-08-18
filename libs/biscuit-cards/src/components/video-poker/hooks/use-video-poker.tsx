@@ -21,6 +21,7 @@ interface useVideoPokerProps {
 
   width?: number;
   height?: number;
+  payScheduleView?: 'odds-and-payouts' | 'detailed-odds' | 'payouts-only';
 }
 
 export const useVideoPoker = (props: useVideoPokerProps) => {
@@ -33,27 +34,22 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     initShowOdds = true,
     width = 500,
     height = 500,
+    payScheduleView = 'odds-and-payouts',
   } = props;
   const [deck, setDeck] = useState<number[]>(shuffledDeck(1));
   const [status, setStatus] = useState<string>(initStatus);
-  const [showOdds, setShowOdds] = useState<boolean>(initShowOdds);
   const [bet, setBet] = useState<number>(initBet);
   const [credits, setCredits] = useState<number>(initCredits);
   const [cards, setCards] = useState<number[]>(initCards);
   const [holds, setHolds] = useState<boolean[]>(initHolds);
   const [winningHand, setWinningHand] = useState<string>('High Card');
-  const [calculatingOdds, setCalculating] = useState<boolean>(false);
-
   const [percents, setPercents] = useState<valueCounts>({ ...valueCounter }); //setPercents
   const [counts, setCounts] = useState<valueCounts>({ ...valueCounter }); //setCounts
   const [expectedValues, setExpectedValues] = useState<valueCounts>({
     ...valueCounter,
-  }); //setExpectedValues
+  });
   const [ev, setEV] = useState<number>(0);
-
-  const [autoPlay, setAutoPlay] = useState<boolean>(true);
   const autoPlaySpeed = 1000;
-
   const [optimalHolds, setOptimalHolds] = useState<boolean[]>([
     false,
     false,
@@ -61,15 +57,9 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     false,
     false,
   ]);
-
   const [winnings, setWinnings] = useState<number>(0);
-
   const [totalGames, setTotalGames] = useState(0);
-
   const [maxGames, setMaxGames] = useState(1000);
-
-  const [isTracking, setIsTracking] = useState(true);
-
   const [totalBets, setTotalBets] = useState<number>(0);
   const [totalWinnings, setTotalWinnings] = useState<number>(0);
   const [handHistory, setHandHistory] = useState<valueCounts>({
@@ -78,28 +68,46 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   const handTitles = handValues.map((val: string) => handValueTitles[val]);
   const payouts = payouts96;
 
-  const { handStatusBar, betCreditStatusBar, paySchedule } =
-    useVideoPokerDimensions({
-      width,
-      height,
-      handTitles,
-      payouts,
-      bet,
-      // winningHand,
-      expectedValues,
-      handValues,
-      ev,
-      percents,
-      counts,
-    });
+  const [isTracking, setIsTracking] = useState(true);
+  const [autoPlay, setAutoPlay] = useState<boolean>(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [showBuddy, setShowBuddy] = useState<boolean>(false);
+
+  const {
+    pokerHand,
+    handStatusBar,
+    betCreditStatusBar,
+    paySchedule,
+    bottomButtonRow,
+  } = useVideoPokerDimensions({
+    width,
+    height,
+    handTitles,
+    payouts,
+    bet,
+    // winningHand,
+    expectedValues,
+    handValues,
+    ev,
+    percents,
+    counts,
+    payScheduleView,
+    marginFactor: 0.01,
+  });
 
   const [focalPoint, setFocalPoint] = useState({ x: 0, y: 0 });
 
-  // const [handTitles] = useState<string[]>(
-  //   handValues.map((val: string) => handValueTitles[val])
-  // );
+  const toggleOptions = () => {
+    setShowOptions(!showOptions);
+  };
 
-  // TODO allow other payouts
+  const toggleBuddy = () => {
+    setShowBuddy(!showBuddy);
+  };
+
+  const toggleAutoPlay = () => {
+    setAutoPlay(!autoPlay);
+  };
 
   const updateHolds = (index: number) => {
     if (status !== 'pendingDraw' && status !== 'pendingHolds') return;
@@ -109,6 +117,8 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   };
 
   const minusBet = () => {
+    if (status !== 'pendingNewGame') return;
+
     const newBet = bet - 1 >= 1 ? bet - 1 : 1;
     const diff = bet - newBet;
     const newCredits = credits + diff;
@@ -118,6 +128,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   };
 
   const betOne = () => {
+    if (status !== 'pendingNewGame') return;
     const newBet = bet + 1 > 5 ? bet : bet + 1;
     const diff = bet - newBet;
     const newCredits = credits + diff;
@@ -127,6 +138,8 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   };
 
   const betMax = () => {
+    if (status !== 'pendingNewGame') return;
+
     const newBet = 5;
     const diff = bet - 5;
     const newCredits = credits + diff;
@@ -248,16 +261,18 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   }, [bet, cards, payouts]);
 
   useEffect(() => {
-    if (cards.includes(-1)) return;
+    // if (cards.includes(-1)) return;
 
     const hand: number[] = [];
     const discards: number[] = [];
 
     holds.forEach((h, i) => {
-      if (h) {
-        hand.push(cards[i]);
+      const card = cards[i];
+      if (card === -1) return;
+      else if (h) {
+        hand.push(card);
       } else {
-        discards.push(cards[i]);
+        discards.push(card);
       }
     });
 
@@ -277,14 +292,22 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     setExpectedValues(evs);
     setEV(netEv);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [holds]);
+  }, [holds, bet]);
 
   useEffect(() => {
     const hand: number[] = cards.filter((c) => c > -1);
 
+    const betPayouts = { ...valueCounter };
+    Object.keys(payouts).forEach((key) => {
+      betPayouts[key] = payouts[key][bet - 1];
+    });
+
     if (hand.length === 5) {
       if (status === 'pendingHolds') {
-        const { holds: optimals } = getMaxEvDraws({ hand: cards });
+        const { holds: optimals } = getMaxEvDraws({
+          hand: cards,
+          payouts: betPayouts,
+        });
 
         setOptimalHolds(optimals);
         if (autoPlay) {
@@ -352,54 +375,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     }
   }, [autoPlay, status, optimalHolds, holds]);
 
-  useEffect(() => {
-    // console.log(
-    //   handHistory,
-    //   winningHand,
-    //   totalGames,
-    //   totalWinnings - totalBets,
-    //   Number(((totalWinnings - totalBets) / totalGames).toPrecision(4))
-    // );
-  }, [handHistory]);
-
   return {
-    deck,
-    setDeck,
-    status,
-    setStatus,
-    showOdds,
-    setShowOdds,
-    credits,
-    setCredits,
-    bet,
-    setBet,
-    cards,
-    setCards,
-    holds,
-    setHolds,
-    winningHand,
-    setWinningHand,
-    payouts,
-    updateHolds,
-    minusBet,
-    betOne,
-    betMax,
-    dealOrDraw,
-    percents,
-    counts,
-    calculatingOdds,
-    setCalculating,
-    handValues,
-    handTitles,
-    winnings,
-
-    expectedValues,
-    ev,
-    optimalHolds,
-
-    focalPoint,
-    isTracking,
-
     handStatusBar: { ...handStatusBar, status, winningHand, winnings },
     betCreditStatusBar: { ...betCreditStatusBar, credits, bet },
     paySchedule: {
@@ -410,5 +386,47 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
       winningHand,
       expectedValues,
     },
+    pokerHand: {
+      ...pokerHand,
+      cards,
+      holds,
+      status,
+      optimalHolds,
+      updateHolds,
+    },
+    bottomButtonRow: {
+      ...bottomButtonRow,
+      status,
+      minusBet,
+      betOne,
+      betMax,
+      dealOrDraw,
+      toggleOptions,
+    },
+    status,
+    // showOdds,
+    // setShowOdds,
+    credits,
+    bet,
+    cards,
+    holds,
+    winningHand,
+    payouts,
+    updateHolds,
+    minusBet,
+    betOne,
+    betMax,
+    dealOrDraw,
+    percents,
+    counts,
+    calculatingOdds: false,
+    focalPoint,
+    isTracking,
+    toggleOptions,
+    showOptions,
+    toggleBuddy,
+    showBuddy,
+    toggleAutoPlay,
+    autoPlay,
   };
 };

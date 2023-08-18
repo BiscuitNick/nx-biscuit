@@ -13,8 +13,8 @@ export const VideoPoker = (props: VideoPokerProps) => {
   const { initCards } = props;
   const {
     status,
-    showOdds,
-    setShowOdds,
+    // showOdds,
+    // setShowOdds,
     credits,
     bet,
     cards,
@@ -41,7 +41,7 @@ export const VideoPoker = (props: VideoPokerProps) => {
         credits={bet}
         hand={winningHand}
         payouts={payouts}
-        showOdds={showOdds}
+        showOdds={false}
         percents={percents}
         counts={counts}
         calculatingOdds={calculatingOdds}
@@ -68,7 +68,7 @@ export const VideoPoker = (props: VideoPokerProps) => {
         betOne={betOne}
         betMax={betMax}
         dealOrDraw={dealOrDraw}
-        toggleOdds={() => setShowOdds(!showOdds)}
+        toggleOdds={() => console.log('toggleOdds')}
       />
     </div>
   );

@@ -1,20 +1,14 @@
 import { useVideoPoker } from '@nx-biscuit/biscuit-cards';
-import { Stage, Layer } from 'react-konva';
 import { Background } from './background-rect';
 import { PaySchedule } from './pay-schedule';
 import { PokerHand } from './poker-hand';
 import { BottomButtonRow } from './bottom-button-row';
 import { HandStatusBar } from './hand-status-bar';
 import { BetCreditStatusBar } from './bet-credit-status-bar';
-// import { useVideoPokerDimensions } from './use-video-poker-dimensions';
-import {
-  // BiscuitBoard,
-  pokerCat,
-  // executiveDog,
-  Buddy,
-  Board,
-} from '@biscuitnick/biscuit-konva';
+import { pokerCat, Buddy, Board } from '@biscuitnick/biscuit-konva';
 import { useRef, useState, useEffect } from 'react';
+import { ToggleSwitch } from '@biscuitnick/biscuit-ui';
+
 interface VideoPokerCanvasProps {
   width?: number;
   height?: number;
@@ -23,35 +17,37 @@ interface VideoPokerCanvasProps {
 
 export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
   const { width = 500, height = 500, style } = props;
-  const { handTitles, ...pokerProps } = useVideoPoker({ width, height });
-
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
   const {
-    cards,
-    holds,
-    status,
-
-    optimalHolds,
-    minusBet,
-    betOne,
-    betMax,
-    dealOrDraw,
-    updateHolds,
-
     handStatusBar,
     betCreditStatusBar,
     paySchedule,
+    pokerHand,
+    bottomButtonRow,
 
     focalPoint,
     isTracking,
-  } = pokerProps;
+
+    toggleOptions,
+    showOptions,
+
+    toggleBuddy,
+    showBuddy,
+
+    toggleAutoPlay,
+    autoPlay,
+  } = useVideoPoker({
+    width,
+    height,
+    payScheduleView: 'detailed-odds', //'odds-and-payouts',
+  });
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [buddyBox, setBuddyBox] = useState({
-    width: width / 3,
-    height: height / 3,
-    x: width / 2 - width / 6,
-    y: height / 10,
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 0,
   });
 
   useEffect(() => {
@@ -82,36 +78,77 @@ export const VideoPokerCanvas = (props: VideoPokerCanvasProps) => {
         <Background width={width} height={height} color={'blue'} />
         <PaySchedule {...paySchedule} />
         <HandStatusBar {...handStatusBar} />
-        <PokerHand
-          y={height * 0.5}
-          width={width}
-          cards={cards}
-          holds={holds}
-          optimalHolds={optimalHolds}
-          updateHolds={updateHolds}
-          status={status}
-        />
+        <PokerHand {...pokerHand} />
         <BetCreditStatusBar {...betCreditStatusBar} />
-        <BottomButtonRow
-          y={Math.round(height * 0.93)}
-          width={width}
-          status={status}
-          minusBet={minusBet}
-          betOne={betOne}
-          betMax={betMax}
-          dealOrDraw={dealOrDraw}
-        />
-        <Buddy
-          box={buddyBox}
-          contentObject={pokerCat}
-          contentIDs={['image_2', 'eye_0', 'eye_1']}
-          focalPoint={focalPoint}
-          canvasRef={canvasRef}
-          handleClick={() => console.log('')}
-          handleDrag={handleBuddyDrag}
-          isTracking={isTracking}
-        />
+        <BottomButtonRow {...bottomButtonRow} />
+        {showBuddy && (
+          <Buddy
+            box={buddyBox}
+            contentObject={pokerCat}
+            contentIDs={['image_2', 'eye_0', 'eye_1']}
+            canvasRef={canvasRef}
+            handleClick={() => console.log('')}
+            handleDrag={handleBuddyDrag}
+            focalPoint={focalPoint}
+            isTracking={isTracking}
+          />
+        )}
       </Board>
+
+      {showOptions && (
+        <div
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'grid',
+          }}
+        >
+          <div
+            style={{
+              width,
+              height,
+              background: '#000000cc',
+              margin: 'auto',
+              display: 'grid',
+              gridAutoRows: '50px',
+
+              border: '1px solid white',
+              // gridGap: 10,
+              // gridAutoRows: 'minmax(100px, auto)',
+
+              position: 'relative',
+              padding: 10,
+            }}
+          >
+            <button
+              style={{
+                position: 'absolute',
+                right: 10,
+                top: 10,
+                width: 30,
+                background: 'red',
+                color: 'white',
+              }}
+              onClick={toggleOptions}
+            >
+              X
+            </button>
+
+            <div className="text-white">OPTIONS</div>
+            <ToggleSwitch
+              label={'Show Buddy'}
+              checked={showBuddy}
+              onChange={toggleBuddy}
+            />
+            <ToggleSwitch
+              label={'Auto Play'}
+              checked={autoPlay}
+              onChange={toggleAutoPlay}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };

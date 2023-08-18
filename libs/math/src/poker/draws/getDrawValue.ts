@@ -1,10 +1,5 @@
 import { getTotalCombinations } from '../getTotalCombinations';
-import {
-  standardDeck,
-  getFilteredDeck,
-  getRankCounts,
-  getRanks,
-} from '../deck';
+import { standardDeck, getFilteredDeck } from '../deck';
 import { getStraightFlushDraws } from './getStraightFlushDraws';
 import { getQuadDraws } from './getQuadDraws';
 import { getFullhouseDraws } from './getFullHouseDraws';
@@ -13,7 +8,6 @@ import { getStraightDraws } from './getStraightDraws';
 import { getTripDraws } from './getTripDraws';
 import { getTwoPairDraws } from './getTwoPairs';
 import { getPairDraws } from './getPairDraws';
-
 import { valueCounts } from '../constants';
 
 export interface getDrawsProps {

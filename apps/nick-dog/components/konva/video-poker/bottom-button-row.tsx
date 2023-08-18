@@ -14,6 +14,7 @@ interface BottomButtonsProps {
   betOne: () => void;
   betMax: () => void;
   dealOrDraw: () => void;
+  toggleOptions: () => void;
 }
 
 export const BottomButtonRow = ({
@@ -30,6 +31,7 @@ export const BottomButtonRow = ({
   betOne,
   betMax,
   dealOrDraw,
+  toggleOptions,
 }: BottomButtonsProps) => {
   const margin = Math.round(width * marginFactor);
   const cardWidth = Math.round((width - margin * 6) / 5);
@@ -42,7 +44,7 @@ export const BottomButtonRow = ({
 
   return (
     <Group x={margin} y={y}>
-      <Group onClick={() => console.log('button')} x={0}>
+      <Group onClick={toggleOptions} x={0}>
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
@@ -62,7 +64,11 @@ export const BottomButtonRow = ({
           fill={'white'}
         />
       </Group>
-      <Group onClick={minusBet} x={xOffset}>
+      <Group
+        onClick={minusBet}
+        x={xOffset}
+        opacity={status !== 'pendingNewGame' ? 0.5 : 1}
+      >
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
@@ -82,7 +88,11 @@ export const BottomButtonRow = ({
           fill={'black'}
         />
       </Group>
-      <Group onClick={betOne} x={xOffset * 2}>
+      <Group
+        onClick={betOne}
+        x={xOffset * 2}
+        opacity={status !== 'pendingNewGame' ? 0.5 : 1}
+      >
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
@@ -102,7 +112,11 @@ export const BottomButtonRow = ({
           fill={'black'}
         />
       </Group>
-      <Group onClick={betMax} x={xOffset * 3}>
+      <Group
+        onClick={betMax}
+        x={xOffset * 3}
+        opacity={status !== 'pendingNewGame' ? 0.5 : 1}
+      >
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
@@ -120,7 +134,11 @@ export const BottomButtonRow = ({
           fill={'black'}
         />
       </Group>
-      <Group onClick={dealOrDraw} x={xOffset * 4}>
+      <Group
+        onClick={dealOrDraw}
+        x={xOffset * 4}
+        opacity={status.includes('dealing') ? 0.5 : 1}
+      >
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
@@ -134,7 +152,7 @@ export const BottomButtonRow = ({
           // y={cardHeight + margin} // + cardHeight * 0.05
           align="center"
           verticalAlign="middle"
-          text={'Deal'}
+          text={status === 'pendingDraw' ? 'Draw' : 'Deal'}
           fontSize={Math.round(cardHeight * 0.1)}
           fontStyle={'bold'}
           fill={'white'}

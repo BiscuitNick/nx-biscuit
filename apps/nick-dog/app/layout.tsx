@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
-// import 'dist/libs/biscuit-ui/index.css';
+
+import '../styles/global.css';
 
 export const metadata: Metadata = {
   title: {
