@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const WordList = ({
   words,
@@ -32,32 +32,32 @@ const WordList = ({
   return (
     <div
       style={{
-        fontFamily: "Clear Sans, Helvetica Neue, Arial, sans-serif",
-        border: "white 1px solid",
-        margin: "auto",
-        flexWrap: "wrap",
-        color: "white",
-        width: "100%",
+        fontFamily: 'Clear Sans, Helvetica Neue, Arial, sans-serif',
+        border: 'white 1px solid',
+        margin: 'auto',
+        flexWrap: 'wrap',
+        color: 'white',
+        width: '100%',
         maxWidth: 500,
 
-        height: "100%",
+        height: '100%',
         maxHeight: 500,
 
-        display: "grid",
-        gridTemplateRows: "auto 1fr auto",
-        gridTemplateColumns: "1fr",
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr auto',
+        gridTemplateColumns: '1fr',
 
-        overflow: "auto",
-        justifyContent: "space-around",
-        position: "relative",
+        overflow: 'auto',
+        justifyContent: 'space-around',
+        position: 'relative',
       }}
     >
       <div
         style={{
-          width: "100%",
-          background: "black",
-          display: "flex",
-          justifyContent: "space-between",
+          width: '100%',
+          background: 'black',
+          display: 'flex',
+          justifyContent: 'space-between',
         }}
       >
         <button onClick={alphabetize}>A-Z</button>
@@ -70,11 +70,11 @@ const WordList = ({
       <div
         style={{
           padding: 15,
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          overflow: "auto",
-          flexWrap: "wrap",
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          overflow: 'auto',
+          flexWrap: 'wrap',
           gridGap: 10,
         }}
       >
@@ -83,7 +83,7 @@ const WordList = ({
           .map((x) => (
             <div
               key={x}
-              style={{ margin: "auto" }}
+              style={{ margin: 'auto' }}
               onClick={() => setCurrentGuess(x)}
             >{`${x.toUpperCase()} `}</div>
           ))}
@@ -91,10 +91,10 @@ const WordList = ({
 
       <div
         style={{
-          width: "100%",
-          background: "black",
-          display: "flex",
-          justifyContent: "space-between",
+          width: '100%',
+          background: 'black',
+          display: 'flex',
+          justifyContent: 'space-between',
         }}
       >
         <button onClick={() => setPage(page > 0 ? page - 1 : 0)}>Back</button>

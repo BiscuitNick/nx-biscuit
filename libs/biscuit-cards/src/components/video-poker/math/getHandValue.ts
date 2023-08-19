@@ -2,7 +2,7 @@ import { getRankValue } from './getRankValue';
 import { getFlushValue } from './getFlushValue';
 import { getStraightValue } from './getStraightValue';
 
-export const getHandValue = (hand: number[]) => {
+export const getHandValueOld = (hand: number[]) => {
   const rankVal = getRankValue(hand);
   const flushVal = getFlushValue(hand);
   const straightVal = getStraightValue(hand);
@@ -14,7 +14,7 @@ export const getHandValue = (hand: number[]) => {
 };
 
 export const getHandTitle = (hand: number[]) => {
-  const handValue = getHandValue(hand);
+  const handValue = getHandValueOld(hand);
   return handValue === 900
     ? 'Royal Flush'
     : handValue >= 800

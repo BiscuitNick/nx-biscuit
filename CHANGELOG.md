@@ -56,3 +56,4 @@ This all appears related to the Canvas package.
 Update Type definitions
 Add env.example.
 Add SENDGRID_API_KEY and integration for Contact form.
+

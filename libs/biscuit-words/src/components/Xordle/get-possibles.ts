@@ -4,6 +4,8 @@ const getPossibles = (
   inWordStrings: string[],
   missStrings: string[]
 ) => {
+  console.log('gettings words');
+
   if (matchStrings.length === 0) return wordList;
 
   const matchChars = matchStrings

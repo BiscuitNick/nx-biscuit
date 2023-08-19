@@ -2,7 +2,7 @@ import {
   standardRanks,
   standardSuitChars,
   standardSuitColors,
-} from "../../lib/constants";
+} from '../../lib/constants';
 
 interface CharCardProps {
   raw: number;
@@ -16,7 +16,7 @@ export const CharCard = (props: CharCardProps) => {
   const suit = suits[suitIndex];
   const color = standardSuitColors[suitIndex];
   const rank = ranks[raw % ranks.length];
-  const cardStr = `${rank}${suit}`;
+  const cardStr = raw > -1 ? `${rank}${suit}` : '-';
 
-  return <span style={{ color, margin: "auto" }}>{cardStr}</span>;
+  return <span style={{ color, margin: 'auto' }}>{cardStr}</span>;
 };

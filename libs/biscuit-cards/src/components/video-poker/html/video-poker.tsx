@@ -2,17 +2,19 @@ import { PayTable } from './pay-table';
 import { CardRow } from './card-row';
 import { BottomButtons } from './bottom-buttons';
 import '../Poker.css';
-import { useVideoPoker } from '../hooks/use-video-poker';
+import { useVideoPoker } from '../hooks/use-video-poker-old';
 
 interface VideoPokerProps {
   width?: number;
+  initCards?: number[];
 }
 
 export const VideoPoker = (props: VideoPokerProps) => {
+  const { initCards } = props;
   const {
     status,
-    showOdds,
-    setShowOdds,
+    // showOdds,
+    // setShowOdds,
     credits,
     bet,
     cards,
@@ -28,7 +30,7 @@ export const VideoPoker = (props: VideoPokerProps) => {
     counts,
     calculatingOdds,
   } = useVideoPoker({
-    initCards: [9, 10, 24, 12, 0],
+    initCards: initCards,
     initHolds: [true, true, true, true, false],
     initStatus: 'pendingDraw',
   });
@@ -39,7 +41,7 @@ export const VideoPoker = (props: VideoPokerProps) => {
         credits={bet}
         hand={winningHand}
         payouts={payouts}
-        showOdds={showOdds}
+        showOdds={false}
         percents={percents}
         counts={counts}
         calculatingOdds={calculatingOdds}
@@ -66,7 +68,7 @@ export const VideoPoker = (props: VideoPokerProps) => {
         betOne={betOne}
         betMax={betMax}
         dealOrDraw={dealOrDraw}
-        toggleOdds={() => setShowOdds(!showOdds)}
+        toggleOdds={() => console.log('toggleOdds')}
       />
     </div>
   );

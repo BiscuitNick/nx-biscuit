@@ -1,0 +1,14 @@
+// import React from 'react';
+import { ProjectPage } from '@biscuitnick/biscuit-ui';
+
+const navItems = [
+  // { name: 'BlackJack', href: '/projects/blackjack' },
+  { name: 'Video Poker', href: '/games/video-poker' },
+  // { name: 'Interactive Memes', href: '/projects/interactive-memes' },
+  // { name: 'Word Finder', href: '/projects/word-finder' },
+  // { name: 'xOrdle', href: '/projects/word-finder' },
+];
+
+export default function Home() {
+  return <ProjectPage title={'Games'} description={''} navItems={navItems} />;
+}

@@ -3,11 +3,13 @@ import KeyboardIcon from '@mui/icons-material/Keyboard';
 import KeyboardHideIcon from '@mui/icons-material/KeyboardHide';
 import Tooltip from '@mui/material/Tooltip';
 import { WordFinder } from '../word-finder';
-import getPossibles from '../Xordle/get-possibles';
+// import getPossibles from '../Xordle/get-possibles';
 import WordList from '../word-list';
 import Keyboard from '../Keyboard';
 import { useFinderKeyboard } from '../Keyboard/useFinderKeyboard';
 import { letters5 } from '../../data/words';
+
+import { getPossibles } from '@biscuitnick/utils';
 
 interface FinderComponent {
   wordLength: number;
@@ -35,7 +37,6 @@ export const Finder: React.FC<FinderComponent> = ({
   }, [wordLength]);
 
   const [guessChars, setGeuessChars] = useState<any>([]);
-
   const [matchStrings, setMatchStrings] = useState<string[]>([]);
   const [inWordStrings, setInWordStrings] = useState<string[]>([]);
   const [missStrings, setMissStrings] = useState<string[]>([]);

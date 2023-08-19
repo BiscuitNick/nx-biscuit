@@ -1,12 +1,36 @@
-'use client';
+/* eslint-disable react/jsx-key */
+import Link from 'next/link';
+const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
-import React from 'react';
-import VideoPokerBlog from '/content/video-poker.mdx';
+async function getData() {
+  const res = await fetch(`${STRAPI_API_PATH}/api/blogs`, {
+    next: { revalidate: 999999 },
+  });
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
 
-export default function Home() {
-  return (
-    <div className="p-10 flex flex-col justify-center w-screen min-h-screen text-white">
-      <VideoPokerBlog />
-    </div>
+  //   console.log(res);
+
+  //   return 'helllo';
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    console.log(12, 'error');
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
+
+export default async function Page() {
+  const { data } = await getData();
+  const TitleLinks = data.map(
+    (d: { attributes: { title: string; slug: string } }) => (
+      <div>
+        <Link href={`/blog/${d.attributes.slug}`}> {d.attributes.title}</Link>
+      </div>
+    )
   );
+  return <main className="text-white">{TitleLinks}</main>;
 }
