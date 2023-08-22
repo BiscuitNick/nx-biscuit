@@ -8,14 +8,15 @@ import {
   getFilteredDeck,
 } from '@biscuitnick/math';
 
+const timeStamp = new Date();
+const dateStr = timeStamp.toLocaleDateString();
+const timeStr = timeStamp.toLocaleTimeString();
+
 export default function Page({
   params,
 }: {
   params: { holdsXdiscards: string };
 }) {
-  const date = new Date();
-  const time = date.getTime();
-
   const [holdsStr, discardsStr] = params.holdsXdiscards.split('x');
   const holds = holdsStr.split('-').map((x) => Number(x));
   const discards = discardsStr
@@ -23,11 +24,10 @@ export default function Page({
     .map((x) => (x.length ? Number(x) : -1))
     .filter((x) => x > -1);
   const deck = getFilteredDeck({ hand: holds, discards });
+  const totalCombinations = getTotalCombinations(deck.length, 5 - holds.length);
 
   // const { kickers, pairs, trips, quads } = getRanks(holds);
   // const totalSuits = getSuitCounts(holds).filter((x) => x > 0);
-
-  const totalCombinations = getTotalCombinations(deck.length, 5 - holds.length);
 
   // console.log(kickers, pairs, trips, quads);
   // console.log(totalSuits);
@@ -88,12 +88,16 @@ export default function Page({
       <div
         style={{
           bottom: 0,
+          right: 5,
           position: 'absolute',
-          width: '100%',
+          // width: '100%',
           display: 'grid',
+          // background: 'orange',
         }}
       >
-        <div style={{ margin: 'auto' }}>Page Generated {date.toString()}</div>
+        <div>
+          Page Created {dateStr} {timeStr}
+        </div>
       </div>
     </div>
   );
