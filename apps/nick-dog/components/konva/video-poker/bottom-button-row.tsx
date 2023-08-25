@@ -44,7 +44,7 @@ export const BottomButtonRow = ({
 
   return (
     <Group x={margin} y={y}>
-      <Group onClick={toggleOptions} x={0}>
+      <Group onClick={toggleOptions} onTouchStart={toggleOptions} x={0}>
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
@@ -66,6 +66,7 @@ export const BottomButtonRow = ({
       </Group>
       <Group
         onClick={minusBet}
+        onTouchStart={minusBet}
         x={xOffset}
         opacity={status !== 'pendingNewGame' ? 0.5 : 1}
       >
@@ -90,6 +91,7 @@ export const BottomButtonRow = ({
       </Group>
       <Group
         onClick={betOne}
+        onTouchStart={betOne}
         x={xOffset * 2}
         opacity={status !== 'pendingNewGame' ? 0.5 : 1}
       >
@@ -114,6 +116,7 @@ export const BottomButtonRow = ({
       </Group>
       <Group
         onClick={betMax}
+        onTouchStart={betMax}
         x={xOffset * 3}
         opacity={status !== 'pendingNewGame' ? 0.5 : 1}
       >
@@ -135,6 +138,7 @@ export const BottomButtonRow = ({
         />
       </Group>
       <Group
+        onTouchStart={dealOrDraw}
         onClick={dealOrDraw}
         x={xOffset * 4}
         opacity={status.includes('dealing') ? 0.5 : 1}

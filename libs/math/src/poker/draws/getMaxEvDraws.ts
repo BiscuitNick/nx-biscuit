@@ -1,7 +1,7 @@
-import { PayoutSchedule } from '../constants';
+// import { PayoutSchedule } from '../constants';
 import { drawCombinations } from '../getDrawCombinations';
 import { standardDeck } from '../deck';
-import { payouts96 } from '../constants';
+// import { payouts96 } from '../constants';
 import { getDraws } from './getDrawValue';
 
 interface getMaxEvDrawsProps {
@@ -19,8 +19,6 @@ export const getMaxEvDraws = (props: getMaxEvDrawsProps) => {
     hand,
     discards = [],
     deck = standardDeck,
-
-    // payouts
 
     payouts = {
       900: 4000,
@@ -74,5 +72,13 @@ export const getMaxEvDraws = (props: getMaxEvDrawsProps) => {
     }
   );
 
-  return { holds: optimalHolds, ev: maxEv, cards: holdCards };
+  const optimalDiscards = hand.filter((x, i) => !optimalHolds[i]);
+
+  return {
+    holds: optimalHolds,
+    ev: maxEv,
+    cards: holdCards,
+    discards: optimalDiscards,
+    payouts,
+  };
 };
