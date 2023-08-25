@@ -1,9 +1,6 @@
 import { Group, Text, Rect } from 'react-konva';
 
 interface BottomButtonsProps {
-  // cards: number[];
-  // holds: boolean[];
-  // updateHolds: (index: number) => void;
   status: string;
   marginFactor?: number;
   w2hRatio?: number;
@@ -18,9 +15,6 @@ interface BottomButtonsProps {
 }
 
 export const BottomButtonRow = ({
-  // cards,
-  // holds,
-  // updateHolds,
   marginFactor = 0.01,
   w2hRatio = 1.4,
   width,
@@ -37,10 +31,6 @@ export const BottomButtonRow = ({
   const cardWidth = Math.round((width - margin * 6) / 5);
   const cardHeight = Math.round(cardWidth * w2hRatio);
   const xOffset = cardWidth + margin;
-  // const cardFontSize = Math.round(cardHeight * 0.2);
-  // const cardStrokeWidth = Math.round(cardHeight * 0.01);
-
-  // console.log(xOffset, y);
 
   return (
     <Group x={margin} y={y}>
@@ -48,14 +38,12 @@ export const BottomButtonRow = ({
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
-          // y={cardHeight + margin}
           fill="black"
           cornerRadius={cardHeight * 0.02}
         />
         <Text
           width={cardWidth}
           height={Math.round(cardHeight * 0.21)}
-          // y={cardHeight + margin} // + cardHeight * 0.05
           align="center"
           verticalAlign="middle"
           text={'Options'}
@@ -73,14 +61,12 @@ export const BottomButtonRow = ({
         <Rect
           width={cardWidth}
           height={cardHeight * 0.2}
-          // y={cardHeight + margin}
           fill="white"
           cornerRadius={cardHeight * 0.02}
         />
         <Text
           width={cardWidth}
           height={Math.round(cardHeight * 0.21)}
-          // y={cardHeight + margin} // + cardHeight * 0.05
           align="center"
           verticalAlign="middle"
           text={'Bet -'}
@@ -105,7 +91,6 @@ export const BottomButtonRow = ({
         <Text
           width={cardWidth}
           height={Math.round(cardHeight * 0.21)}
-          // y={cardHeight + margin} // + cardHeight * 0.05
           align="center"
           verticalAlign="middle"
           text={'Bet +'}
@@ -156,7 +141,17 @@ export const BottomButtonRow = ({
           // y={cardHeight + margin} // + cardHeight * 0.05
           align="center"
           verticalAlign="middle"
-          text={status === 'pendingDraw' ? 'Draw' : 'Deal'}
+          text={
+            status === 'pendingHolds' ||
+            status === 'autoSetHolds' ||
+            status === 'pendingDraw'
+              ? 'Draw'
+              : status === 'dealingDraw'
+              ? 'Drawing...'
+              : status === 'dealingCards'
+              ? 'Dealing...'
+              : 'Deal'
+          }
           fontSize={Math.round(cardHeight * 0.1)}
           fontStyle={'bold'}
           fill={'white'}

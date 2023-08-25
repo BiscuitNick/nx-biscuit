@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { VideoPokerGame } from '../../../components/konva/video-poker';
-
+import { BlackjackGame } from '../../../components/konva/blackjack';
 export default function Home() {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -20,7 +19,7 @@ export default function Home() {
 
   return (
     <div style={{ display: 'grid', width: '100vw', height: '100vh' }}>
-      <VideoPokerGame
+      <BlackjackGame
         width={width}
         height={height}
         style={{ margin: 'auto', borderRadius: 5, overflow: 'hidden' }}
@@ -28,11 +27,3 @@ export default function Home() {
     </div>
   );
 }
-
-// {  // const [mode, setMode] = useState<'watch' | 'play' | 'odds'>('watch');
-//   /* <div style={{ position: 'absolute' }}>
-//   <button onClick={() => setMode('watch')}>Watch</button>
-//   <button onClick={() => setMode('watch')}>Play</button>
-//   <button onClick={() => setMode('watch')}>Explore Odds</button>
-// </div> */
-// }        // bgColor={'blue'}

@@ -25,6 +25,8 @@ export interface BuddyProps {
 
   focalPoint: { x: number; y: number };
   isTracking?: boolean;
+
+  showBuddy: boolean;
   // id: string;
 }
 
@@ -39,10 +41,10 @@ export const Buddy = (props: BuddyProps) => {
     focalPoint: _focalPoint,
 
     isTracking = true,
+
+    showBuddy,
     // id,
   } = props;
-
-  // const [box, setBox] = useState(_box);
 
   const fc = useEyeMovement({ canvasRef });
   const focalPoint = isTracking ? _focalPoint : fc;
@@ -146,7 +148,7 @@ export const Buddy = (props: BuddyProps) => {
     }
   });
 
-  return (
+  return showBuddy ? (
     <Group
       {...centerBox}
       draggable={true}
@@ -156,7 +158,7 @@ export const Buddy = (props: BuddyProps) => {
     >
       {BiscuitContent}
     </Group>
-  );
+  ) : null;
 };
 
 // export default Biscuit;
