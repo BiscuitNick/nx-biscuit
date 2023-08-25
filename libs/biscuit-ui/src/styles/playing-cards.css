@@ -1,0 +1,30 @@
+.card-row {
+  width: 540px;
+
+  display: grid;
+
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+
+  /* width: min-content; */
+}
+
+.card-wrapper {
+  height: 140px;
+  width: 100px;
+
+  /* border-radius: 10px;
+  overflow: hidden; */
+}
+
+@media screen and (max-width: 600px) {
+  .card-row {
+    width: 79vw;
+    grid-gap: 1vw;
+  }
+  .card-wrapper {
+    height: 21vw;
+    width: 15vw;
+  }
+}

@@ -48,7 +48,12 @@ export const PokerHand = ({
   return (
     <Group x={margin} y={y}>
       {cards.map((raw, i) => (
-        <Group key={i} onClick={() => updateHolds(i)} x={xOffset * i}>
+        <Group
+          key={i}
+          onClick={() => updateHolds(i)}
+          onTouchStart={() => updateHolds(i)}
+          x={xOffset * i}
+        >
           {raw > -1 && status !== 'dealingCards' ? (
             status === 'dealingDraw' && !holds[i] ? (
               <PokerCardBack width={cardWidth} height={cardHeight} />

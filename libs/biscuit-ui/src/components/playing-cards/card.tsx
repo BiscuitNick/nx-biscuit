@@ -1,13 +1,9 @@
-// import { standardRanks, standardSuits } from '../../lib/constants';
-
 import { standardRanks, standardSuits } from '@biscuitnick/math';
 
 interface CardProps {
   raw: number;
   suits?: string[];
   ranks?: string[];
-  // height?: number;
-  // width?: number;
 }
 
 export const Card = (props: CardProps) => {
