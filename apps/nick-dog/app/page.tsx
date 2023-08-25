@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <NickDogHomePage
       title={'NICK.DOG'}
-      description={['Design & Development']}
+      description={['Web | Games | Apps', 'Design & Development']}
       navItems={navItems}
       gitHubUrl={'https://github.com/BiscuitNick/nx-biscuit'}
     />

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import useSound from 'use-sound';
+import { pokerCat } from '@biscuitnick/biscuit-konva';
 
 import {
   getDraws,
@@ -109,6 +110,22 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     ...valueCounter,
   });
 
+  const [buddyBox, setBuddyBox] = useState({
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 0,
+  });
+
+  useEffect(() => {
+    setBuddyBox({
+      width: Math.round(width / 3),
+      height: Math.round(height / 3),
+      x: Math.round(width / 2 - width / 6),
+      y: Math.round(height / 10),
+    });
+  }, [width, height]);
+
   useEffect(() => {
     const _betPayouts: valueCounts = {};
     Object.keys(payouts).forEach((key) => {
@@ -137,6 +154,19 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     payScheduleView,
     marginFactor: 0.01,
   });
+
+  const handleBuddyDrag = (e: { target: any; type: any }) => {
+    const { target, type } = e;
+    const { x, y } = target.attrs;
+
+    if (type === 'dragend') {
+      setBuddyBox({
+        ...buddyBox,
+        x: Math.round(x),
+        y: Math.round(y),
+      });
+    }
+  };
 
   const [focalPoint, setFocalPoint] = useState({ x: 0, y: 0 });
 
@@ -307,18 +337,8 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, paidWinnings]);
 
-  // useEffect(() => {
-  //   const handTitle = getHandTitle(cards);
-  //   const hValue = getHandValue(cards);
-
-  //   const winnings = payouts[hValue][bet - 1];
-
-  //   setWinningHand(handTitle);
-  //   setWinnings(winnings);
-  // }, [bet, cards, payouts]);
-
   useEffect(() => {
-    // if (cards.includes(-1)) return;
+    if (status !== 'pendingHolds' && status !== 'autoSetHolds') return;
 
     const hand: number[] = [];
     const discards: number[] = [];
@@ -335,7 +355,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
 
     const { percents, counts } = getDraws({ hand, discards });
 
-    const evs: valueCounts = valueCounter;
+    const evs: valueCounts = { ...valueCounter };
     let netEv = 0;
     Object.keys(percents).forEach((key) => {
       const payrate = betPayouts[key];
@@ -348,7 +368,7 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     setCounts(counts);
     setExpectedValues(evs);
     setEV(netEv);
-  }, [betPayouts, cards, holds]);
+  }, [status, betPayouts, cards, holds]);
 
   useEffect(() => {
     async function setNextHold() {
@@ -418,6 +438,29 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
       dealOrDraw,
       toggleOptions,
     },
+
+    buddyProps: {
+      showBuddy,
+      box: buddyBox,
+      contentObject: pokerCat,
+      contentIDs: ['image_2', 'eye_0', 'eye_1'],
+      handleClick: null,
+      handleDrag: handleBuddyDrag,
+      focalPoint,
+      isTracking,
+    },
+
+    optionProps: {
+      width,
+      height,
+      showOptions,
+      showBuddy,
+      autoPlay,
+      toggleOptions,
+      toggleBuddy,
+      toggleAutoPlay,
+    },
+
     status,
     // showOdds,
     // setShowOdds,
