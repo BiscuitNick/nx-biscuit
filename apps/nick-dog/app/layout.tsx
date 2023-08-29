@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
+import { DarkModeButton } from '@biscuitnick/biscuit-ui';
 import { Providers } from '../components/providers';
 import '../styles/global.css';
 
@@ -60,7 +61,10 @@ export default function RootLayout({
         <Analytics />
       </head>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <DarkModeButton />
+          {children}
+        </Providers>
       </body>
     </html>
   );
