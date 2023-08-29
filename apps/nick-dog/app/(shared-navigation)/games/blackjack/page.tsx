@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { BlackjackGame } from '../../../components/konva/blackjack';
+import { BlackjackGame } from '../../../../components/konva/blackjack';
 export default function Home() {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);

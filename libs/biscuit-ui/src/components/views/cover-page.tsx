@@ -11,7 +11,7 @@ export const CoverPage = ({ title, image }: CoverPageProps) => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center bg-black absolute top-0 w-full h-full ${
+      className={`flex flex-col items-center justify-center absolute top-0 w-full h-full ${
         show ? 'animate-exit-top' : ''
       }`}
       onClick={() => {

@@ -34,7 +34,7 @@ export const ContactForm = () => {
   return (
     <div className="flex flex-col items-center justify-center w-screen h-auto ">
       {submitted ? (
-        <div className="text-white flex flex-col items-center justify-center w-screen h-screen">
+        <div className=" flex flex-col items-center justify-center w-screen h-screen">
           <div> Your message has been sent. </div>
         </div>
       ) : (
@@ -43,13 +43,13 @@ export const ContactForm = () => {
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3 mb-6">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block uppercase tracking-wide  text-xs font-bold mb-2"
                 htmlFor="name"
               >
                 Name
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full  border rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 id="name"
                 type="text"
                 placeholder="Enter your name"
@@ -59,13 +59,13 @@ export const ContactForm = () => {
             </div>
             <div className="w-full px-3">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="email"
               >
                 E-mail
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full  border rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 id="email"
                 type="email"
                 placeholder="user@example.com"
@@ -78,13 +78,13 @@ export const ContactForm = () => {
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block uppercase tracking-wide  text-xs font-bold mb-2"
                 htmlFor="message"
               >
                 Message
               </label>
               <textarea
-                className=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
+                className=" no-resize appearance-none block w-full  border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none  h-48 resize-none"
                 id="message"
                 placeholder="Enter your message"
                 onChange={formik.handleChange}

@@ -2,7 +2,7 @@ const STRAPI_API_PATH = process.env.STRAPI_API_PATH;
 
 async function getData(slug: string) {
   const res = await fetch(
-    `${STRAPI_API_PATH}/api/blogs?filters[slug][$eq]=${slug}`,
+    `${STRAPI_API_PATH}/api/blogs?filters[slug][$eq]=${slug}`
     // {
     //   next: { revalidate: 10 },
     // }
@@ -26,9 +26,5 @@ export default async function Page({
 }) {
   const { data } = await getData(slug);
 
-  return (
-    <main className="text-white">
-      <div>{JSON.stringify(data)}</div>
-    </main>
-  );
+  return <div>{JSON.stringify(data)}</div>;
 }

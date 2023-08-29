@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
-import { Analytics } from '@vercel/analytics/react';
-import { Providers } from '../components/providers';
-import '../styles/global.css';
+// import { DarkModeButton } from '../../components/dark-mode';
 
 export const metadata: Metadata = {
   title: {
@@ -54,14 +52,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <Analytics />
-      </head>
-      <body>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  );
+  return <>{children}</>;
 }

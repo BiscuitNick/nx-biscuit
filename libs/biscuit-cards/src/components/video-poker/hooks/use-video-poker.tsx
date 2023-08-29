@@ -31,6 +31,8 @@ interface useVideoPokerProps {
   width?: number;
   height?: number;
   payScheduleView?: 'odds-and-payouts' | 'detailed-odds' | 'payouts-only';
+
+  mode: 'play' | 'watch' | 'explore';
 }
 
 export const useVideoPoker = (props: useVideoPokerProps) => {
@@ -44,17 +46,12 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     height = 500,
     payScheduleView = 'odds-and-payouts',
   } = props;
-  const [playCreditSound] = useSound('/sounds/winning-beep.mp3');
 
-  // Deck //
+  const [playCreditSound] = useSound('/sounds/winning-beep.mp3');
   const [deck, setDeck] = useState<number[]>(shuffledDeck(1));
   const [status, setStatus] = useState<string>(initStatus);
-
-  // Bet & Credits //
   const [bet, setBet] = useState<number>(initBet);
   const [credits, setCredits] = useState<number>(initCredits);
-
-  // Hand Data, Card & Holds //
   const [cards, setCards] = useState<number[]>(initCards);
   const [holds, setHolds] = useState<boolean[]>(initHolds);
   const [optimalHolds, setOptimalHolds] = useState<boolean[]>([
@@ -64,22 +61,13 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     false,
     false,
   ]);
-  //
-
-  // TODO: Replace winningHand with handValue & handTitle //
-  //
-
-  // Hand Value & Title //
   const [handValue, setHandValue] = useState<number>(0);
   const [handTitle, setHandTitle] = useState<string>('');
-
-  // Table Data & Stats //
   const [percents, setPercents] = useState<valueCounts>({ ...valueCounter }); //setPercents
   const [counts, setCounts] = useState<valueCounts>({ ...valueCounter }); //setCounts
   const [expectedValues, setExpectedValues] = useState<valueCounts>({
     ...valueCounter,
   });
-
   const [ev, setEV] = useState<number>(0);
 
   // Game Settings //
@@ -100,10 +88,10 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
   const handTitles = handValues.map((val: string) => handValueTitles[val]);
   const payouts = payouts96;
 
-  const [isTracking, setIsTracking] = useState(true);
+  const [isTracking, setIsTracking] = useState(false);
   const [autoPlay, setAutoPlay] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const [showBuddy, setShowBuddy] = useState<boolean>(false);
+  const [showBuddy, setShowBuddy] = useState<boolean>(true);
   const [playSounds, setPlaySounds] = useState<boolean>(false);
 
   const [betPayouts, setBetPayouts] = useState<valueCounts>({
@@ -115,6 +103,27 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     height: 0,
     x: 0,
     y: 0,
+  });
+
+  const [colors, setColors] = useState({
+    backgroundColor: '#3944bc',
+    optionsButtonBgColor: '#000000',
+    optionsButtonTxtColor: '#ffffff',
+    betButtonBgColor: '#ffffff',
+    betButtonTxtColor: '#000000',
+    dealButtonBgColor: '#008000',
+    dealButtonTxtColor: '#000000',
+    statusTextFillColor: '#FF0000',
+    statusTextStrokeColor: '#fff200',
+    holdCardTextFillColor: '#000000',
+    holdCardTextStrokeColor: '#000000',
+    holdCardRectFillColor: '#fff200',
+    holdCardRectTextFillColor: '#000000',
+    tableTextColor: '#fff200',
+    tableBorderColor: '#fff200',
+    tableBackgroundColor: '#2c2c2c',
+    tableHighlightColumnColor: '#FF0000',
+    tableHeaderTextColor: '#000000',
   });
 
   useEffect(() => {
@@ -383,7 +392,9 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
         await sleep(autoPlaySpeed); //100 // 1000
         setStatus('pendingDraw');
       } else {
-        setIsTracking(true);
+        if (autoPlay) {
+          setIsTracking(true);
+        }
 
         const cardIndex = unMatchedHolds[0];
         setFocalPoint({ x: (cardIndex * width) / 5, y: height * 0.75 });
@@ -420,6 +431,18 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
       bet,
       handTitle,
       expectedValues,
+
+      backgroundColor: colors.tableBackgroundColor,
+      textColor: colors.tableTextColor,
+      borderColor: colors.tableBorderColor,
+      headerTextColor: colors.tableHeaderTextColor,
+      highlightColumnColor: colors.tableHighlightColumnColor,
+
+      // tableTextColor: '#fff200',
+      // tableBorderColor: '#fff200',
+      // tableBackgroundColor: '#2c2c2c',
+      // tableHighlightColumnColor: '#FF0000',
+      // tableHeaderTextColor: '#000000',
     },
     pokerHand: {
       ...pokerHand,
@@ -488,6 +511,9 @@ export const useVideoPoker = (props: useVideoPokerProps) => {
     autoPlay,
     toggleSounds,
     playSounds,
+
+    colors,
+    setColors,
   };
 };
 
