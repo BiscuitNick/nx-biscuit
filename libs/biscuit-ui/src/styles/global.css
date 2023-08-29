@@ -374,11 +374,3 @@ input:checked + .slider:before {
   font-weight: 900;
 }
 
-/* .content-card > img {
-  margin: auto;
-  padding: 10px;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 5px;
-} */

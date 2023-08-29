@@ -7,24 +7,9 @@ const contentItems = [
     image: '/images/jacks-or-better.png',
   },
   // {
-  //   title: 'Video Poker',
+  //   title: 'Blackjack',
   //   href: '/games/video-poker',
-  //   image: '/images/jacks-or-better.png',
-  // },
-  // {
-  //   title: 'Video Poker',
-  //   href: '/games/video-poker',
-  //   image: '/images/jacks-or-better.png',
-  // },
-  // {
-  //   title: 'Video Poker',
-  //   href: '/games/video-poker',
-  //   image: '/images/jacks-or-better.png',
-  // },
-  // {
-  //   title: 'Video Poker',
-  //   href: '/games/video-poker',
-  //   image: '/images/jacks-or-better.png',
+  //   image: '/cards.jpg',
   // },
 ];
 
