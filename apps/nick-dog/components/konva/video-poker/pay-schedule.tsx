@@ -41,21 +41,21 @@ export const PaySchedule = (props: PayScheduleProps) => {
   const {
     // width,
     height,
-    handTitles,
+    // handTitles,
     bet = 1,
     // marginFactor = 0.01,
     // textMarginFactor = 0.4,
 
-    payouts,
-    handValues,
+    // payouts,
+    // handValues,
     backgroundColor = '#2c2c2c',
     textColor = 'yellow',
     borderColor = 'yellow',
 
     handTitle = '',
 
-    expectedValues = [],
-    ev,
+    // expectedValues = [],
+    // ev,
     margin,
     strokeWidth,
     adjustedWidth,

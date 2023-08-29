@@ -5,8 +5,8 @@ import { NickDogHomePage } from '@biscuitnick/biscuit-ui';
 
 const navItems = [
   { name: 'Games', href: '/games' },
-  { name: 'Math', href: '/math' },
-  { name: 'Projects', href: '/projects' },
+  // { name: 'Math', href: '/math' },
+  // { name: 'Projects', href: '/projects' },
   { name: 'Contact', href: '/contact' },
 ];
 

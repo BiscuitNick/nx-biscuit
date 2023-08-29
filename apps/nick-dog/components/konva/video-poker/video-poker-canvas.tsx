@@ -14,11 +14,16 @@ export const VideoPokerCanvas = (props: any) => {
     pokerHand,
     betCreditStatusBar,
     bottomButtonRow,
+    colors,
   } = props;
 
   return (
     <>
-      <Background width={width} height={height} color={'blue'} />
+      <Background
+        width={width}
+        height={height}
+        color={colors.backgroundColor}
+      />
       <PaySchedule {...paySchedule} />
       <HandStatusBar {...handStatusBar} />
       <PokerHand {...pokerHand} />

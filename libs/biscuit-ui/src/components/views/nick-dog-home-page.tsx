@@ -46,7 +46,7 @@ export const NickDogHomePage = (props: HomePageProps) => {
         handleClick={() => setIsCatMode(!isCatMode)}
       />
       <FadeLeftLine />
-      <p className="my-8 text-sm text-center animate-fade-in text-zinc-200">
+      <p className="my-8 text-sm text-center animate-fade-in">
         {description.map((text) => (
           <Fragment key={text}>
             {text}
@@ -58,7 +58,6 @@ export const NickDogHomePage = (props: HomePageProps) => {
             href={gitHubUrl}
             style={{
               margin: 10,
-              color: 'white',
               fontSize: 'xx-large',
             }}
           />

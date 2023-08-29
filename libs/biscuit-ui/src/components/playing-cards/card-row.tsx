@@ -32,7 +32,7 @@ export const CardRowHolds = (props: CardRowHoldsProps) => {
           key={i}
           className="card-wrapper"
           style={{
-            border: holds[i] ? '3px solid red' : 'none',
+            border: holds[i] ? '3px solid red' : '1px solid black',
             background: holds[i] ? 'red' : 'none',
           }}
         >

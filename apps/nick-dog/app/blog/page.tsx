@@ -32,5 +32,5 @@ export default async function Page() {
       </div>
     )
   );
-  return <main className="text-white">{TitleLinks}</main>;
+  return <main>{TitleLinks}</main>;
 }
