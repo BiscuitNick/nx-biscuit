@@ -3,18 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --background: rgb(238, 231, 231);
-  --text-color: black;
-  --border-color: black;
+  --background: white;
+  --text-color: rgb(26, 26, 26);
+  --border-color: rgb(26, 26, 26);
+  --shadow-color: black;
 
   background: var(--background);
   color: var(--text-color);
 }
 
 [data-theme='dark'] {
-  --background: rgb(26, 25, 26);
-  --text-color: rgb(238, 231, 231);
-  --border-color: rgb(238, 231, 231);
+  --background: rgb(26, 26, 26);
+  --text-color: white;
+  --border-color: white;
+  --shadow-color: gray;
 }
 
 .gradient-text {
@@ -268,8 +270,6 @@ input:checked + .slider:before {
 
   margin: auto;
   display: grid;
-
-  
 }
 
 .content-wrapper {
@@ -293,22 +293,84 @@ input:checked + .slider:before {
   }
 }
 
+.content-card-grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 1em;
+
+  padding-bottom: 20px;
+}
+
 .content-card {
-  width: 100%;
-  height: 100%;
+  /* transition: 0.7s; */
 
-  max-width: 400px;
-  max-height: 400px;
-
-  padding: 10px;
+  width: 456px;
+  height: 400px;
 
   box-sizing: border-box;
   border-radius: 5px;
 
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 360px 40px;
 
   border-width: 1px;
   border-style: solid;
   border-color: var(--border-color);
+
+  overflow: hidden;
+
+  box-shadow: 1px 1px 5px var(--shadow-color);
 }
+
+.content-card:hover {
+  background: var(--text-color);
+  color: var(--background);
+  box-shadow: 3px 3px 5px var(--shadow-color);
+}
+
+@media screen and (max-width: 1500px) {
+  .content-card-grid {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .content-card {
+    width: 400px;
+    height: 350px;
+
+    grid-template-rows: 310px 40px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .content-card-grid {
+    grid-template-columns: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .content-card {
+    width: 98vw;
+    height: 84vw;
+
+    grid-template-rows: 76vw 8vw;
+  }
+}
+
+.content-card-image {
+  margin: auto;
+
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.content-card-title {
+  margin: auto;
+  font-weight: 900;
+}
+

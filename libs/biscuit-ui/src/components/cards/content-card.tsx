@@ -5,34 +5,19 @@ interface ContentCardProps {
   description?: string;
   image?: string;
   href?: string;
-
-  // type
-  // style
-  //
 }
 
 export const ContentCard = (props: ContentCardProps) => {
-  const {
-    title = 'title',
-    description = 'description',
-    image = '',
-    href = 'href',
-  } = props;
+  const { title = 'title', image = '', href = 'href' } = props;
+
   return (
     <Link href={href}>
       <div className="content-card">
-        <img
-          src={image}
-          alt={title}
-          style={{
-            margin: 'auto',
-            width: '100%',
-            height: '100%',
-            overflow: 'hidden',
-            borderRadius: 10,
-          }}
+        <div
+          className="content-card-image"
+          style={{ backgroundImage: `url(${image})` }}
         />
-        <div>{title}</div>
+        <div className="content-card-title">{title}</div>
       </div>
     </Link>
   );
